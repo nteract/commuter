@@ -7,7 +7,7 @@ Opinionated nteract focused server that persists notebooks to S3 and relies on t
 
 ## ROADMAP
 
-This roadmap is organized into stages of development, leading towards a 
+This roadmap is organized into stages of development, leading towards a backend for (mostly) real-time collaboration.
 
 ### Stage I
 
