@@ -29,4 +29,4 @@ This roadmap is organized into stages of development, leading towards a backend 
 
 ### Stage IV
 
-* In-memory model of notebook and transient models
+* Create server side in-memory model of notebook and transient models, push to clients
