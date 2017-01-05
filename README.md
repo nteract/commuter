@@ -12,15 +12,16 @@ This roadmap is organized into stages of development, leading towards a backend 
 ### Stage I
 
 * List and Load notebooks from S3
-  - Bucket, etc. loaded from configuration
-  - Roles automatically picked up (the AWS Node.js SDK does this for you)
+  - Bucket, etc. loaded from configuration (e.g. `COMMUTER_BUCKET=xyz`)
+  - Roles or Amazon environment variables automatically picked up (via `aws-sdk`)
 * Tree view of notebook content
 * Render page using notebook-preview
 
 ### Stage II
 
 * Provide/use kernels from configured source (e.g. tmpnb.org, jupyterhub, or your private setup)
-* Render page using nteract/nteract componentss
+* Render page using nteract/nteract components
+  - Requires [nteract/nteract#549](https://github.com/nteract/nteract/issues/549)
 
 ### Stage III
 
