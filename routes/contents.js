@@ -17,7 +17,6 @@ router.get('/*', (req, res) => {
     if (err) res.status(err.statusCode).json(errObject(err, path))
     else res.json(data)
   }
-
   if (isDir(path)) listObjects(path, cb)
   else getObject(path, cb)
 })

@@ -2,7 +2,6 @@ const assert = require('chai').assert,
       isDir = require('./../routes/util').isDir
 
 describe('Routes util tests', function(){
-
   it('returns isDir true', function(){
     assert.isTrue(isDir('path/to/dir/'))
   })

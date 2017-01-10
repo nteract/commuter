@@ -42,7 +42,6 @@ exports.listObjects = (path, callback) => {
     Delimiter : config.pathDelimiter,
     MaxKeys   : 2147483647, // Maximum allowed by S3 API
   }
-
   s3.listObjects(params, (err, data) => {
     if (err) callback(err)
     else {
