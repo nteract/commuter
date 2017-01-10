@@ -2,7 +2,6 @@ const assert = require('chai').assert,
       listObjects = require('./../services/s3').listObjects
 
 describe('Test S3 service', function(){
-
   it('getObject returns notebook content', function(){
     const proxyquire = require('proxyquire')
     s3 = proxyquire('./../services/s3', {
@@ -16,7 +15,6 @@ describe('Test S3 service', function(){
         }
       }
     })
-
     s3.getObject('dir/foo.ipynb', (err, data) => {
       assert.equal(data, "hello world")
     })
@@ -72,7 +70,6 @@ describe('Test S3 service', function(){
       }],
       format: "json"
     }
-
     s3.listObjects('dir/one', (err, data) => {
       assert.deepEqual(data, expectedData)
     })
@@ -119,7 +116,6 @@ describe('Test S3 service', function(){
       }],
       format: "json"
     }
-
     s3.listObjects('dir/one', (err, data) => {
       assert.deepEqual(data, expectedData)
     })

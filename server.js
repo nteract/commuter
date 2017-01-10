@@ -3,8 +3,8 @@ const express    = require('express'),
       bodyParser = require('body-parser'),
       morgan     = require('morgan'),
       config     = require('./config'),
-      Log         = require('log'),
-      log         = new Log('info'),
+      Log        = require('log'),
+      log        = new Log('info'),
       port       = process.env.PORT || 3000
 
 app.use(morgan('common'))
