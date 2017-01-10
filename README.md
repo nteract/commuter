@@ -5,6 +5,22 @@
 
 Opinionated nteract focused server that persists notebooks to S3 and relies on the jupyter notebook for kernels.
 
+## Development
+Requires Node.js 6+ and npm 3+.
+
+Set S3 bucket in `config.js` and then
+
+1. `npm install`
+1. `npm test`
+1. `npm run start:watch`
+
+`http://localhost:3000/api/contents/<S3_PATH>`
+
+## TODO:
+1. Support `accessKeyId` & `secretAccessKey` settings
+1. Implement POST/PUT/DELETE
+1. Improve test coverage
+
 ## ROADMAP
 
 This roadmap is organized into stages of development, leading towards a backend for (mostly) real-time collaboration.
