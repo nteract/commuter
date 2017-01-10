@@ -1,0 +1,43 @@
+{
+  "name": "commuter",
+  "version": "0.1.0",
+  "description": "commuting notebooks across S3 to multi-users",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:watch": "nodemon server.js",
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nteract/commuter.git"
+  },
+  "keywords": [
+    "nteract",
+    "jupyter",
+    "s3",
+    "notebook"
+  ],
+  "author": "nteract contributors",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/nteract/commuter/issues"
+  },
+  "homepage": "https://github.com/nteract/commuter#readme",
+  "dependencies": {
+    "aws-sdk": "^2.7.21",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "lodash": "^4.17.4",
+    "log": "^1.4.0",
+    "morgan": "^1.7.0",
+    "winston": "^2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "proxyquire": "^1.7.10",
+    "supertest": "^2.0.1"
+  }
+}
