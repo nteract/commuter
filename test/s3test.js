@@ -1,5 +1,4 @@
-const assert = require('chai').assert,
-      listObjects = require('./../services/s3').listObjects
+const assert = require('chai').assert
 
 describe('Test S3 service', function(){
   it('getObject returns notebook content', function(){
