@@ -12,11 +12,22 @@ Requires Node.js 6+ and npm 3+.
 
 Set S3 bucket in `config.js` and then
 
-1. `npm install`
+1. `npm run bootstrap`
 1. `npm test`
-1. `npm run start:watch`
+1. `bucket=<name> basePath=<path> npm run start:watch`
+
+*Available options*
+
+```
+bucket (required without s3://)
+basePath (optional, prefix for s3 bucket)
+pathDelimiter (optional, defaults to "/")
+port (optional, defaults to 3000)
+```
 
 `http://localhost:3000/api/contents/<S3_PATH>`
+
+Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (included in dev deps). 
 
 ## TODO:
 1. Support `accessKeyId` & `secretAccessKey` settings
