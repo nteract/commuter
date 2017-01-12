@@ -14,20 +14,20 @@ Set S3 bucket in `config.js` and then
 
 1. `npm run bootstrap`
 1. `npm test`
-1. `bucket=<name> basePath=<path> npm run start:watch`
+1. `COMMUTER_BUCKET=<name> COMMUTER_BASEPATH=<path> npm run start:watch`
 
 *Available options*
 
 ```
-bucket (required without s3://)
-basePath (optional, prefix for s3 bucket)
-pathDelimiter (optional, defaults to "/")
-port (optional, defaults to 3000)
+COMMUTER_BUCKET (required without s3://)
+COMMUTER_BASEPATH (optional, prefix for s3 bucket)
+COMMUTER_PATH_DELIMITER (optional, defaults to "/")
+PORT (optional, defaults to 3000)
 ```
 
 `http://localhost:3000/api/contents/<S3_PATH>`
 
-Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (included in dev deps). 
+Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (included in dev deps).
 
 ## TODO:
 1. Support `accessKeyId` & `secretAccessKey` settings

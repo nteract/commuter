@@ -1,14 +1,14 @@
-const { bucket = null, pathDelimiter = "/", basePath = null } = process.env;
+const { COMMUTER_BUCKET = null, COMMUTER_PATH_DELIMITER = "/", COMMUTER_BASEPATH = null } = process.env;
 
 const config = {
   s3: {
     params: {
       // required bucket name
-      Bucket: bucket
+      Bucket: COMMUTER_BUCKET
     }
   },
-  pathDelimiter: pathDelimiter,
-  basePath: basePath
+  pathDelimiter: COMMUTER_PATH_DELIMITER,
+  basePath: COMMUTER_BASEPATH
 };
 
 module.exports = config;
