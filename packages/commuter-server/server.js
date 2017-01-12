@@ -5,7 +5,7 @@ const express = require("express"),
   config = require("./config"),
   Log = require("log"),
   log = new Log("info"),
-  port = process.env.port || 3000;
+  port = process.env.PORT || 3000;
 
 app.use(morgan("common"));
 app.use(bodyParser.json());
