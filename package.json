@@ -12,7 +12,7 @@
     "client": "lerna exec --scope commuter-client -- npm run start",
     "clean:install": "lerna clean",
     "clean:build": "lerna exec -- rm -rf ./build",
-    "format:code": "prettier --write ./packages/*/src/**/*.js",
+    "format:code": "prettier --write ./packages/*/src/*/*.js ./packages/*/src/*.js",
     "test": "lerna run test"
   },
   "repository": {

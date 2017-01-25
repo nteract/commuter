@@ -1,6 +1,12 @@
-import React from "react";
+import React, { PropTypes as T } from "react";
 import { Icon, Table } from "semantic-ui-react";
 import { Link } from "react-router";
+
+ContentTable.propTypes = {
+  content: T.arrayOf(
+    T.shape({ type: T.string, path: T.string, name: T.string })
+  )
+};
 
 const ContentTable = props => <Table basic="very" padded>
   <Table.Header>
@@ -15,9 +21,9 @@ const ContentTable = props => <Table basic="very" padded>
             return (
               <Table.Row key={index}>
                 <Table.Cell>
-                  <Link to={
-                    row.path
-                  }><Icon name="book" color="grey" />{row.name}</Link>
+                  <Link to={row.path}>
+                    <Icon name="book" color="grey" />{row.name}
+                  </Link>
                 </Table.Cell>
                 <Table.Cell collapsing textAlign="right"></Table.Cell>
               </Table.Row>
@@ -26,9 +32,9 @@ const ContentTable = props => <Table basic="very" padded>
             return (
               <Table.Row key={index}>
                 <Table.Cell collapsing>
-                  <Link to={
-                    row.path
-                  }><Icon name="folder" color="blue" />{row.name}</Link>
+                  <Link to={row.path}>
+                    <Icon name="folder" color="blue" />{row.name}
+                  </Link>
                 </Table.Cell>
                 <Table.Cell collapsing textAlign="right"></Table.Cell>
               </Table.Row>
@@ -37,9 +43,9 @@ const ContentTable = props => <Table basic="very" padded>
             return (
               <Table.Row key={index}>
                 <Table.Cell collapsing>
-                  <Link to={
-                    row.path
-                  }><Icon name="file" color="grey" />{row.name}</Link>
+                  <Link to={row.path}>
+                    <Icon name="file" color="grey" />{row.name}
+                  </Link>
                 </Table.Cell>
                 <Table.Cell collapsing textAlign="right"></Table.Cell>
               </Table.Row>

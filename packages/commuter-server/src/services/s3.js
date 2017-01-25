@@ -1,11 +1,11 @@
 const config = require("../config"),
   S3 = require("aws-sdk/clients/s3"),
-  _ = require("lodash");
+  { chain } = require("lodash");
 
 const s3 = new S3(config.s3);
 
 const fileName = path =>
-  _.chain(path).trimEnd("/").split(config.pathDelimiter).last().value();
+  chain(path).trimEnd("/").split(config.pathDelimiter).last().value();
 const filePath = path =>
   config.basePath ? path.replace(`${config.basePath}`, "") : path;
 const s3Prefix = path => config.basePath ? `${config.basePath}/${path}` : path;
@@ -41,9 +41,11 @@ exports.listObjects = (path, callback) => {
     Prefix: s3Prefix(path),
     Delimiter: config.pathDelimiter,
     // Maximum allowed by S3 API
-    MaxKeys: 2147483647
+    MaxKeys: 2147483647,
+    //remove the folder name from listing
+    StartAfter: s3Prefix(path)
   };
-  s3.listObjects(params, (err, data) => {
+  s3.listObjectsV2(params, (err, data) => {
     if (err)
       callback(err);
     else {

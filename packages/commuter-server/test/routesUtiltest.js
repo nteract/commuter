@@ -10,12 +10,10 @@ describe("Routes util tests", function() {
     assert.isFalse(isDir("path/to/dir/file.text"));
   });
 
-  it("treats empty path as non dir path", function() {
-    assert.isFalse(isDir(""));
-  });
-
-  it("handles invalid path", function() {
-    assert.isFalse(isDir(null));
-    assert.isFalse(isDir(undefined));
+  it("treats empty path as dir path", function() {
+    assert.isTrue(isDir(""));
+    //s3 defaults to root
+    assert.isTrue(isDir(null));
+    assert.isTrue(isDir(undefined));
   });
 });
