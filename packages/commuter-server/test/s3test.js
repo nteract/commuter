@@ -17,12 +17,12 @@ describe("Test S3 service", function() {
     });
   });
 
-  it("listObjects correctly", function() {
+  it("listObjectsV2 correctly", function() {
     const proxyquire = require("proxyquire");
     const s3 = proxyquire("./../src/services/s3", {
       "aws-sdk/clients/s3": function() {
         return {
-          listObjects: function(params, cb) {
+          listObjectsV2: function(params, cb) {
             cb(null, {
               Contents: [
                 {
@@ -77,12 +77,12 @@ describe("Test S3 service", function() {
     });
   });
 
-  it("strips base path from listObjects listings", function() {
+  it("strips base path from listObjectsV2 listings", function() {
     const proxyquire = require("proxyquire");
     const s3 = proxyquire("./../src/services/s3", {
       "aws-sdk/clients/s3": function() {
         return {
-          listObjects: function(params, cb) {
+          listObjectsV2: function(params, cb) {
             cb(null, {
               Contents: [
                 {
