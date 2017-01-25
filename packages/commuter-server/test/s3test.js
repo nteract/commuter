@@ -3,7 +3,7 @@ const assert = require("chai").assert;
 describe("Test S3 service", function() {
   it("getObject returns notebook content", function() {
     const proxyquire = require("proxyquire");
-    s3 = proxyquire("./../services/s3", {
+    s3 = proxyquire("./../src/services/s3", {
       "aws-sdk/clients/s3": function() {
         return {
           getObject: function(params, cb) {
@@ -19,7 +19,7 @@ describe("Test S3 service", function() {
 
   it("listObjects correctly", function() {
     const proxyquire = require("proxyquire");
-    const s3 = proxyquire("./../services/s3", {
+    const s3 = proxyquire("./../src/services/s3", {
       "aws-sdk/clients/s3": function() {
         return {
           listObjects: function(params, cb) {
@@ -79,7 +79,7 @@ describe("Test S3 service", function() {
 
   it("strips base path from listObjects listings", function() {
     const proxyquire = require("proxyquire");
-    const s3 = proxyquire("./../services/s3", {
+    const s3 = proxyquire("./../src/services/s3", {
       "aws-sdk/clients/s3": function() {
         return {
           listObjects: function(params, cb) {
@@ -109,7 +109,7 @@ describe("Test S3 service", function() {
       content: [
         {
           name: "test.ipynb",
-          path: "dir/one/test.ipynb",
+          path: "/dir/one/test.ipynb",
           type: "notebook",
           writable: true,
           created: null,

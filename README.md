@@ -12,11 +12,9 @@ Opinionated nteract focused server that persists notebooks to S3 and relies on t
 ## Development
 Requires Node.js 6+ and npm 3+.
 
-Set S3 bucket in `config.js` and then
-
 1. `npm run bootstrap`
 1. `npm test`
-1. `COMMUTER_BUCKET=<name> COMMUTER_BASEPATH=<path> npm run start:watch`
+1. `COMMUTER_BUCKET=<name> COMMUTER_BASEPATH=<path> npm run start`
 
 *Available options*
 
@@ -24,12 +22,14 @@ Set S3 bucket in `config.js` and then
 COMMUTER_BUCKET (required without s3://)
 COMMUTER_BASEPATH (optional, prefix for s3 bucket)
 COMMUTER_PATH_DELIMITER (optional, defaults to "/")
-PORT (optional, defaults to 3000)
+COMMUTER_PORT (optional, defaults to 4000)
 ```
 
-`http://localhost:3000/api/contents/<S3_PATH>`
+View dashboard at `http://localhost:3000/<S3_PATH>`
 
-Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (included in dev deps).
+API at `curl -XGET http://localhost:4000/api/contents/<S3_PATH>`
+
+Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and package.json has more options).
 
 ## TODO:
 1. Support `accessKeyId` & `secretAccessKey` settings

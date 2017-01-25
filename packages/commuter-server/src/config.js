@@ -1,4 +1,8 @@
-const { COMMUTER_BUCKET = null, COMMUTER_PATH_DELIMITER = "/", COMMUTER_BASEPATH = null } = process.env;
+const {
+  COMMUTER_BUCKET = null,
+  COMMUTER_PATH_DELIMITER = "/",
+  COMMUTER_BASEPATH = null
+} = process.env;
 
 const config = {
   s3: {
