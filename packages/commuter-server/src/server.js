@@ -5,7 +5,7 @@ const express = require("express"),
   config = require("./config"),
   Log = require("log"),
   log = new Log("info"),
-  port = process.env.PORT || 3000;
+  port = process.env.COMMUTER_PORT || 4000;
 
 app.use(morgan("common"));
 app.use(bodyParser.json());
@@ -17,6 +17,6 @@ if (!config.s3.params.Bucket) {
   process.exit(1);
 }
 
-module.exports = app.listen(port, () => {
+app.listen(port, () => {
   log.info("Listening on port " + port);
 });

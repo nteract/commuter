@@ -1,11 +1,18 @@
 {
-  "name": "commuter",
+  "name": "commuter-client",
   "version": "0.1.0",
   "description": "commuting notebooks across S3 to multi-users",
   "scripts": {
-    "bootstrap": "npm install && lerna bootstrap",
-    "start": "lerna exec --scope commuter-server -- npm run start",
-    "start:watch": "lerna exec --scope commuter-server -- npm run start:watch",
+    "bootstrap": "npm install && npm run build && npm run lerna",
+    "lerna": "lerna bootstrap",
+    "build": "./scripts/build.sh",
+    "start": "concurrently \"npm run server:watch\" \"npm run client\"",
+    "server": "lerna exec --scope commuter-server -- npm run start",
+    "server:watch": "lerna exec --scope commuter-server -- npm run start:watch",
+    "client": "lerna exec --scope commuter-client -- npm run start",
+    "clean:install": "lerna clean",
+    "clean:build": "lerna exec -- rm -rf ./build",
+    "format:code": "prettier --write ./packages/*/src/**/*.js",
     "test": "lerna run test"
   },
   "repository": {
@@ -25,6 +32,10 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
     "lerna": "2.0.0-beta.32",
     "prettier": "0.0.10"
   }
