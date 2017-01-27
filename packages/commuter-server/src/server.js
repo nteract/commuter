@@ -1,22 +1,35 @@
 const express = require("express"),
-  app = express(),
+  http = require("http"),
+  path = require("path"),
   bodyParser = require("body-parser"),
   morgan = require("morgan"),
   config = require("./config"),
   Log = require("log"),
-  log = new Log("info"),
-  port = process.env.COMMUTER_PORT || 4000;
+  log = new Log("info");
 
-app.use(morgan("common"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(require("./routes"));
+function createServer() {
+  const app = express();
+  app.use(morgan("common"));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(require("./routes"));
+  if (config.nodeEnv === "production")
+    app.use(
+      "/nteract/commuter",
+      express.static(path.resolve(__dirname, "build"))
+    );
 
-if (!config.s3.params.Bucket) {
-  log.error("S3 bucket name missing!!");
-  process.exit(1);
+  if (!config.s3.params.Bucket) {
+    log.error("S3 bucket name missing!!");
+    process.exit(1);
+  }
+  const server = http.createServer(app);
+
+  return new Promise(accept => {
+    server.listen(config.port, () => {
+      accept(server);
+    });
+  });
 }
 
-app.listen(port, () => {
-  log.info("Listening on port " + port);
-});
+module.exports = createServer;

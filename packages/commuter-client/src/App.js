@@ -5,9 +5,8 @@ import { StyleSheet, css } from "aphrodite";
 import Dashboard from "commuter-dashboard";
 import BreadCrumb from "commuter-breadcrumb";
 
+import { serverConfig } from "./config";
 import logo from "./static/logo.png";
-
-const serverConfig = { endpoint: "http://localhost:3000" };
 
 const styles = StyleSheet.create({
   outerContainer: { fontFamily: "sans-serif" },
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 export default class App extends React.Component {
-  static propTypes = { location: T.object.isRequired };
+  static propTypes = { location: T.shape({ pathname: T.string }).isRequired };
   render() {
     const { pathname } = this.props.location;
     return (
