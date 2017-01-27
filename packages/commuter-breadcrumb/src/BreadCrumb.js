@@ -3,8 +3,6 @@ import { Breadcrumb } from "semantic-ui-react";
 import { Link } from "react-router";
 import { trim } from "lodash";
 
-BreadCrumb.propTypes = { path: T.string.isRequired };
-
 const BreadCrumb = props => {
   const paths = trim(props.path, "/").split("/");
   let breadCrumbs = [];
@@ -41,5 +39,7 @@ const BreadCrumb = props => {
     </Breadcrumb>
   );
 };
+
+BreadCrumb.propTypes = { path: T.string.isRequired };
 
 export default BreadCrumb;

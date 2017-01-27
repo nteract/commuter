@@ -7,14 +7,14 @@
 > /kəˈmyo͞odər/
 > a person who travels some distance to work on a regular basis.
 
-Opinionated nteract focused server that persists notebooks to S3 and relies on the jupyter notebook for kernels.
+Opinionated nteract focused server that persists notebooks to S3, has a dashboard component and is compatible with jupyter notebook api.
 
 ## Development
 Requires Node.js 6+ and npm 3+.
 
+1. `git clone git@github.com:nteract/commuter.git`
 1. `npm run bootstrap`
-1. `npm test`
-1. `COMMUTER_BUCKET=<name> COMMUTER_BASEPATH=<path> npm run start`
+1. `COMMUTER_BUCKET=<name> npm run start`
 
 *Available options*
 
@@ -25,16 +25,20 @@ COMMUTER_PATH_DELIMITER (optional, defaults to "/")
 COMMUTER_PORT (optional, defaults to 4000)
 ```
 
-View dashboard at `http://localhost:3000/<S3_PATH>`
+*Notes*
 
-API at `curl -XGET http://localhost:4000/api/contents/<S3_PATH>`
+API server (express) runs on port 4000 and the client (UI) on port 3000. Client uses webpack dev server and proxies 3000 -> 4000 to avoid CORS issues. On production we will let our express App serve `index.html` and static assets.
+
+Finally, view the dashboard at `http://localhost:3000/<S3_PATH>`
+and API at `curl -XGET http://localhost:4000/api/contents/<S3_PATH>`
 
 Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and package.json has more options).
 
-## TODO:
-1. Support `accessKeyId` & `secretAccessKey` settings
-1. Implement POST/PUT/DELETE
-1. Improve test coverage
+## Test
+1. `npm test`
+
+## Deployment
+coming soon...
 
 ## ROADMAP
 
@@ -42,23 +46,23 @@ This roadmap is organized into stages of development, leading towards a backend 
 
 ### Stage I
 
-* List and Load notebooks from S3
-  - Bucket, etc. loaded from configuration (e.g. `COMMUTER_BUCKET=xyz`)
-  - Roles or Amazon environment variables automatically picked up (via `aws-sdk`)
-* Tree view of notebook content
-* Render page using notebook-preview
+- [x] List and Load notebooks from S3
+  - [x] Bucket, etc. loaded from configuration (e.g. `COMMUTER_BUCKET=xyz`)
+  - [x] Roles or Amazon environment variables automatically picked up (via `aws-sdk`)
+- [x] Tree view of notebook content
+- [ ] Render page using notebook-preview
 
 ### Stage II
 
-* Provide/use kernels from configured source (e.g. tmpnb.org, jupyterhub, or your private setup)
-* Render page using nteract/nteract components
-  - Requires [nteract/nteract#549](https://github.com/nteract/nteract/issues/549)
+- [ ] Provide/use kernels from configured source (e.g. tmpnb.org, jupyterhub, or your private setup)
+- [ ] Render page using nteract/nteract components
+  - [ ] Requires [nteract/nteract#549](https://github.com/nteract/nteract/issues/549)
 
 ### Stage III
 
-* Save notebooks back to S3
-* Delete notebooks
+- [ ] Save notebooks back to S3
+- [ ] Delete notebooks
 
 ### Stage IV
 
-* Create server side in-memory model of notebook and transient models, push to clients
+- [ ] Create server side in-memory model of notebook and transient models, push to clients

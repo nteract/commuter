@@ -2,12 +2,6 @@ import React, { PropTypes as T } from "react";
 import { Icon, Table } from "semantic-ui-react";
 import { Link } from "react-router";
 
-ContentTable.propTypes = {
-  content: T.arrayOf(
-    T.shape({ type: T.string, path: T.string, name: T.string })
-  )
-};
-
 const ContentTable = props => <Table basic="very" padded>
   <Table.Header>
     <Table.Row>
@@ -56,5 +50,11 @@ const ContentTable = props => <Table basic="very" padded>
       })}
   </Table.Body>
 </Table>;
+
+ContentTable.propTypes = {
+  content: T.arrayOf(
+    T.shape({ type: T.string, path: T.string, name: T.string })
+  )
+};
 
 export default ContentTable;

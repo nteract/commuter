@@ -1,17 +1,19 @@
 {
   "name": "commuter-client",
   "version": "0.1.0",
-  "description": "commuting notebooks across S3 to multi-users",
+  "description": "commuting notebooks across S3 to multi-users via dashboard",
   "scripts": {
-    "bootstrap": "npm install && npm run build && npm run lerna",
+    "bootstrap": "npm install && npm run lerna && npm run build",
     "lerna": "lerna bootstrap",
-    "build": "./scripts/build.sh",
-    "start": "concurrently \"npm run server:watch\" \"npm run client\"",
-    "server": "lerna exec --scope commuter-server -- npm run start",
-    "server:watch": "lerna exec --scope commuter-server -- npm run start:watch",
-    "client": "lerna exec --scope commuter-client -- npm run start",
+    "build": "npm run build:components && npm run build:client",
+    "build:client": "lerna exec --scope commuter-client -- npm run build",
+    "build:components": "lerna exec --ignore commuter-client -- npm run build",
+    "start": "lerna exec --scope commuter-cli -- npm run start",
+    "server": "lerna exec --scope commuter-cli -- npm run server",
+    "client": "lerna exec --scope commuter-cli -- npm run client",
+    "clean": "npm run clean:install && npm run clean:build",
     "clean:install": "lerna clean",
-    "clean:build": "lerna exec -- rm -rf ./build",
+    "clean:build": "lerna exec -- rm -rf ./lib",
     "format:code": "prettier --write ./packages/*/src/*/*.js ./packages/*/src/*.js",
     "test": "lerna run test"
   },
@@ -32,10 +34,6 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.22.0",
-    "babel-preset-stage-0": "^6.22.0",
     "lerna": "2.0.0-beta.34",
     "prettier": "0.0.10"
   }

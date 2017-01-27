@@ -2,6 +2,7 @@
   "name": "commuter-client",
   "version": "0.1.0",
   "description": "nteract dasboard app",
+  "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

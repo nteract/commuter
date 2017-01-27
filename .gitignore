@@ -31,6 +31,7 @@ jspm_packages
 # Buid directories
 dist
 build
+lib
 
 # Optional npm cache directory
 .npm

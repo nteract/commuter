@@ -1,0 +1,42 @@
+{
+  "name": "commuter-cli",
+  "version": "0.1.0",
+  "description": "cli to setup commuter client and server",
+  "bin": {
+    "commuter": "build/index.js"
+  },
+  "scripts": {
+    "start":  "concurrently \"npm run server\" \"npm run client\"",
+    "server": "./src/index.js server",
+    "client": "./src/index.js client",
+    "test": "echo \"Warning: no test specified\" && exit 0",
+    "build": "./node_modules/.bin/babel ./src --out-dir ./lib --quiet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nteract/commuter.git"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "nteract contributors",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/nteract/commuter/issues"
+  },
+  "homepage": "https://github.com/nteract/commuter#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "commuter-client": "^0.1.0",
+    "commuter-server": "^0.1.0",
+    "concurrently": "^3.1.0",
+    "log": "^1.4.0",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0"
+  }
+}
