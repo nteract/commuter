@@ -1,5 +1,5 @@
 {
-  "name": "commuter-breadcrumb",
+  "name": "@nteract/commuter-breadcrumb",
   "version": "0.1.0",
   "description": "bread crumb navigation",
   "main": "lib/index.js",
@@ -17,6 +17,9 @@
   "homepage": "https://github.com/nteract/commuter#readme",
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "^15.4.2",

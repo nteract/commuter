@@ -1,5 +1,5 @@
 {
-  "name": "commuter-dashboard",
+  "name": "@nteract/commuter-dashboard",
   "version": "0.1.0",
   "description": "nteract dashboard component",
   "main": "./lib/index.js",
@@ -15,6 +15,9 @@
     "url": "https://github.com/nteract/commuter/issues"
   },
   "homepage": "https://github.com/nteract/commuter#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "dependencies": {
