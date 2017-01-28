@@ -35,6 +35,6 @@
   "homepage": "https://github.com/nteract/commuter#readme",
   "devDependencies": {
     "lerna": "2.0.0-beta.34",
-    "prettier": "0.0.10"
+    "prettier": "0.13.1"
   }
 }
