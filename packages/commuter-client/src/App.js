@@ -2,8 +2,8 @@ import React, { PropTypes as T } from "react";
 import { Container, Divider, Image } from "semantic-ui-react";
 import { StyleSheet, css } from "aphrodite";
 
-import Dashboard from "commuter-dashboard";
-import BreadCrumb from "commuter-breadcrumb";
+import Dashboard from "@nteract/commuter-dashboard";
+import BreadCrumb from "@nteract/commuter-breadcrumb";
 
 import { serverConfig } from "./config";
 import logo from "./static/logo.png";

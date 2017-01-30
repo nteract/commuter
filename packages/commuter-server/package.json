@@ -1,5 +1,5 @@
 {
-  "name": "commuter-server",
+  "name": "@nteract/commuter-server",
   "version": "0.1.0",
   "description": "commuting notebooks across S3 to multi-users",
   "main": "src/index.js",
@@ -23,6 +23,9 @@
     "url": "https://github.com/nteract/commuter/issues"
   },
   "homepage": "https://github.com/nteract/commuter#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "aws-sdk": "^2.7.21",
     "body-parser": "^1.15.2",

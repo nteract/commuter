@@ -3,8 +3,8 @@
 const args = require("commander"),
   fs = require("fs"),
   path = require("path"),
-  createServer = require("commuter-server"),
-  createClient = require("commuter-client"),
+  createServer = require("@nteract/commuter-server"),
+  createClient = require("@nteract/commuter-client"),
   Log = require("log"),
   log = new Log("info");
 
