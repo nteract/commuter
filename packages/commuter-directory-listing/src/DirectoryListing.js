@@ -5,7 +5,7 @@ import ContentTable from "./components/Table";
 
 const jupyter = require("rx-jupyter");
 
-export default class Dashboard extends React.Component {
+export default class DirectoryListing extends React.Component {
   static propTypes = {
     path: T.string.isRequired,
     serverConfig: T.shape({ endpoint: T.string.isRequired }).isRequired
