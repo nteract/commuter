@@ -2,18 +2,23 @@
   "name": "@nteract/commuter-client",
   "version": "0.1.0",
   "description": "commuting notebooks across S3 to multi-users",
+  "engines": {
+    "node": "6.9.5"
+  },
   "scripts": {
-    "bootstrap": "npm install && npm run lerna && npm run build",
+    "install": "npm run lerna && npm run build",
     "lerna": "lerna bootstrap",
     "build": "npm run build:components && npm run build:client",
     "build:client": "lerna exec --scope @nteract/commuter-client -- npm run build",
     "build:components": "lerna exec --ignore @nteract/commuter-client -- npm run build",
     "start": "lerna exec --scope @nteract/commuter-cli -- npm run start",
+    "start:production": "lerna exec --scope @nteract/commuter-cli -- npm run start:production",
     "server": "lerna exec --scope @nteract/commuter-cli -- npm run server",
     "client": "lerna exec --scope @nteract/commuter-cli -- npm run client",
-    "clean": "npm run clean:install && npm run clean:build",
+    "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
     "clean:install": "lerna clean",
-    "clean:build": "lerna exec -- rm -rf ./lib",
+    "clean:lib": "lerna exec -- rm -rf ./lib",
+    "clean:build": "lerna exec -- rm -rf ./build",
     "format:code": "prettier --write ./packages/*/src/*/*.js ./packages/*/src/*.js",
     "test": "lerna run test"
   },
@@ -33,8 +38,10 @@
     "url": "https://github.com/nteract/commuter/issues"
   },
   "homepage": "https://github.com/nteract/commuter#readme",
+  "dependencies": {
+    "lerna": "2.0.0-beta.34"
+  },
   "devDependencies": {
-    "lerna": "2.0.0-beta.34",
     "prettier": "0.14.1"
   }
 }
