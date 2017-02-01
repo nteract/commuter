@@ -13,13 +13,15 @@ Opinionated nteract focused server that persists notebooks to S3, has a dashboar
 Requires Node.js 6+ and npm 3+.
 
 1. `git clone git@github.com:nteract/commuter.git`
-1. `npm run bootstrap`
-1. `COMMUTER_BUCKET=<name> npm run start`
+1. `npm install`
+1. `COMMUTER_BUCKET=<name> COMMUTER_S3_KEY=<key> COMMUTER_S3_SECRET=<secret> npm start`
 
 *Available options*
 
 ```
-COMMUTER_BUCKET (required without s3://)
+COMMUTER_BUCKET (required, without s3://)
+COMMUTER_S3_KEY (required)
+COMMUTER_S3_SECRET (required)
 COMMUTER_BASEPATH (optional, prefix for s3 bucket)
 COMMUTER_PATH_DELIMITER (optional, defaults to "/")
 COMMUTER_PORT (optional, defaults to 4000)
