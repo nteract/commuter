@@ -1,7 +1,7 @@
 {
-  "name": "@nteract/commuter-dashboard",
+  "name": "@nteract/commuter-directory-listing",
   "version": "0.1.0",
-  "description": "nteract dashboard component",
+  "description": "nteract directory listing component",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",

@@ -40,6 +40,10 @@ Project uses [prettier](https://github.com/jlongster/prettier) for code formatti
 ## Deployment
 coming soon...
 
+## Screen shot
+
+![screen shot 2017-01-31 at 3 46 36 pm](https://cloud.githubusercontent.com/assets/146449/22489565/fcd4f33e-e7cc-11e6-91fc-6d24da1fbae2.png)
+
 ## ROADMAP
 
 This roadmap is organized into stages of development, leading towards a backend for (mostly) real-time collaboration.

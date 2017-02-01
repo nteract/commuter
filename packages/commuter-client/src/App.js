@@ -2,7 +2,7 @@ import React, { PropTypes as T } from "react";
 import { Container, Divider, Image } from "semantic-ui-react";
 import { StyleSheet, css } from "aphrodite";
 
-import Dashboard from "@nteract/commuter-dashboard";
+import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
 
 import { serverConfig } from "./config";
@@ -24,7 +24,7 @@ export default class App extends React.Component {
         <Divider className={css(styles.divider)} section />
         <BreadCrumb path={pathname} />
         <Container className={css(styles.innerContainer)} textAlign="center">
-          <Dashboard serverConfig={serverConfig} path={pathname} />
+          <DirectoryListing serverConfig={serverConfig} path={pathname} />
         </Container>
       </Container>
     );
