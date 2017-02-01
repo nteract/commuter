@@ -2,14 +2,15 @@ import React, { PropTypes as T } from "react";
 import { Icon, Table } from "semantic-ui-react";
 import { Link } from "react-router";
 
-const ContentTable = props => <Table basic="very" padded>
-  <Table.Header>
-    <Table.Row>
-      <Table.HeaderCell colSpan="2">Listing</Table.HeaderCell>
-    </Table.Row>
-  </Table.Header>
-  <Table.Body>
-    {props.content.map((row, index) => {
+const ContentTable = props => (
+  <Table basic="very" padded>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell colSpan="2">Listing</Table.HeaderCell>
+      </Table.Row>
+    </Table.Header>
+    <Table.Body>
+      {props.content.map((row, index) => {
         switch (row.type) {
           case "notebook":
             return (
@@ -19,7 +20,7 @@ const ContentTable = props => <Table basic="very" padded>
                     <Icon name="book" color="grey" />{row.name}
                   </Link>
                 </Table.Cell>
-                <Table.Cell collapsing textAlign="right"></Table.Cell>
+                <Table.Cell collapsing textAlign="right" />
               </Table.Row>
             );
           case "directory":
@@ -30,7 +31,7 @@ const ContentTable = props => <Table basic="very" padded>
                     <Icon name="folder" color="blue" />{row.name}
                   </Link>
                 </Table.Cell>
-                <Table.Cell collapsing textAlign="right"></Table.Cell>
+                <Table.Cell collapsing textAlign="right" />
               </Table.Row>
             );
           case "file":
@@ -41,15 +42,16 @@ const ContentTable = props => <Table basic="very" padded>
                     <Icon name="file" color="grey" />{row.name}
                   </Link>
                 </Table.Cell>
-                <Table.Cell collapsing textAlign="right"></Table.Cell>
+                <Table.Cell collapsing textAlign="right" />
               </Table.Row>
             );
           default:
             return null;
         }
       })}
-  </Table.Body>
-</Table>;
+    </Table.Body>
+  </Table>
+);
 
 ContentTable.propTypes = {
   content: T.arrayOf(

@@ -15,9 +15,10 @@
     "start:production": "lerna exec --scope @nteract/commuter-cli -- npm run start:production",
     "server": "lerna exec --scope @nteract/commuter-cli -- npm run server",
     "client": "lerna exec --scope @nteract/commuter-cli -- npm run client",
-    "clean": "npm run clean:install && npm run clean:build",
+    "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
     "clean:install": "lerna clean",
-    "clean:build": "lerna exec -- rm -rf ./lib",
+    "clean:lib": "lerna exec -- rm -rf ./lib",
+    "clean:build": "lerna exec -- rm -rf ./build",
     "format:code": "prettier --write ./packages/*/src/*/*.js ./packages/*/src/*.js",
     "test": "lerna run test"
   },

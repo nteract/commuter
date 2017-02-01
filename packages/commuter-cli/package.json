@@ -6,8 +6,8 @@
     "commuter": "build/index.js"
   },
   "scripts": {
-    "start":  "concurrently \"npm run server\" \"npm run client\"",
-    "start:production":  "npm run server",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start:production": "npm run server",
     "server": "./src/index.js server",
     "client": "./src/index.js client",
     "test": "echo \"Warning: no test specified\" && exit 0",
@@ -30,10 +30,11 @@
     "access": "public"
   },
   "dependencies": {
-    "commander": "^2.9.0",
     "@nteract/commuter-client": "^0.1.0",
     "@nteract/commuter-server": "^0.1.0",
+    "commander": "^2.9.0",
     "concurrently": "^3.1.0",
+    "copy-dir": "^0.3.0",
     "log": "^1.4.0"
   },
   "devDependencies": {

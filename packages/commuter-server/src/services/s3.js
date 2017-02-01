@@ -10,31 +10,29 @@ const filePath = path =>
   config.basePath ? path.replace(`${config.basePath}`, "") : path;
 const s3Prefix = path => config.basePath ? `${config.basePath}/${path}` : path;
 
-const dirObject = data =>
-  ({
-    name: fileName(data.Prefix),
-    path: filePath(data.Prefix),
-    type: "directory",
-    writable: true,
-    created: null,
-    last_modified: null,
-    mimetype: null,
-    content: null,
-    format: null
-  });
+const dirObject = data => ({
+  name: fileName(data.Prefix),
+  path: filePath(data.Prefix),
+  type: "directory",
+  writable: true,
+  created: null,
+  last_modified: null,
+  mimetype: null,
+  content: null,
+  format: null
+});
 
-const fileObject = data =>
-  ({
-    name: fileName(data.Key),
-    path: filePath(data.Key),
-    type: data.Key.endsWith("ipynb") ? "notebook" : "file",
-    writable: true,
-    created: null,
-    last_modified: data.LastModified,
-    mimetype: null,
-    content: null,
-    format: null
-  });
+const fileObject = data => ({
+  name: fileName(data.Key),
+  path: filePath(data.Key),
+  type: data.Key.endsWith("ipynb") ? "notebook" : "file",
+  writable: true,
+  created: null,
+  last_modified: data.LastModified,
+  mimetype: null,
+  content: null,
+  format: null
+});
 
 exports.listObjects = (path, callback) => {
   const params = {
@@ -59,7 +57,7 @@ exports.listObjects = (path, callback) => {
         created: null,
         last_modified: null,
         mimetype: null,
-        content: [ ...files, ...dirs ],
+        content: [...files, ...dirs],
         format: "json"
       });
     }
@@ -68,9 +66,7 @@ exports.listObjects = (path, callback) => {
 
 exports.getObject = (path, callback) => {
   s3.getObject({ Key: s3Prefix(path) }, (err, data) => {
-    if (err)
-      callback(err);
-    else
-      callback(null, JSON.parse(data.Body)); // Buffer to string
+    if (err) callback(err);
+    else callback(null, JSON.parse(data.Body)); // Buffer to string
   });
 };
