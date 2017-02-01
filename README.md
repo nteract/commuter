@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nteract/commuter.svg?branch=master)](https://travis-ci.org/nteract/commuter)
+[![Build Status](https://travis-ci.org/nteract/commuter.svg?branch=master)](https://travis-ci.org/nteract/commuter) [![Heroku](https://heroku-badge.herokuapp.com/?app=nteract-commuter)]
 
 # com·mut·er
 
