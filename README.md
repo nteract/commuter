@@ -9,6 +9,8 @@
 
 Opinionated nteract focused server that persists notebooks to S3, has a dashboard component and is compatible with jupyter notebook api.
 
+[Demo](https://nteract-commuter.herokuapp.com/)
+
 ## Development
 Requires Node.js 6+ and npm 3+.
 

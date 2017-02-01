@@ -1,2 +1,2 @@
-web: REACT_APP_COMMUTER_PORT=$PORT COMMUTER_PORT=$PORT COMMUTER_BUCKET="nteract-notebooks" COMMUTER_S3_KEY="AKIAJ23MBHRZ3SW6DM5A" COMMUTER_S3_SECRET="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" REACT_APP_COMMUTER_HOST="https://nteract-commuter.herokuapp.com" npm run start:production
+web: npm run start:production
 

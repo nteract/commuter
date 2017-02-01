@@ -9,7 +9,7 @@ const {
   COMMUTER_S3_SECRET
 } = process.env;
 
-const config = {
+module.exports = {
   s3: {
     params: {
       // required s3 bucket name
@@ -25,5 +25,3 @@ const config = {
   nodeEnv: NODE_ENV,
   port: PORT || COMMUTER_PORT
 };
-
-module.exports = config;
