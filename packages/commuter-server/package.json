@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
+    "watch": "echo \"Info: skipping commuter-server watch \" && exit 0",
     "build": "echo \"Info: skipping commuter-server build \" && exit 0"
   },
   "repository": {

@@ -6,21 +6,23 @@
     "node": "6.9.5"
   },
   "scripts": {
-    "install": "npm run lerna && npm run build",
-    "lerna": "lerna bootstrap",
     "build": "npm run build:components && npm run build:client",
     "build:client": "lerna exec --scope @nteract/commuter-client -- npm run build",
     "build:components": "lerna exec --ignore @nteract/commuter-client -- npm run build",
-    "start": "lerna exec --scope @nteract/commuter-cli -- npm run start",
-    "start:production": "lerna exec --scope @nteract/commuter-cli -- npm run start:production",
-    "server": "lerna exec --scope @nteract/commuter-cli -- npm run server",
     "client": "lerna exec --scope @nteract/commuter-cli -- npm run client",
     "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
     "clean:install": "lerna clean",
     "clean:lib": "lerna exec -- rm -rf ./lib",
     "clean:build": "lerna exec -- rm -rf ./build",
     "format:code": "prettier --write ./packages/*/src/*/*.js ./packages/*/src/*.js",
-    "test": "lerna run test"
+    "install": "npm run lerna && npm run build",
+    "lerna": "lerna bootstrap",
+    "start": "lerna exec --scope @nteract/commuter-cli -- npm run start",
+    "start:watch": "concurrently \"lerna exec --scope @nteract/commuter-cli -- npm run start\" \"npm run watch\"",
+    "start:production": "lerna exec --scope @nteract/commuter-cli -- npm run start:production",
+    "server": "lerna exec --scope @nteract/commuter-cli -- npm run server",
+    "test": "lerna run test",
+    "watch": "lerna exec --ignore @nteract/commuter-client -- npm run watch"
   },
   "repository": {
     "type": "git",
@@ -42,6 +44,7 @@
     "lerna": "2.0.0-beta.34"
   },
   "devDependencies": {
+    "concurrently": "^3.1.0",
     "prettier": "0.14.1"
   }
 }

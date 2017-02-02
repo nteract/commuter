@@ -18,7 +18,7 @@ Requires Node.js 6+ and npm 3+.
 1. `npm install`
 1. `COMMUTER_BUCKET=<name> COMMUTER_S3_KEY=<key> COMMUTER_S3_SECRET=<secret> npm start`
 
-*Available options*
+*Available env options*
 
 ```
 COMMUTER_BUCKET (required, without s3://)
