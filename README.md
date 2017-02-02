@@ -59,7 +59,7 @@ This roadmap is organized into stages of development, leading towards a backend 
   - [x] Bucket, etc. loaded from configuration (e.g. `COMMUTER_BUCKET=xyz`)
   - [x] Roles or Amazon environment variables automatically picked up (via `aws-sdk`)
 - [x] Tree view of notebook content
-- [ ] Render page using notebook-preview
+- [x] Render page using notebook-preview
 
 ### Stage II
 
