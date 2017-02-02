@@ -1,8 +1,9 @@
-[![Build Status](https://travis-ci.org/nteract/commuter.svg?branch=master)](https://travis-ci.org/nteract/commuter) [![Heroku](https://heroku-badge.herokuapp.com/?app=nteract-commuter)](https://nteract-commuter.herokuapp.com/)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=nteract-commuter&svg=1)](https://nteract-commuter.herokuapp.com/)
+[![Build Status](https://travis-ci.org/nteract/commuter.svg?branch=master)](https://travis-ci.org/nteract/commuter)
+[![Greenkeeper badge](https://badges.greenkeeper.io/nteract/commuter.svg)](https://greenkeeper.io/)
+
 
 # com·mut·er
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/nteract/commuter.svg)](https://greenkeeper.io/)
 
 > /kəˈmyo͞odər/
 > a person who travels some distance to work on a regular basis.
