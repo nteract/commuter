@@ -16,7 +16,7 @@ const ContentTable = props => (
             return (
               <Table.Row key={index}>
                 <Table.Cell>
-                  <Link to={row.path}>
+                  <Link to={`/notebooks/${row.path}`}>
                     <Icon name="book" color="grey" />{row.name}
                   </Link>
                 </Table.Cell>
