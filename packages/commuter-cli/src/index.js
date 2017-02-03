@@ -35,20 +35,15 @@ const copyDir = (from, to) => {
 };
 
 const startCommuterServer = () => {
-  const promise = isProduction
-    ? copyDir(
-        `${INSTALL_DIR}/${COMMUTER_CLIENT}/build`,
-        `${INSTALL_DIR}/${COMMUTER_SERVER}/src/build`
-      )
-    : symlink(
-        `${INSTALL_DIR}/${COMMUTER_CLIENT}/build`,
-        `${INSTALL_DIR}/${COMMUTER_SERVER}/src/build`
-      );
-
-  promise.then(createServer).then(server => {
-    const port = server.address().port;
-    log.info("Commuter server listening on port " + port);
-  });
+  copyDir(
+    `${INSTALL_DIR}/${COMMUTER_CLIENT}/build`,
+    `${INSTALL_DIR}/${COMMUTER_SERVER}/src/build`
+  )
+    .then(createServer)
+    .then(server => {
+      const port = server.address().port;
+      log.info("Commuter server listening on port " + port);
+    });
 };
 
 const startCommuterClient = () => {
