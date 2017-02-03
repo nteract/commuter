@@ -4,7 +4,7 @@ const express = require("express"),
 
 router.use("/api/contents", require("./contents"));
 
-router.get("/", (req, res) => {
+router.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
 });
 
