@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+
 const args = require("commander"),
   COMMUTER_SERVER = "@nteract/commuter-server",
   COMMUTER_CLIENT = "@nteract/commuter-client",
@@ -36,8 +37,8 @@ const copyDir = (from, to) => {
 
 const startCommuterServer = () => {
   copyDir(
-    `${INSTALL_DIR}/${COMMUTER_CLIENT}/build`,
-    `${INSTALL_DIR}/${COMMUTER_SERVER}/src/build`
+    `${INSTALL_DIR}/commuter-client/build`,
+    `${INSTALL_DIR}/commuter-server/src/build`
   )
     .then(createServer)
     .then(server => {
