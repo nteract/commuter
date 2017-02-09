@@ -12,6 +12,7 @@ function createServer() {
   app.use(morgan("common"));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  log.info(`Node env: ${config.nodeEnv}`);
   if (config.nodeEnv === "production")
     app.use(
       "/nteract/commuter",
