@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 
-
 const args = require("commander"),
+  isProduction = process.env.NODE_ENV === "production",
   COMMUTER_SERVER = "@nteract/commuter-server",
   COMMUTER_CLIENT = "@nteract/commuter-client",
+  COMMUTER_SERVER_DIR = isProduction ? `${COMMUTER_SERVER}` : "commuter-server",
+  COMMUTER_CLIENT_DIR = isProduction ? `${COMMUTER_CLIENT}` : "commuter-client",
   fs = require("fs"),
   copydir = require("copy-dir"),
   path = require("path"),
   createServer = require(`${COMMUTER_SERVER}`),
   createClient = require(`${COMMUTER_CLIENT}`),
-  isProduction = process.env.NODE_ENV === "production",
   Log = require("log"),
   log = new Log("info");
 
@@ -37,14 +38,14 @@ const copyDir = (from, to) => {
 
 const startCommuterServer = () => {
   copyDir(
-    `${INSTALL_DIR}/commuter-client/build`,
-    `${INSTALL_DIR}/commuter-server/src/build`
+    `${INSTALL_DIR}/${COMMUTER_CLIENT_DIR}/build`,
+    `${INSTALL_DIR}/${COMMUTER_SERVER_DIR}/src/build`
   )
-    .then(createServer)
-    .then(server => {
-      const port = server.address().port;
-      log.info("Commuter server listening on port " + port);
-    });
+  .then(createServer)
+  .then(server => {
+    const port = server.address().port;
+    log.info("Commuter server listening on port " + port);
+  });
 };
 
 const startCommuterClient = () => {

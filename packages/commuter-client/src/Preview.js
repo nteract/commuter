@@ -18,9 +18,10 @@ export default class Preview extends React.Component {
     this.loadData(nextProps.params);
   }
 
-  loadData = ({ splat }) => fetch(`/api/contents/${splat}`)
-    .then(res => res.json())
-    .then(notebook => this.setState({ notebook }));
+  loadData = ({ splat }) =>
+    fetch(`/api/contents/${splat}`)
+      .then(res => res.json())
+      .then(notebook => this.setState({ notebook }));
 
   render() {
     return (
