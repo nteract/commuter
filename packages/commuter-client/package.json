@@ -29,6 +29,7 @@
     "@nteract/commuter-breadcrumb": "^0.1.0",
     "@nteract/commuter-directory-listing": "^0.1.0",
     "aphrodite": "^1.1.0",
+    "normalize.css": "^5.0.0",
     "notebook-preview": "^0.2.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
