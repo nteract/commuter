@@ -39,13 +39,13 @@ const copyDir = (from, to) => {
 const startCommuterServer = () => {
   copyDir(
     `${INSTALL_DIR}/${COMMUTER_CLIENT_DIR}/build`,
-    `${INSTALL_DIR}/${COMMUTER_SERVER_DIR}/src/build`
+    `${INSTALL_DIR}/${COMMUTER_SERVER_DIR}/build`
   )
-  .then(createServer)
-  .then(server => {
-    const port = server.address().port;
-    log.info("Commuter server listening on port " + port);
-  });
+    .then(createServer)
+    .then(server => {
+      const port = server.address().port;
+      log.info("Commuter server listening on port " + port);
+    });
 };
 
 const startCommuterClient = () => {
