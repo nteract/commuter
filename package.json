@@ -14,7 +14,7 @@
     "clean:install": "lerna clean",
     "clean:lib": "lerna exec -- rm -rf ./lib",
     "clean:build": "lerna exec -- rm -rf ./build",
-    "format:code": "prettier --write ./packages/*/src/*/*.js ./packages/*/src/*.js",
+    "format:code": "prettier --write 'packages/*/src/**/*.js'",
     "install": "npm run lerna && npm run build",
     "lerna": "lerna bootstrap",
     "start": "lerna exec --scope @nteract/commuter-cli -- npm run start",

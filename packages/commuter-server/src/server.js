@@ -16,7 +16,7 @@ function createServer() {
   if (config.nodeEnv === "production")
     app.use(
       "/nteract/commuter",
-      express.static(path.resolve(__dirname, "build"))
+      express.static(path.resolve(__dirname, "..", "build"))
     );
   if (!config.s3.params.Bucket) {
     log.error("S3 bucket name missing!!");
