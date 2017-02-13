@@ -2,6 +2,9 @@ import React from "react";
 import { Container } from "semantic-ui-react";
 import NotebookPreview from "notebook-preview";
 
+import 'normalize.css/normalize.css';
+import 'codemirror/lib/codemirror.css';
+import 'notebook-preview/styles/main.css';
 import "notebook-preview/styles/theme-light.css";
 
 export default class Preview extends React.Component {
