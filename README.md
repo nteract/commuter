@@ -8,7 +8,11 @@
 > /kəˈmyo͞odər/
 > a person who travels some distance to work on a regular basis.
 
-Opinionated nteract focused server that persists notebooks to S3, has a dashboard component and is compatible with jupyter notebook api.
+Opinionated [nteract](https://nteract.io) focused server. Commuter reads notebooks from S3, has a directory explorer, and provides a jupyter compatible version of the contents API.
+
+![screen shot 2017-02-13 at 11 19 45 am](https://cloud.githubusercontent.com/assets/146449/22899082/6efa3ddc-f1de-11e6-98f7-596bdda382ad.png)
+
+![screen shot 2017-02-13 at 11 15 57 am](https://cloud.githubusercontent.com/assets/146449/22898931/f272a740-f1dd-11e6-877f-551a1bdb01fa.png)
 
 [Demo](https://nteract-commuter.herokuapp.com/)
 
@@ -32,10 +36,9 @@ COMMUTER_PORT (optional, defaults to 4000)
 
 *Notes*
 
-API server (express) runs on port 4000 and the client (UI) on port 3000. Client uses webpack dev server and proxies 3000 -> 4000 to avoid CORS issues. On production we will let our express App serve `index.html` and static assets.
+The API server (express) runs on port 4000 while the client (UI) runs on port 3000. The client uses the webpack dev server and proxies 3000 -> 4000 to avoid CORS issues. On production the express App serves `index.html` and static assets.
 
-Finally, view the dashboard at `http://localhost:3000/<S3_PATH>`
-and API at `curl -XGET http://localhost:4000/api/contents/<S3_PATH>`
+View the dashboard at `http://localhost:3000/<S3_PATH>` and the API at `http://localhost:4000/api/contents/<S3_PATH>`
 
 Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and package.json has more options).
 
@@ -43,13 +46,8 @@ Project uses [prettier](https://github.com/jlongster/prettier) for code formatti
 1. `npm test`
 
 ## Deployment
+
 coming soon...
-
-## Screen shot
-
-![screen shot 2017-02-13 at 11 19 45 am](https://cloud.githubusercontent.com/assets/146449/22899082/6efa3ddc-f1de-11e6-98f7-596bdda382ad.png)
-
-![screen shot 2017-02-13 at 11 15 57 am](https://cloud.githubusercontent.com/assets/146449/22898931/f272a740-f1dd-11e6-877f-551a1bdb01fa.png)
 
 ## ROADMAP
 
@@ -65,6 +63,7 @@ This roadmap is organized into stages of development, leading towards a backend 
 
 ### Stage II
 
+- [ ] Start outlining an authentication and permissions strategy
 - [ ] Provide/use kernels from configured source (e.g. tmpnb.org, jupyterhub, or your private setup)
 - [ ] Render page using nteract/nteract components
   - [ ] Requires [nteract/nteract#549](https://github.com/nteract/nteract/issues/549)
