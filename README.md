@@ -8,7 +8,7 @@
 > /kəˈmyo͞odər/
 > a person who travels some distance to work on a regular basis.
 
-Opinionated nteract focused server that reads notebooks from S3, has a directory explorer, and provides a jupyter compatible version of the contents API.
+Opinionated [nteract](https://nteract.io) focused server. Commuter reads notebooks from S3, has a directory explorer, and provides a jupyter compatible version of the contents API.
 
 ![screen shot 2017-02-13 at 11 19 45 am](https://cloud.githubusercontent.com/assets/146449/22899082/6efa3ddc-f1de-11e6-98f7-596bdda382ad.png)
 
@@ -63,7 +63,7 @@ This roadmap is organized into stages of development, leading towards a backend 
 
 ### Stage II
 
-- [ ] Start outlining a authentication and permissions strategy
+- [ ] Start outlining an authentication and permissions strategy
 - [ ] Provide/use kernels from configured source (e.g. tmpnb.org, jupyterhub, or your private setup)
 - [ ] Render page using nteract/nteract components
   - [ ] Requires [nteract/nteract#549](https://github.com/nteract/nteract/issues/549)
