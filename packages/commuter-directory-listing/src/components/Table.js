@@ -27,7 +27,7 @@ const ContentTable = props => (
             return (
               <Table.Row key={index}>
                 <Table.Cell collapsing>
-                  <Link to={row.path}>
+                  <Link to={`/${row.path}`}>
                     <Icon name="folder" color="blue" />{row.name}
                   </Link>
                 </Table.Cell>
