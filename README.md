@@ -65,8 +65,7 @@ This roadmap is organized into stages of development, leading towards a backend 
 
 - [ ] Start outlining an authentication and permissions strategy
 - [ ] Provide/use kernels from configured source (e.g. tmpnb.org, jupyterhub, or your private setup)
-- [ ] Render page using nteract/nteract components
-  - [ ] Requires [nteract/nteract#549](https://github.com/nteract/nteract/issues/549)
+- [x] Render page using nteract/nteract components
 
 ### Stage III
 

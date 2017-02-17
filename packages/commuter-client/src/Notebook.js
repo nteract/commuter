@@ -1,14 +1,14 @@
 import React, { PropTypes as T } from "react";
 import { connect } from "react-redux";
 
-import NotebookPreview from "notebook-preview";
+import NotebookPreview from "@nteract/notebook-preview";
 
 import { fetchNotebook } from "./actions";
 
 import "normalize.css/normalize.css";
 import "codemirror/lib/codemirror.css";
-import "notebook-preview/styles/main.css";
-import "notebook-preview/styles/theme-light.css";
+import '@nteract/notebook-preview/styles/main.css';
+import '@nteract/notebook-preview/styles/theme-light.css';
 
 class Notebook extends React.Component {
   componentDidMount() {
@@ -26,7 +26,7 @@ class Notebook extends React.Component {
   render() {
     return (
       <div>
-        {this.props.isFetching
+        {this.props.isFetching || !this.props.notebook
           ? <div> Loading ... </div>
           : <NotebookPreview notebook={this.props.notebook} />}
       </div>
