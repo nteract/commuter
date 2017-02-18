@@ -27,8 +27,8 @@ const DirectoryListing = props => {
                       <Table.Row key={index}>
                         <Table.Cell>
                           <a
-                            href={`/${row.path}`}
-                            onClick={handleClick(`/${row.path}`)}
+                            href={`${row.path}`}
+                            onClick={handleClick(`${row.path}`)}
                           >
                             <Icon name="book" color="grey" />{row.name}
                           </a>
@@ -41,8 +41,8 @@ const DirectoryListing = props => {
                       <Table.Row key={index}>
                         <Table.Cell collapsing>
                           <a
-                            href={`/${row.path}`}
-                            onClick={handleClick(`/${row.path}`)}
+                            href={`${row.path}`}
+                            onClick={handleClick(`${row.path}`)}
                           >
                             <Icon name="folder" color="blue" />{row.name}
                           </a>
