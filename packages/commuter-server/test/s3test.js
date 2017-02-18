@@ -30,7 +30,7 @@ describe("Test S3 service", function() {
                   LastModified: "2016-05-25T17:26:26.000Z"
                 }
               ],
-              CommonPrefixes: [ { Prefix: "dir/one" } ]
+              CommonPrefixes: [ { Prefix: "dir/one/" } ]
             });
           }
         };
@@ -49,7 +49,7 @@ describe("Test S3 service", function() {
       content: [
         {
           name: "test.ipynb",
-          path: "dir/one/test.ipynb",
+          path: "/dir/one/test.ipynb",
           type: "notebook",
           writable: true,
           created: null,
@@ -60,7 +60,7 @@ describe("Test S3 service", function() {
         },
         {
           name: "one",
-          path: "dir/one",
+          path: "/dir/one/",
           type: "directory",
           writable: true,
           created: null,
