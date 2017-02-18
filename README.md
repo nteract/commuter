@@ -10,9 +10,7 @@
 
 Opinionated [nteract](https://nteract.io) focused server. Commuter reads notebooks from S3, has a directory explorer, and provides a jupyter compatible version of the contents API.
 
-![screen shot 2017-02-13 at 11 19 45 am](https://cloud.githubusercontent.com/assets/146449/22899082/6efa3ddc-f1de-11e6-98f7-596bdda382ad.png)
-
-![screen shot 2017-02-13 at 11 15 57 am](https://cloud.githubusercontent.com/assets/146449/22898931/f272a740-f1dd-11e6-877f-551a1bdb01fa.png)
+![commuter](https://cloud.githubusercontent.com/assets/836375/23089382/e330effa-f53c-11e6-85d0-7561ccdbe163.gif)
 
 [Demo](https://nteract-commuter.herokuapp.com/)
 
