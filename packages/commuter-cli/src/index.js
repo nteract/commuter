@@ -30,7 +30,7 @@ const symlink = (target, path, type = "dir") => {
 const copyDir = (from, to) => {
   return new Promise(accept => {
     copydir(from, to, () => {
-      log.info(`Copied from: ${from} to to: ${to}`);
+      log.info(`Copied from: ${from} to: ${to}`);
       accept();
     });
   });
