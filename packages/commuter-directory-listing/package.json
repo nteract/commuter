@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-directory-listing",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "nteract directory listing component",
   "main": "./lib/index.js",
   "scripts": {
@@ -35,6 +35,9 @@
     "watch": "^1.0.1"
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }

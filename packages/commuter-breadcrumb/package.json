@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-breadcrumb",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "bread crumb navigation",
   "main": "lib/index.js",
   "scripts": {
@@ -34,6 +34,9 @@
     "watch": "^1.0.1"
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }
