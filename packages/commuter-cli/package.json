@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "cli to setup commuter client and server",
   "bin": {
-    "commuter": "build/index.js"
+    "commuter": "lib/index.js"
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
