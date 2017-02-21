@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "start:production": "npm run server",
+    "start:production": "NODE_ENV=production&&npm run server",
     "server": "./src/index.js server",
     "client": "./src/index.js client",
     "test": "echo \"Warning: no test specified\" && exit 0",
