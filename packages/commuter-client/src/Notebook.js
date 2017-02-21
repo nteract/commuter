@@ -10,6 +10,12 @@ import "codemirror/lib/codemirror.css";
 import '@nteract/notebook-preview/styles/main.css';
 import '@nteract/notebook-preview/styles/theme-light.css';
 
+import { Container } from "semantic-ui-react";
+
+import { css } from "aphrodite";
+
+import { styles } from "./stylesheets/commuter";
+
 class Notebook extends React.Component {
   componentDidMount() {
     this.loadData(this.props);
@@ -25,11 +31,11 @@ class Notebook extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container className={css(styles.outerContainer)}>
         {this.props.isFetching || !this.props.notebook
           ? <div> Loading ... </div>
           : <NotebookPreview notebook={this.props.notebook} />}
-      </div>
+      </Container>
     );
   }
 }

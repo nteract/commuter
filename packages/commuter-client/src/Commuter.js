@@ -1,7 +1,7 @@
 import React, { PropTypes as T } from "react";
 import { connect } from "react-redux";
 
-import { Container, Divider, Image } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import { css } from "aphrodite";
 
 import DirectoryListing from "@nteract/commuter-directory-listing";
@@ -10,7 +10,6 @@ import BreadCrumb from "@nteract/commuter-breadcrumb";
 import { fetchContents } from "./actions";
 
 import { styles } from "./stylesheets/commuter";
-import logo from "./static/logo.png";
 
 class Commuter extends React.Component {
   static contextTypes = { router: T.object.isRequired };
@@ -32,8 +31,6 @@ class Commuter extends React.Component {
     const { pathname } = this.props.location;
     return (
       <Container className={css(styles.outerContainer)}>
-        <Image src={logo} size="small" />
-        <Divider className={css(styles.divider)} section />
         <BreadCrumb path={pathname} onClick={this.handleClick} />
         <Container className={css(styles.innerContainer)} textAlign="center">
           <DirectoryListing
