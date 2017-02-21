@@ -10,6 +10,7 @@ import configureStore from "./store/configureStore";
 import App from "./App";
 import Notebook from "./Notebook";
 import Commuter from "./Commuter";
+import Discovery from "./Discovery";
 
 const store = configureStore(INITIAL_STATE);
 
@@ -18,6 +19,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Commuter} />
+        <Route path="/discover" component={Discovery} />
         <Route path="*.ipynb" component={Notebook} />
         <Route path="*" component={Commuter} />
       </Route>

@@ -29,9 +29,19 @@ const commuter = (state = {}, action) => {
   }
 };
 
+const discovery = (state = { discovered: [] }, action) => {
+  switch (action.type) {
+    case types.RECEIVE_DISCOVERY_RESULTS:
+      return Object.assign({}, state, { discovered: action.results });
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   notebook,
-  commuter
+  commuter,
+  discovery
 });
 
 export default rootReducer;
