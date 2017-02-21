@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-client",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "nteract commuter app",
   "main": "index.js",
   "scripts": {
