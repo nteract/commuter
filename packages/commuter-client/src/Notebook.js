@@ -7,8 +7,8 @@ import { fetchNotebook } from "./actions";
 
 import "normalize.css/normalize.css";
 import "codemirror/lib/codemirror.css";
-import '@nteract/notebook-preview/styles/main.css';
-import '@nteract/notebook-preview/styles/theme-light.css';
+import "@nteract/notebook-preview/styles/main.css";
+import "@nteract/notebook-preview/styles/theme-light.css";
 
 import { Container } from "semantic-ui-react";
 

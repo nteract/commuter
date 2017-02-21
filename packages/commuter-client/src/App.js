@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "semantic-ui-react";
 
-import Header from './Header';
+import Header from "./Header";
 
 class App extends React.Component {
   render() {
