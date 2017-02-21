@@ -17,6 +17,8 @@
     "format:code": "prettier --write 'packages/*/src/**/*.js'",
     "install": "npm run lerna && npm run build",
     "lerna": "lerna bootstrap",
+    "prepublish": "npm run clean && npm run build",
+    "publish": " lerna publish",
     "start": "lerna exec --scope @nteract/commuter-cli -- npm run start",
     "start:watch": "concurrently \"lerna exec --scope @nteract/commuter-cli -- npm run start\" \"npm run watch\"",
     "start:production": "lerna exec --scope @nteract/commuter-cli -- npm run start:production",
