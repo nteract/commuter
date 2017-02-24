@@ -7,7 +7,9 @@ router.use("/api/ping", (req, res) => {
 });
 
 router.use("/api/contents", require("./contents"));
+router.use("/api/v1/discovery", require("./discovery"));
 
+//commuter-client
 router.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
 });
