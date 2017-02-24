@@ -28,9 +28,9 @@ export const receiveContents = contents => ({
 export const fetchNotebook = path => {
   return dispatch => {
     dispatch(requestNotebook());
-    return fetch(`/api/contents/${path}`)
-      .then(res => res.json())
-      .then(rawJson => dispatch(receiveNotebook(rawJson)));
+    return jupyter.contents
+      .get(serverConfig, path)
+      .subscribe(res => dispatch(receiveNotebook(res.response)));
   };
 };
 
