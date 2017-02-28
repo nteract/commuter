@@ -27,6 +27,7 @@ Requires Node.js 6+ and npm 3+.
 COMMUTER_BUCKET (required, without s3://)
 COMMUTER_S3_KEY (required)
 COMMUTER_S3_SECRET (required)
+COMMUTER_ES_HOST (required only for discovery api)
 COMMUTER_BASEPATH (optional, prefix for s3 bucket)
 COMMUTER_PATH_DELIMITER (optional, defaults to "/")
 COMMUTER_PORT (optional, defaults to 4000)
