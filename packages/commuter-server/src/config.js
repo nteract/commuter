@@ -6,7 +6,8 @@ const {
   PORT,
   NODE_ENV = "test",
   COMMUTER_S3_KEY,
-  COMMUTER_S3_SECRET
+  COMMUTER_S3_SECRET,
+  COMMUTER_ES_HOST
 } = process.env;
 
 module.exports = {
@@ -19,6 +20,10 @@ module.exports = {
     accessKeyId: COMMUTER_S3_KEY,
     // required secret
     secretAccessKey: COMMUTER_S3_SECRET
+  },
+  elasticSearch: {
+    host: COMMUTER_ES_HOST,
+    log: "debug"
   },
   pathDelimiter: COMMUTER_PATH_DELIMITER,
   basePath: COMMUTER_BASEPATH,
