@@ -1,1 +1,1 @@
-exports.isDir = path => !path || path && path.endsWith("/");
+exports.isDir = path => !path || (path && path.endsWith("/"));
