@@ -25,6 +25,22 @@ export const receiveContents = contents => ({
   isFetching: false
 });
 
+export const receiveDiscoveryResults = results => ({
+  type: types.RECEIVE_DISCOVERY_RESULTS,
+  results: results
+});
+
+// TODO: Switch to Rx ajax
+export const discoverNotebooks = () => {
+  return dispatch => {
+    fetch("/api/v1/discovery")
+      .then(res => res.json())
+      .then(res => dispatch(receiveDiscoveryResults(res.results)));
+  };
+};
+
+// TODO: Convert these to epics with explicit error handling and
+//       event handling cleanup
 export const fetchNotebook = path => {
   return dispatch => {
     dispatch(requestNotebook());
