@@ -7,9 +7,9 @@ import { discoverNotebooks } from "./actions";
 
 import "normalize.css/normalize.css";
 
-import { Container, Icon, Item } from "semantic-ui-react";
+import { Container, Item } from "semantic-ui-react";
 
-import { css } from "aphrodite";
+import { StyleSheet, css } from "aphrodite";
 
 import { styles } from "./stylesheets/commuter";
 
@@ -19,11 +19,34 @@ const Authors = props => (
   </span>
 );
 
+const discoveryStyles = StyleSheet.create({
+  item: {
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+  },
+  tag: {
+    display: "inline-block",
+    padding: "0.2em 0.9em",
+    margin: "0 0.5em 0.5em 0",
+    whiteSpace: "nowrap",
+    backgroundColor: "#f1f8ff",
+    borderRadius: "3px",
+    color: "#0366d6",
+    textDecoration: "none",
+    ":hover": {
+      backgroundColor: "#ddeeff"
+    }
+  }
+});
+
+const Tag = props => (
+  <span className={css(discoveryStyles.tag)}>{props.children}</span>
+);
+
 const DiscoveryItem = props => (
-  <Item key={props.path}>
+  <Item key={props.path} className={css(discoveryStyles.item)}>
     <Item.Image
       size="small"
-      src={props.image ? props.image : "https://icon.now.sh/library_books/64"}
+      src={props.image ? props.image : "https://icon.now.sh/library_books/ccc"}
     />
     <Item.Content>
       <Item.Header as="a" href={props.path}>
@@ -39,9 +62,7 @@ const DiscoveryItem = props => (
         <p>{props.metadata.nteract.description}</p>
       </Item.Description>
       <Item.Extra>
-        {props.metadata.nteract.tags.map(tag => (
-          <a key={tag}><Icon name="tag" />{tag}</a>
-        ))}
+        {props.metadata.nteract.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
       </Item.Extra>
     </Item.Content>
   </Item>
