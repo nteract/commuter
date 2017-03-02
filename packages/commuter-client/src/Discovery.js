@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import TimeAgo from "react-timeago";
+
 import { discoverNotebooks } from "./actions";
 
 import "normalize.css/normalize.css";
@@ -28,7 +30,7 @@ const DiscoveryItem = props => (
         {props.metadata.title ? props.metadata.title : props.name}
       </Item.Header>
       <Item.Meta>
-        <span>Last modified on {props.last_modified}</span>
+        <span>Last modified <TimeAgo date={props.last_modified} /></span>
         {props.metadata.authors
           ? <span> by <Authors authors={props.metadata.authors} /></span>
           : null}
