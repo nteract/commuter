@@ -7,10 +7,17 @@ const express = require("express"),
   Log = require("log"),
   log = new Log("info");
 
+function defaultContentTypeMiddleware(req, res, next) {
+  req.headers["content-type"] = req.headers["content-type"] ||
+    "application/json";
+  next();
+}
+
 function createServer() {
   const app = express();
   app.use(morgan("common"));
-  app.use(bodyParser.json());
+  app.use(defaultContentTypeMiddleware);
+  app.use(bodyParser.json({ limit: "50mb" })); //50mb is the current threshold
   app.use(bodyParser.urlencoded({ extended: true }));
   log.info(`Node env: ${config.nodeEnv}`);
   if (config.nodeEnv === "production")
