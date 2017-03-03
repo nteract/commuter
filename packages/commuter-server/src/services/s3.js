@@ -34,7 +34,7 @@ const fileObject = data => ({
   format: null
 });
 
-exports.listObjects = (path, callback) => {
+const listObjects = (path, callback) => {
   const params = {
     Prefix: s3Prefix(path),
     Delimiter: config.pathDelimiter,
@@ -64,9 +64,72 @@ exports.listObjects = (path, callback) => {
   });
 };
 
-exports.getObject = (path, callback) => {
+const getObject = (path, callback) => {
   s3.getObject({ Key: s3Prefix(path) }, (err, data) => {
     if (err) callback(err);
-    else callback(null, JSON.parse(data.Body)); // Buffer to string
+    else callback(null, JSON.parse(data.Body)); // Buffer to string, notebook rawJson
   });
+};
+
+const deleteObject = (path, callback) => {
+  s3.deleteObject({ Key: s3Prefix(path) }, (err, data) => {
+    if (err) callback(err);
+    else callback(null, data);
+  });
+};
+
+const deleteObjects = (path, callback) => {
+  let objects = [{ Key: s3Prefix(path) }];
+  let callStack = 1;
+
+  const getObjects = path => {
+    var deferred = Promise.defer();
+    listObjects(path, (err, data) => {
+      callStack -= 1;
+      data.content.forEach(o => {
+        if (o.type == "directory") {
+          callStack += 1; //recurse
+          getObjects(o.path.substr(1)).then(() => deferred.resolve());
+        } else
+          objects.push({ Key: s3Prefix(o.path.substr(1)) });
+      });
+      if (callStack == 0) deferred.resolve(); // notify end
+    });
+    return deferred.promise;
+  };
+
+  const s3Delete = () => {
+    s3.deleteObjects(
+      {
+        Delete: { Objects: objects, Quiet: true }
+      },
+      (err, data) => {
+        if (err) callback(err);
+        else callback(null, data);
+      }
+    );
+  };
+
+  getObjects(path).then(s3Delete);
+};
+
+const uploadObject = (path, body, callback) => {
+  s3.upload(
+    {
+      Key: s3Prefix(path),
+      Body: JSON.stringify(body)
+    },
+    (err, data) => {
+      if (err) callback(err);
+      else callback(null, data);
+    }
+  );
+};
+
+module.exports = {
+  listObjects,
+  getObject,
+  deleteObject,
+  deleteObjects,
+  uploadObject
 };

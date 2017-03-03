@@ -68,8 +68,8 @@ This roadmap is organized into stages of development, leading towards a backend 
 
 ### Stage III
 
-- [ ] Save notebooks back to S3
-- [ ] Delete notebooks
+- [x] Save notebooks back to S3
+- [x] Delete notebooks
 
 ### Stage IV
 
