@@ -3,9 +3,9 @@ import { serverConfig } from "./../config";
 
 const jupyter = require("rx-jupyter");
 
-export const receiveNotebook = rawJson => ({
+export const receiveNotebook = contents => ({
   type: types.RECEIVE_NOTEBOOK,
-  rawJson: rawJson,
+  contents: contents,
   isFetching: false
 });
 
@@ -46,7 +46,7 @@ export const fetchNotebook = path => {
     dispatch(requestNotebook());
     return jupyter.contents
       .get(serverConfig, path)
-      .subscribe(res => dispatch(receiveNotebook(res.response)));
+      .subscribe(res => dispatch(receiveNotebook(res.response.content)));
   };
 };
 

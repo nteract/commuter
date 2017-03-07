@@ -49,7 +49,7 @@ Notebook.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  notebook: state.notebook.rawJson,
+  notebook: state.notebook.contents,
   isFetching: state.notebook.isFetching
 });
 

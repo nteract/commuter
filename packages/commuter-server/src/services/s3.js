@@ -22,10 +22,12 @@ const dirObject = data => ({
   format: null
 });
 
+const isNotebook = s3data => s3data.Key.endsWith("ipynb");
+
 const fileObject = data => ({
   name: fileName(data.Key),
   path: filePath(data.Key),
-  type: data.Key.endsWith("ipynb") ? "notebook" : "file",
+  type: isNotebook(data) ? "notebook" : "file",
   writable: true,
   created: null,
   last_modified: data.LastModified,
@@ -66,8 +68,22 @@ const listObjects = (path, callback) => {
 
 const getObject = (path, callback) => {
   s3.getObject({ Key: s3Prefix(path) }, (err, data) => {
-    if (err) callback(err);
-    else callback(null, JSON.parse(data.Body)); // Buffer to string, notebook rawJson
+    if (err) {
+      callback(err);
+    } else {
+      // The Key does not exist on getObject, it's expected to use the path above
+      const s3Response = Object.assign({}, data, { Key: s3Prefix(path) });
+
+      // Notebook files end up as pure json
+      // All other files end up as pure strings in the content field
+      const file = Object.assign({}, fileObject(s3Response), {
+        content: isNotebook(s3Response)
+          ? JSON.parse(s3Response.Body)
+          : s3Response.Body
+      });
+
+      callback(null, file);
+    }
   });
 };
 
