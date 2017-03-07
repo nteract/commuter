@@ -55,7 +55,7 @@ const DiscoveryItem = props => (
       <Item.Meta>
         <span>Last modified <TimeAgo date={props.last_modified} /></span>
         {props.metadata.authors
-          ? <span> by <Authors authors={props.metadata.authors} /></span>
+          ? <span>by <Authors authors={props.metadata.authors} /></span>
           : null}
       </Item.Meta>
       <Item.Description>
