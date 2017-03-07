@@ -8,7 +8,7 @@ exports.list = (cb, error) => client
   .search({
     index: "commuter",
     type: "notebooks",
-    body: bodybuilder().sort("created", "desc").build()
+    body: bodybuilder().sort("last_modified", "desc").size(1000).build() //TODO: add pagination
   })
   .then(
     resp => {

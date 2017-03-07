@@ -101,7 +101,7 @@
             },
             "authors": {
               "description": "The author(s) of the notebook document",
-              "type": "string",
+              "type": "object",
               "item": {
                 "type": "object",
                 "properties": {

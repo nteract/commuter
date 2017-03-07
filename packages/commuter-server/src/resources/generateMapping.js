@@ -21,9 +21,9 @@ const add_type_info = nbSchema => {
   //   }
   // ]
   properties.language_info.properties.codemirror_mode.type = "object";
-  // ES doesn't support array types. Just use string type
+  // ES doesn't support array types. Instead use object type (also handles array of object)
   //https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html
-  properties.authors.type = "string";
+  properties.authors.type = "object";
   return Object.assign({}, properties);
 };
 
