@@ -7,7 +7,7 @@ const notebook = (state = {}, action) => {
       return Object.assign({}, state, { isFetching: action.isFetching });
     case types.RECEIVE_NOTEBOOK:
       return Object.assign({}, state, {
-        rawJson: action.rawJson,
+        contents: action.contents,
         isFetching: action.isFetching
       });
     default:

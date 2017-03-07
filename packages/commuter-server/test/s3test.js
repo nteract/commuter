@@ -13,7 +13,7 @@ describe("Test S3 service", function() {
       }
     });
     s3.getObject("dir/foo.ipynb", (err, data) => {
-      assert.equal(data, "hello world");
+      assert.deepEqual(data.content, "hello world");
     });
   });
 

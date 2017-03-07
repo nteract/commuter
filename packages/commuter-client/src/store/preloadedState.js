@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   commuter: { contents: [], isFetching: false },
-  notebook: { rawJson: null, isFetching: false },
+  notebook: { contents: null, isFetching: false },
   discovery: { discovered: [] }
 };
 
