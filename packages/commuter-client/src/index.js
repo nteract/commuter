@@ -16,6 +16,7 @@ import App from "./App";
 import Notebook from "./Notebook";
 import Commuter from "./Commuter";
 import Discovery from "./Discovery";
+import Contents from "./Contents";
 
 const store = configureStore(INITIAL_STATE);
 
@@ -28,7 +29,7 @@ ReactDOM.render(
           <Switch>
             <Route path="/discover" component={Discovery} />
             <Route path="/view/*.ipynb" component={Notebook} />
-            <Route path="/view/*" component={Commuter} />
+            <Route path="/view/*" component={Contents} />
           </Switch>
         </App>
       </div>

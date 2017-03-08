@@ -19,9 +19,9 @@ export const requestContents = () => ({
   isFetching: true
 });
 
-export const receiveContents = contents => ({
+export const receiveContents = entry => ({
   type: types.RECEIVE_CONTENTS,
-  contents: contents,
+  entry: entry,
   isFetching: false
 });
 
@@ -55,6 +55,6 @@ export const fetchContents = path => {
     dispatch(requestContents());
     return jupyter.contents
       .get(serverConfig, path)
-      .subscribe(res => dispatch(receiveContents(res.response.content)));
+      .subscribe(res => dispatch(receiveContents(res.response)));
   };
 };

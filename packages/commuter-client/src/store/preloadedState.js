@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  commuter: { contents: [], isFetching: false },
+  commuter: { entry: { type: "directory", content: []}, isFetching: false },
   notebook: { contents: null, isFetching: false },
   discovery: { discovered: [] }
 };
