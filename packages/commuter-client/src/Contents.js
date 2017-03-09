@@ -1,6 +1,7 @@
 import React, { PropTypes as T } from "react";
 import { connect } from "react-redux";
 
+import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
 
@@ -48,8 +49,12 @@ const Entry = props => {
         />
       );
     case "file":
+      // TODO: Case off various file types (by extension, mimetype)
       return <File entry={props.entry} />;
+    case "notebook":
+      return <NotebookPreview notebook={props.entry.content} />
     default:
+      console.log("Unknown contents ")
       return <pre>{JSON.stringify(props.entry.content)}</pre>;
   }
 };
