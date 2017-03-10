@@ -39,6 +39,7 @@
     "morgan": "^1.7.0",
     "nbschema": "^0.1.0",
     "node-fetch": "^1.6.3",
+    "s3-proxy": "^1.1.0",
     "winston": "^2.3.0"
   },
   "devDependencies": {
