@@ -26,7 +26,7 @@ class File extends React.Component {
         <iframe
           sandbox="allow-scripts"
           style={{ width: "100%", height: "100%", border: "none" }}
-          srcDoc={this.props.entry.content}
+          src={"/files/test.html"}
           ref={f => {
             this.ifr = f;
           }}
@@ -50,7 +50,7 @@ const Entry = props => {
       );
     case "file":
       // TODO: Case off various file types (by extension, mimetype)
-      return <File entry={props.entry} />;
+      return <File entry={props.entry} pathname={props.pathname} />;
     case "notebook":
       return <NotebookPreview notebook={props.entry.content} />
     default:
