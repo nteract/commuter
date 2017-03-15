@@ -79,7 +79,7 @@ const getObject = (path, callback) => {
       const file = Object.assign({}, fileObject(s3Response), {
         content: isNotebook(s3Response)
           ? JSON.parse(s3Response.Body) // JSON for notebook
-          : s3Response.Body.toString(), // Pure string for everything else
+          : s3Response.Body.toString() // Pure string for everything else
       });
 
       callback(null, file);
