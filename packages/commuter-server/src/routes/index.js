@@ -9,6 +9,7 @@ router.use("/api/ping", (req, res) => {
 router.use("/api/contents", require("./contents"));
 router.use("/api/v1/discovery", require("./discovery"));
 router.use("/files", require("./files"));
+router.use("/view", require("./view"));
 
 //commuter-client
 router.get("*", (req, res) => {
