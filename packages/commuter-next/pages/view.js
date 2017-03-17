@@ -1,12 +1,13 @@
 // @flow
 import Head from "next/head";
+import Link from "next/link";
 import React from "react";
 
 import type http from "http";
 
 type Context = {
-  req?: http.IncomingMessage, // server only
-  res?: http.ServerResponse, // server only
+  req?: { params: Array<string> }, // server only
+  res?: {}, // server only
   pathname: string,
   query: Object,
   jsonPageRes?: Response, // client only
@@ -14,24 +15,34 @@ type Context = {
 };
 
 type ViewProps = {
-  userAgent: string
+  basePath: string
 };
 
 export default class extends React.Component {
   props: ViewProps;
 
   static async getInitialProps({ req }: Context): Promise<ViewProps> {
-    return req
-      ? { userAgent: req.headers["user-agent"] }
-      : { userAgent: navigator.userAgent };
+    if (req) {
+      const basePath = req.params[0];
+      return { basePath };
+    }
+    console.log("seriously?");
+
+    return {
+      basePath: "/"
+    };
   }
   render() {
+    console.log(this.props.basePath);
     return (
       <div>
         <Head>
-          <title>Content yay</title>
+          <title>Listing {this.props.basePath}</title>
         </Head>
-        <pre>{this.props.userAgent}</pre>
+        <pre>{this.props.basePath}</pre>
+        <Link href={`/view/somewhere/awesome`}>
+          <a>somewhere/awesome</a>
+        </Link>
       </div>
     );
   }

@@ -58,6 +58,10 @@ nextApp.prepare().then(() => {
   // API server and /files/ endpoints served by express
   const server = prepareExpressServer();
 
+  server.get("/view*", (req, res) => {
+    return nextApp.render(req, res, "/view");
+  });
+
   // All else is done with next.js
   server.get("*", (req, res) => {
     return handle(req, res);
