@@ -1,4 +1,4 @@
-const config = require("../config"),
+const config = require("./config"),
   bodybuilder = require("bodybuilder"),
   elasticsearch = require("elasticsearch");
 

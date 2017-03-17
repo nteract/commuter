@@ -1,25 +1,25 @@
 const express = require("express");
 const next = require("next");
 
-// TODO: Use the commuter config
-const config = {
-  port: 3000
-};
+const config = require("./services/config");
 
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(() => {
+  const router = express.Router();
   const server = express();
+
+  server.use(router);
+
   // API server via express
-  server.get("/api*", (req, res) => {
-    res.send("files");
-  });
+  router.use("/api/contents", require("./routes/contents"));
+  router.use("/api/v1/discovery", require("./routes/discovery"));
   // Direct /files/ endpoint via express
-  server.get("/files*", (req, res) => {
-    res.send("hey");
-  });
+  router.use("/files", require("./routes/files"));
+
+  // TODO: redirect when /view/ is not .ipynb or .html
 
   // All else is done with next.js
   server.get("*", (req, res) => {

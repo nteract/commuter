@@ -1,5 +1,5 @@
 const express = require("express"),
-  config = require("../config"),
+  config = require("../services/config"),
   router = express.Router(),
   s3Proxy = require("s3-proxy");
 
