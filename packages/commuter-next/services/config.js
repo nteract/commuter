@@ -1,3 +1,4 @@
+// @flow
 const {
   COMMUTER_BUCKET = null,
   COMMUTER_PATH_DELIMITER = "/",
@@ -28,5 +29,5 @@ module.exports = {
   pathDelimiter: COMMUTER_PATH_DELIMITER,
   basePath: COMMUTER_BASEPATH,
   nodeEnv: NODE_ENV,
-  port: PORT || COMMUTER_PORT
+  port: PORT || COMMUTER_PORT || 4000
 };

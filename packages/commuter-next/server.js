@@ -1,4 +1,3 @@
-// @flow
 const express = require("express");
 const next = require("next");
 const Log = require("log");
