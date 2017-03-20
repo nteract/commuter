@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 const path = require("path");
+const { parse } = require("url");
 
 const log = new Log("info");
 
@@ -59,7 +60,10 @@ nextApp.prepare().then(() => {
   const server = prepareExpressServer();
 
   server.get("/view*", (req, res) => {
-    return nextApp.render(req, res, "/view");
+    const params = {
+      path: req.params[0]
+    };
+    return nextApp.render(req, res, "/view", params);
   });
 
   // All else is done with next.js
