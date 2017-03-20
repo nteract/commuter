@@ -3,6 +3,14 @@ import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 
+import { Container } from "semantic-ui-react";
+import { css } from "aphrodite";
+
+import DirectoryListing from "@nteract/commuter-directory-listing";
+import BreadCrumb from "@nteract/commuter-breadcrumb";
+
+import "isomorphic-fetch";
+
 const { listObjects } = require("./../services/s3");
 const isDir = path => !path || (path && path.endsWith("/"));
 
@@ -32,40 +40,48 @@ type InitialProps = {
 
 type ViewProps = {
   basePath: string,
-  url: {
-    query: {
-      path: string
-    }
-  }
+  content: Object
 };
 
 export default class extends React.Component {
   props: ViewProps;
 
   static async getInitialProps(ctx: Context): Promise<InitialProps> {
-    console.log(process);
-    console.log("ctx", ctx.query);
+    const basePath = ctx.query.path || "/";
+
+    let contentsAPI = `/api/contents${basePath}`;
+    if (!process.browser) {
+      const port = process.env.COMMUTER_PORT || 4000;
+      contentsAPI = `http://127.0.0.1:${port}${contentsAPI}`;
+    }
+
+    const res = await fetch(contentsAPI);
+    const json = await res.json();
+
     return {
-      basePath: ctx.query.path
+      content: json,
+      basePath
     };
   }
   render() {
-    const basePath = this.props.url.query.path || this.props.basePath;
-    console.log(basePath);
-    console.log(this.props.url.query);
-
     return (
       <div>
         <Head>
-          <title>Listing {basePath}</title>
+          <title>Listing {this.props.basePath}</title>
         </Head>
-        <pre>{basePath}</pre>
-        <Link
-          href={`/view?path=/somewhere/awesome`}
-          as="/view/somewhere/awesome"
-        >
-          <a>somewhere/awesome</a>
-        </Link>
+        <pre>{this.props.basePath}</pre>
+        <pre>{JSON.stringify(this.props.content, null, 2)}</pre>
+
+        <Container className={css(styles.outerContainer)}>
+          <BreadCrumb path={pathname} onClick={this.handleClick} />
+          <Container className={css(styles.innerContainer)} textAlign="center">
+            <DirectoryListing
+              path={pathname}
+              contents={this.props.contents}
+              onClick={this.handleClick}
+            />
+          </Container>
+        </Container>
       </div>
     );
   }
