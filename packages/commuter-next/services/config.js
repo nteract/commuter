@@ -1,3 +1,12 @@
+// @flow
+let env;
+
+if (!process) {
+  env = {};
+} else {
+  env = process.env;
+}
+
 const {
   COMMUTER_BUCKET = null,
   COMMUTER_PATH_DELIMITER = "/",
@@ -8,7 +17,7 @@ const {
   COMMUTER_S3_KEY,
   COMMUTER_S3_SECRET,
   COMMUTER_ES_HOST
-} = process.env;
+} = env;
 
 module.exports = {
   s3: {
@@ -28,5 +37,5 @@ module.exports = {
   pathDelimiter: COMMUTER_PATH_DELIMITER,
   basePath: COMMUTER_BASEPATH,
   nodeEnv: NODE_ENV,
-  port: PORT || COMMUTER_PORT
+  port: PORT || COMMUTER_PORT || 4000
 };
