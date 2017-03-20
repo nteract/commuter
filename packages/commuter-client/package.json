@@ -23,7 +23,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "react-scripts": "0.8.5"
+    "react-scripts": "^0.9.5"
   },
   "dependencies": {
     "@nteract/commuter-breadcrumb": "^0.1.1",
@@ -39,7 +39,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "rx-jupyter": "^2.0.0",
-    "semantic-ui-react": "^0.64.3"
+    "semantic-ui-react": "^0.67.1"
   },
   "proxy": "http://localhost:4000"
 }
