@@ -6,6 +6,8 @@ import React from "react";
 import { Divider, Image } from "semantic-ui-react";
 import { Container } from "semantic-ui-react";
 
+import { Entry } from "../components/contents";
+
 import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
 
@@ -73,6 +75,8 @@ export default class extends React.Component {
       return null;
     }
 
+    const entry = {};
+
     return (
       <div>
         <Head>
@@ -116,9 +120,9 @@ export default class extends React.Component {
         <Container className="outer-container">
           <BreadCrumb path={pathname} onClick={this.handleClick} />
           <Container className="inner-container" textAlign="center">
-            <DirectoryListing
-              path={pathname}
-              contents={this.props.contents.content}
+            <Entry
+              pathname={pathname}
+              entry={this.props.contents}
               onClick={this.handleClick}
             />
           </Container>
