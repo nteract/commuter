@@ -19,6 +19,9 @@
   "author": "",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@nteract/commuter-breadcrumb": "^0.1.1",
+    "@nteract/commuter-directory-listing": "^0.1.1",
+    "@nteract/notebook-preview": "^1.0.5",
     "aphrodite": "^1.2.0",
     "aws-sdk": "^2.28.0",
     "body-parser": "^1.17.1",

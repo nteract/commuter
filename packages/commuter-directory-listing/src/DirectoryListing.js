@@ -2,12 +2,13 @@ import React, { PropTypes as T } from "react";
 import { Table, Grid, Segment, Icon } from "semantic-ui-react";
 
 const DirectoryListing = props => {
-  const handleClick = path => e => {
-    if (props.onClick) {
-      e.preventDefault();
-      props.onClick(path);
-    }
-  };
+  const handleClick = path =>
+    e => {
+      if (props.onClick) {
+        e.preventDefault();
+        props.onClick(path);
+      }
+    };
 
   return (
     <Grid>
