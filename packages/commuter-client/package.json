@@ -28,7 +28,7 @@
   "dependencies": {
     "@nteract/commuter-breadcrumb": "^0.1.1",
     "@nteract/commuter-directory-listing": "^0.1.1",
-    "@nteract/notebook-preview": "^1.0.5",
+    "@nteract/notebook-preview": "^1.0.7",
     "aphrodite": "^1.1.0",
     "normalize.css": "^5.0.0",
     "react": "^15.4.2",
