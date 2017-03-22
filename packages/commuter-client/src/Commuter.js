@@ -11,6 +11,8 @@ import { fetchContents } from "./actions";
 
 import { styles } from "./stylesheets/commuter";
 
+import stripView from "./strip-view";
+
 class Commuter extends React.Component {
   static contextTypes = { router: T.object.isRequired };
   componentDidMount() {
@@ -22,21 +24,22 @@ class Commuter extends React.Component {
       this.loadData(nextProps);
   }
 
-  loadData = ({ location, dispatch }) =>
-    dispatch(fetchContents(location.pathname));
+  handleClick = path => this.props.history.push(path);
 
-  handleClick = path => this.context.router.push(path);
+  loadData = ({ location, dispatch }) =>
+    dispatch(fetchContents(stripView(location.pathname)));
 
   render() {
-    const { pathname } = this.props.location;
+    const pathname = stripView(this.props.location.pathname);
     return (
       <Container className={css(styles.outerContainer)}>
         <BreadCrumb path={pathname} onClick={this.handleClick} />
         <Container className={css(styles.innerContainer)} textAlign="center">
           <DirectoryListing
-            path={pathname}
-            contents={this.props.contents}
             onClick={this.handleClick}
+            path={this.props.location.pathname}
+            contents={this.props.contents}
+            basepath={"/view"}
           />
         </Container>
       </Container>

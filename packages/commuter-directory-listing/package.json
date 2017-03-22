@@ -25,6 +25,7 @@
     "aphrodite": "^1.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-router-dom": "^4.0.0",
     "semantic-ui-react": "^0.63.6"
   },
   "devDependencies": {
