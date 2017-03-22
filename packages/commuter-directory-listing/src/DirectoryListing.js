@@ -1,6 +1,8 @@
 import React, { PropTypes as T } from "react";
 import { Table, Grid, Segment, Icon } from "semantic-ui-react";
 
+import { Link } from "react-router-dom";
+
 const DirectoryListing = props => {
   const base = props.basepath;
   return (
@@ -20,9 +22,9 @@ const DirectoryListing = props => {
                     return (
                       <Table.Row key={index}>
                         <Table.Cell>
-                          <a href={`${base}${row.path}`}>
+                          <Link to={`${base}${row.path}`}>
                             <Icon name="book" color="grey" />{row.name}
-                          </a>
+                          </Link>
                         </Table.Cell>
                         <Table.Cell collapsing textAlign="right" />
                       </Table.Row>
@@ -31,9 +33,9 @@ const DirectoryListing = props => {
                     return (
                       <Table.Row key={index}>
                         <Table.Cell collapsing>
-                          <a href={`${base}${row.path}`}>
+                          <Link to={`${base}${row.path}`}>
                             <Icon name="folder" color="blue" />{row.name}
-                          </a>
+                          </Link>
                         </Table.Cell>
                         <Table.Cell collapsing textAlign="right" />
                       </Table.Row>
@@ -42,9 +44,9 @@ const DirectoryListing = props => {
                     return (
                       <Table.Row key={index}>
                         <Table.Cell collapsing>
-                          <a href={`${base}${row.path}`}>
+                          <Link to={`${base}${row.path}`}>
                             <Icon name="file" color="grey" />{row.name}
-                          </a>
+                          </Link>
                         </Table.Cell>
                         <Table.Cell collapsing textAlign="right" />
                       </Table.Row>
