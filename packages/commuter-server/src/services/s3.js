@@ -74,12 +74,20 @@ const getObject = (path, callback) => {
       // The Key does not exist on getObject, it's expected to use the path above
       const s3Response = Object.assign({}, data, { Key: s3Prefix(path) });
 
+      let content = s3Response.Body.toString("utf-8");
+
+      if (isNotebook(s3Response)) {
+        try {
+          content = JSON.parse(content);
+        } catch (err) {
+          callback(err);
+        }
+      }
+
       // Notebook files end up as pure json
       // All other files end up as pure strings in the content field
       const file = Object.assign({}, fileObject(s3Response), {
-        content: isNotebook(s3Response)
-          ? JSON.parse(s3Response.Body) // JSON for notebook
-          : s3Response.Body.toString() // Pure string for everything else
+        content
       });
 
       callback(null, file);
