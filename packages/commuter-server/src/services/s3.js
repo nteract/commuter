@@ -70,6 +70,7 @@ const getObject = (path, callback) => {
   s3.getObject({ Key: s3Prefix(path) }, (err, data) => {
     if (err) {
       callback(err);
+      return;
     } else {
       // The Key does not exist on getObject, it's expected to use the path above
       const s3Response = Object.assign({}, data, { Key: s3Prefix(path) });
@@ -81,6 +82,7 @@ const getObject = (path, callback) => {
           content = JSON.parse(content);
         } catch (err) {
           callback(err);
+          return;
         }
       }
 
