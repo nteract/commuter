@@ -33,7 +33,11 @@ class Commuter extends React.Component {
     const pathname = stripView(this.props.location.pathname);
     return (
       <Container className={css(styles.outerContainer)}>
-        <BreadCrumb path={pathname} onClick={this.handleClick} />
+        <BreadCrumb
+          path={pathname}
+          onClick={this.handleClick}
+          basepath={"/view"}
+        />
         <Container className={css(styles.innerContainer)} textAlign="center">
           <DirectoryListing
             onClick={this.handleClick}

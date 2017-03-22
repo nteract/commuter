@@ -3,45 +3,48 @@ import { Breadcrumb } from "semantic-ui-react";
 import { trim } from "lodash";
 
 const BreadCrumb = props => {
-  const { path, onClick } = props;
+  const { path, basepath, onClick } = props;
   const paths = trim(path, "/").split("/");
   let breadCrumbs = [];
 
-  const handleClick = path => e => {
-    if (onClick) {
-      e.preventDefault();
-      onClick(path);
-    }
-  };
+  const handleClick = path =>
+    e => {
+      if (onClick) {
+        e.preventDefault();
+        onClick(path);
+      }
+    };
 
   breadCrumbs.push(
     <Breadcrumb.Section key="home">
-      <a href="/" onClick={handleClick("/")}>
+      <a href={`${basepath}/`} onClick={handleClick(`${basepath}/`)}>
         Home
       </a>
     </Breadcrumb.Section>
   );
   paths.forEach((name, index) => {
-    const fullPath = paths.slice(0, index + 1).join("/");
+    const filePath = paths.slice(0, index + 1).join("/");
     breadCrumbs.push(
       <Breadcrumb.Divider key={`divider-${index}`} icon="right angle" />
     );
     // last index
-    if (index == paths.length - 1) {
+    if (index == paths.length - 1)
       breadCrumbs.push(
         <Breadcrumb.Section key={`section-${index}`} active>
           {name}
         </Breadcrumb.Section>
       );
-    } else {
+    else
       breadCrumbs.push(
         <Breadcrumb.Section key={`section-${index}`}>
-          <a href={`/${fullPath}/`} onClick={handleClick(`/${fullPath}/`)}>
+          <a
+            href={`${basepath}/${filePath}/`}
+            onClick={handleClick(`${basepath}/${filePath}/`)}
+          >
             {name}
           </a>
         </Breadcrumb.Section>
       );
-    }
   });
   return (
     <Breadcrumb>
