@@ -24,6 +24,8 @@ class Commuter extends React.Component {
       this.loadData(nextProps);
   }
 
+  handleClick = path => this.props.history.push(path);
+
   loadData = ({ location, dispatch }) =>
     dispatch(fetchContents(stripView(location.pathname)));
 
@@ -34,6 +36,7 @@ class Commuter extends React.Component {
         <BreadCrumb path={pathname} onClick={this.handleClick} />
         <Container className={css(styles.innerContainer)} textAlign="center">
           <DirectoryListing
+            onClick={this.handleClick}
             path={this.props.location.pathname}
             contents={this.props.contents}
             basepath={"/view"}
