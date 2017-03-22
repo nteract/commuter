@@ -16,6 +16,8 @@ import { css } from "aphrodite";
 
 import { styles } from "./stylesheets/commuter";
 
+import stripView from "./strip-view";
+
 class Notebook extends React.Component {
   componentDidMount() {
     this.loadData(this.props);
@@ -27,7 +29,7 @@ class Notebook extends React.Component {
   }
 
   loadData = ({ location, dispatch }) =>
-    dispatch(fetchNotebook(location.pathname));
+    dispatch(fetchNotebook(stripView(location.pathname)));
 
   render() {
     return (
