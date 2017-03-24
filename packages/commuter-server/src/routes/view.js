@@ -18,7 +18,7 @@ router.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
   } else {
     // TODO: Include the config.basePath
-    const newPath = req.path.replace(/^\/view\//, "/files/");
+    const newPath = req.path.replace(/^\//, "/files/");
     res.redirect(newPath);
   }
 });
