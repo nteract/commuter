@@ -5,9 +5,12 @@ import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
 
-import { fetchContents } from "./actions";
-
 import "normalize.css/normalize.css";
+import "codemirror/lib/codemirror.css";
+import "@nteract/notebook-preview/styles/main.css";
+import "@nteract/notebook-preview/styles/theme-light.css";
+
+import { fetchContents } from "./actions";
 
 import { Container } from "semantic-ui-react";
 
@@ -65,12 +68,14 @@ const Entry = props => {
   switch (props.entry.type) {
     case "directory":
       return (
-        <DirectoryListing
-          path={props.pathname}
-          contents={props.entry.content}
-          onClick={props.handleClick}
-          basepath={"/view"}
-        />
+        <Container className={css(styles.innerContainer)} textAlign="center">
+          <DirectoryListing
+            path={props.pathname}
+            contents={props.entry.content}
+            onClick={props.handleClick}
+            basepath={"/view"}
+          />
+        </Container>
       );
     case "file":
       // TODO: Case off various file types (by extension, mimetype)
@@ -109,15 +114,11 @@ class Contents extends React.Component {
           onClick={this.handleClick}
           basepath={"/view"}
         />
-        <Container className={css(styles.innerContainer)} textAlign="center">
-          {
-            <Entry
-              entry={this.props.entry}
-              pathname={pathname}
-              handleClick={this.handleClick}
-            />
-          }
-        </Container>
+        <Entry
+          entry={this.props.entry}
+          pathname={pathname}
+          handleClick={this.handleClick}
+        />
       </Container>
     );
   }
