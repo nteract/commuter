@@ -26,7 +26,13 @@ class File extends React.Component {
       <div>
         <iframe
           sandbox="allow-scripts"
-          style={{ width: "100%", height: "100%", border: "none" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            position: "absolute",
+            left: "10rem"
+          }}
           srcDoc={this.props.entry.content}
           ref={f => {
             this.ifr = f;
