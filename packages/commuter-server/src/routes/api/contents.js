@@ -1,13 +1,13 @@
 const express = require("express"),
   router = express.Router(),
-  { isDir } = require("./util"),
+  { isDir } = require("../util"),
   {
     listObjects,
     getObject,
     deleteObject,
     deleteObjects,
     uploadObject
-  } = require("./../services/s3");
+  } = require("./../../services/s3");
 
 const errObject = (err, path) => ({
   message: `${err.message}: ${path}`,
