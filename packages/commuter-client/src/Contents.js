@@ -14,6 +14,7 @@ import { Container } from "semantic-ui-react";
 import { css } from "aphrodite";
 
 import { styles } from "./stylesheets/commuter";
+import stripView from "./strip-view";
 
 class File extends React.Component {
   shouldComponentUpdate() {
@@ -21,12 +22,13 @@ class File extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <iframe
           sandbox="allow-scripts"
           style={{ width: "100%", height: "100%", border: "none" }}
-          src={"/files/test.html"}
+          srcDoc={this.props.entry.content}
           ref={f => {
             this.ifr = f;
           }}
@@ -46,15 +48,16 @@ const Entry = props => {
           path={props.pathname}
           contents={props.entry.content}
           onClick={props.handleClick}
+          basepath={"/view"}
         />
       );
     case "file":
       // TODO: Case off various file types (by extension, mimetype)
       return <File entry={props.entry} pathname={props.pathname} />;
     case "notebook":
-      return <NotebookPreview notebook={props.entry.content} />
+      return <NotebookPreview notebook={props.entry.content} />;
     default:
-      console.log("Unknown contents ")
+      console.log("Unknown contents ");
       return <pre>{JSON.stringify(props.entry.content)}</pre>;
   }
 };
@@ -72,15 +75,19 @@ class Contents extends React.Component {
   }
 
   loadData = ({ location, dispatch }) =>
-    dispatch(fetchContents(location.pathname));
+    dispatch(fetchContents(stripView(location.pathname)));
 
-  handleClick = path => this.context.router.push(path);
+  handleClick = path => this.props.history.push(path);
 
   render() {
-    const { pathname } = this.props.location;
+    const pathname = stripView(this.props.location.pathname);
     return (
       <Container className={css(styles.outerContainer)}>
-        <BreadCrumb path={pathname} onClick={this.handleClick} />
+        <BreadCrumb
+          path={pathname}
+          onClick={this.handleClick}
+          basepath={"/view"}
+        />
         <Container className={css(styles.innerContainer)} textAlign="center">
           {
             <Entry

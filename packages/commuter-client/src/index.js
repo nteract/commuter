@@ -14,7 +14,6 @@ import configureStore from "./store/configureStore";
 
 import App from "./App";
 import Notebook from "./Notebook";
-import Commuter from "./Commuter";
 import Discovery from "./Discovery";
 import Contents from "./Contents";
 
