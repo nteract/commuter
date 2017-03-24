@@ -51,7 +51,6 @@ class HTMLView extends React.Component {
 }
 
 const ZeppelinView = props => {
-  console.log(props.notebook);
   return (
     <div>
       <h1>{props.notebook.name}</h1>
