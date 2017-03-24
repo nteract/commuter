@@ -21,7 +21,7 @@ const commuter = (state = {}, action) => {
       return Object.assign({}, state, { isFetching: action.isFetching });
     case types.RECEIVE_CONTENTS:
       return Object.assign({}, state, {
-        contents: action.contents,
+        entry: action.entry,
         isFetching: action.isFetching
       });
     default:

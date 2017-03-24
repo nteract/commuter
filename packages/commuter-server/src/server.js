@@ -19,12 +19,16 @@ function createServer() {
   app.use(defaultContentTypeMiddleware);
   app.use(bodyParser.json({ limit: "50mb" })); //50mb is the current threshold
   app.use(bodyParser.urlencoded({ extended: true }));
+
+  app.use(express.static("static"));
+
   log.info(`Node env: ${config.nodeEnv}`);
-  if (config.nodeEnv === "production")
-    app.use(
-      "/nteract/commuter",
-      express.static(path.resolve(__dirname, "..", "build"))
-    );
+
+  app.use(
+    "/nteract/commuter",
+    express.static(path.resolve(__dirname, "..", "build"))
+  );
+
   if (!config.s3.params.Bucket) {
     log.error("S3 bucket name missing!!");
     process.exit(1);
