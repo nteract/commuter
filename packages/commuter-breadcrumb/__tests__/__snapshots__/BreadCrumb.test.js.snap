@@ -13,7 +13,7 @@ exports[`renders correctly 1`] = `
       href="/view/"
       onClick={[Function]}
     >
-      Home
+      /
     </a>
   </div>
   <i
