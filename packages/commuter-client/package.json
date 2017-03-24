@@ -26,6 +26,7 @@
     "react-scripts": "^0.9.5"
   },
   "dependencies": {
+    "codemirror": "~5.24.0",
     "@nteract/commuter-breadcrumb": "^0.1.2",
     "@nteract/commuter-directory-listing": "^0.1.2",
     "@nteract/notebook-preview": "^1.0.7",
