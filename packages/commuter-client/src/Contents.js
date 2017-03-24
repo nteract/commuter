@@ -11,12 +11,14 @@ import "normalize.css/normalize.css";
 
 import { Container } from "semantic-ui-react";
 
+import { Redirect } from "react-router-dom";
+
 import { css } from "aphrodite";
 
 import { styles } from "./stylesheets/commuter";
 import stripView from "./strip-view";
 
-class File extends React.Component {
+class HTMLView extends React.Component {
   shouldComponentUpdate() {
     return false;
   }
@@ -42,6 +44,20 @@ class File extends React.Component {
         />
       </div>
     );
+  }
+}
+
+class File extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
+
+  render() {
+    if (this.props.entry.name.endsWith(".html")) {
+      return <HTMLView entry={this.props.entry} />;
+    }
+
+    return <Redirect to={`/files${this.props.pathname}`} />;
   }
 }
 
