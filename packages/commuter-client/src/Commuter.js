@@ -1,20 +1,70 @@
 import React, { PropTypes as T } from "react";
 import { connect } from "react-redux";
 
-import { Container } from "semantic-ui-react";
-import { css } from "aphrodite";
-
+import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
 
 import { fetchContents } from "./actions";
 
-import { styles } from "./stylesheets/commuter";
+import "normalize.css/normalize.css";
 
+import { Container } from "semantic-ui-react";
+
+import { css } from "aphrodite";
+
+import { styles } from "./stylesheets/commuter";
 import stripView from "./strip-view";
 
-class Commuter extends React.Component {
+class File extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
+
+  render() {
+    console.log(this.props);
+    return (
+      <div>
+        <iframe
+          sandbox="allow-scripts"
+          style={{ width: "100%", height: "100%", border: "none" }}
+          srcDoc={this.props.entry.content}
+          ref={f => {
+            this.ifr = f;
+          }}
+          height="100%"
+          width="100%"
+        />
+      </div>
+    );
+  }
+}
+
+const Entry = props => {
+  switch (props.entry.type) {
+    case "directory":
+      return (
+        <DirectoryListing
+          path={props.pathname}
+          contents={props.entry.content}
+          onClick={props.handleClick}
+          basepath={"/view"}
+        />
+      );
+    case "file":
+      // TODO: Case off various file types (by extension, mimetype)
+      return <File entry={props.entry} pathname={props.pathname} />;
+    case "notebook":
+      return <NotebookPreview notebook={props.entry.content} />;
+    default:
+      console.log("Unknown contents ");
+      return <pre>{JSON.stringify(props.entry.content)}</pre>;
+  }
+};
+
+class Contents extends React.Component {
   static contextTypes = { router: T.object.isRequired };
+
   componentDidMount() {
     this.loadData(this.props);
   }
@@ -24,10 +74,10 @@ class Commuter extends React.Component {
       this.loadData(nextProps);
   }
 
-  handleClick = path => this.props.history.push(path);
-
   loadData = ({ location, dispatch }) =>
     dispatch(fetchContents(stripView(location.pathname)));
+
+  handleClick = path => this.props.history.push(path);
 
   render() {
     const pathname = stripView(this.props.location.pathname);
@@ -39,31 +89,30 @@ class Commuter extends React.Component {
           basepath={"/view"}
         />
         <Container className={css(styles.innerContainer)} textAlign="center">
-          <DirectoryListing
-            onClick={this.handleClick}
-            path={this.props.location.pathname}
-            contents={this.props.contents}
-            basepath={"/view"}
-          />
+          {
+            <Entry
+              entry={this.props.entry}
+              pathname={pathname}
+              handleClick={this.handleClick}
+            />
+          }
         </Container>
       </Container>
     );
   }
 }
 
-Commuter.propTypes = {
-  contents: T.array.isRequired,
+Contents.propTypes = {
+  entry: T.object, //  object,
   isFetching: T.bool.isRequired,
   location: T.shape({
     pathname: T.string.isRequired
   })
 };
 
-const mapStateToProps = state => {
-  return {
-    contents: state.commuter.contents,
-    isFetching: state.commuter.isFetching
-  };
-};
+const mapStateToProps = state => ({
+  entry: state.commuter.entry,
+  isFetching: state.commuter.isFetching
+});
 
-export default connect(mapStateToProps)(Commuter);
+export default connect(mapStateToProps)(Contents);
