@@ -50,6 +50,18 @@ class HTMLView extends React.Component {
   }
 }
 
+const ZeppelinView = props => {
+  console.log(props.notebook);
+  return (
+    <div>
+      <h1>{props.notebook.name}</h1>
+      {props.notebook.paragraphs.map(paragraph => (
+        <pre key={paragraph.id}>{paragraph.text}</pre>
+      ))}
+    </div>
+  );
+};
+
 class File extends React.Component {
   shouldComponentUpdate() {
     return false;
@@ -58,6 +70,27 @@ class File extends React.Component {
   render() {
     if (this.props.entry.name.endsWith(".html")) {
       return <HTMLView entry={this.props.entry} />;
+    }
+
+    // Super mega advanced file detection
+    if (this.props.entry.name.endsWith(".json")) {
+      // Zeppelin notebooks are called note.json, we'll go ahead and render them
+      if (this.props.entry.name === "note.json") {
+        try {
+          const notebook = JSON.parse(this.props.entry.content);
+          return <ZeppelinView notebook={notebook} />;
+        } catch (e) {
+          return (
+            <div>
+              <h1>Failed to parse Zeppelin Notebook</h1>
+              <pre>{e.toString()}</pre>
+              <code>{this.props.entry.content}</code>
+            </div>
+          );
+        }
+      }
+
+      return <pre>{this.props.entry.content}</pre>;
     }
 
     return <Redirect to={`/files${this.props.pathname}`} />;
