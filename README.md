@@ -8,13 +8,30 @@
 > /kəˈmyo͞odər/
 > a person who travels some distance to work on a regular basis.
 
-Opinionated [nteract](https://nteract.io) focused server. Commuter reads notebooks from S3, has a directory explorer, and provides a jupyter compatible version of the contents API.
+As commuters, we rush around from place to place all day. We go to work,
+school, and stores. We travel to locations near and far. Eventually, we
+return to our cozy home. :car: :office: :airplane: :tokyo_tower: :bullettrain_side: :department_store: :bus: :school: :bike: :city_sunset: :runner: :house_with_garden:
+
+Like commuters, our data travels around too. Sometimes we need a notebook at
+work and other times at a client's site. Wherever and whenever you need your
+notebooks, **commuter** has you covered.
+
+## What is "commuter"?
+
+As an opinionated [nteract](https://nteract.io) focused server, **commuter**
+reads notebooks from Amazon S3, has a directory explorer to find notebooks,
+and provides a jupyter compatible version of the contents API. You determine
+where your notebooks should reside and where they should be shared. Flexibility
+and convenience. 
 
 ![commuter](https://cloud.githubusercontent.com/assets/836375/23089382/e330effa-f53c-11e6-85d0-7561ccdbe163.gif)
+
+Try **commuter** today and take your notebooks wherever you need them.
 
 [Demo](https://nteract-commuter.herokuapp.com/)
 
 ## Development
+
 Requires Node.js 6+ and npm 3+.
 
 1. `git clone git@github.com:nteract/commuter.git`
@@ -42,6 +59,7 @@ View the dashboard at `http://localhost:3000/<S3_PATH>` and the API at `http://l
 Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and package.json has more options).
 
 ## Test
+
 1. `npm test`
 
 ## Deployment
