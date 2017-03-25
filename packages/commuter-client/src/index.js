@@ -13,7 +13,6 @@ import INITIAL_STATE from "./store/preloadedState";
 import configureStore from "./store/configureStore";
 
 import App from "./App";
-import Notebook from "./Notebook";
 import Discovery from "./Discovery";
 import Contents from "./Contents";
 
@@ -27,7 +26,6 @@ ReactDOM.render(
         <App>
           <Switch>
             <Route path="/discover" component={Discovery} />
-            <Route path="/view/*.ipynb" component={Notebook} />
             <Route path="/view/*" component={Contents} />
           </Switch>
         </App>

@@ -5,9 +5,12 @@ import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
 
-import { fetchContents } from "./actions";
-
 import "normalize.css/normalize.css";
+import "codemirror/lib/codemirror.css";
+import "@nteract/notebook-preview/styles/main.css";
+import "@nteract/notebook-preview/styles/theme-light.css";
+
+import { fetchContents } from "./actions";
 
 import { Container } from "semantic-ui-react";
 
@@ -47,6 +50,17 @@ class HTMLView extends React.Component {
   }
 }
 
+const ZeppelinView = props => {
+  return (
+    <div>
+      <h1>{props.notebook.name}</h1>
+      {props.notebook.paragraphs.map(paragraph => (
+        <pre key={paragraph.id}>{paragraph.text}</pre>
+      ))}
+    </div>
+  );
+};
+
 class File extends React.Component {
   shouldComponentUpdate() {
     return false;
@@ -57,6 +71,27 @@ class File extends React.Component {
       return <HTMLView entry={this.props.entry} />;
     }
 
+    // Super mega advanced file detection
+    if (this.props.entry.name.endsWith(".json")) {
+      // Zeppelin notebooks are called note.json, we'll go ahead and render them
+      if (this.props.entry.name === "note.json") {
+        try {
+          const notebook = JSON.parse(this.props.entry.content);
+          return <ZeppelinView notebook={notebook} />;
+        } catch (e) {
+          return (
+            <div>
+              <h1>Failed to parse Zeppelin Notebook</h1>
+              <pre>{e.toString()}</pre>
+              <code>{this.props.entry.content}</code>
+            </div>
+          );
+        }
+      }
+
+      return <pre>{this.props.entry.content}</pre>;
+    }
+
     return <Redirect to={`/files${this.props.pathname}`} />;
   }
 }
@@ -65,12 +100,14 @@ const Entry = props => {
   switch (props.entry.type) {
     case "directory":
       return (
-        <DirectoryListing
-          path={props.pathname}
-          contents={props.entry.content}
-          onClick={props.handleClick}
-          basepath={"/view"}
-        />
+        <Container className={css(styles.innerContainer)} textAlign="center">
+          <DirectoryListing
+            path={props.pathname}
+            contents={props.entry.content}
+            onClick={props.handleClick}
+            basepath={"/view"}
+          />
+        </Container>
       );
     case "file":
       // TODO: Case off various file types (by extension, mimetype)
@@ -109,15 +146,11 @@ class Contents extends React.Component {
           onClick={this.handleClick}
           basepath={"/view"}
         />
-        <Container className={css(styles.innerContainer)} textAlign="center">
-          {
-            <Entry
-              entry={this.props.entry}
-              pathname={pathname}
-              handleClick={this.handleClick}
-            />
-          }
-        </Container>
+        <Entry
+          entry={this.props.entry}
+          pathname={pathname}
+          handleClick={this.handleClick}
+        />
       </Container>
     );
   }
