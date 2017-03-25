@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-server",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "commuting notebooks across S3 to multi-users",
   "main": "index.js",
   "scripts": {
