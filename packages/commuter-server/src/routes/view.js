@@ -13,6 +13,9 @@ router.get("*", (req, res) => {
   if (
     req.path.endsWith(".ipynb") ||
     req.path.endsWith(".html") ||
+    req.path.endsWith(".json") ||
+    req.path.endsWith(".md") ||
+    req.path.endsWith(".Rmd") ||
     req.path.endsWith("/")
   ) {
     res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
