@@ -1,6 +1,8 @@
 import React, { PropTypes as T } from "react";
 import { connect } from "react-redux";
 
+import Immutable from "immutable";
+
 import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
@@ -73,7 +75,14 @@ class File extends React.Component {
           return <ZeppelinView notebook={content} />;
         }
 
-        return <JSONTransform data={content} />;
+        return (
+          <JSONTransform
+            data={content}
+            metadata={Immutable.Map({
+              expanded: true
+            })}
+          />
+        );
       } catch (e) {
         return (
           <div>
