@@ -5,6 +5,8 @@ import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
 
+import JSONTransform from "@nteract/transforms/lib/json";
+
 import "normalize.css/normalize.css";
 import "codemirror/lib/codemirror.css";
 import "@nteract/notebook-preview/styles/main.css";
@@ -20,6 +22,8 @@ import { css } from "aphrodite";
 
 import { styles } from "./stylesheets/commuter";
 import stripView from "./strip-view";
+
+import ZeppelinView from "./zeppelin";
 
 class HTMLView extends React.Component {
   shouldComponentUpdate() {
@@ -50,17 +54,6 @@ class HTMLView extends React.Component {
   }
 }
 
-const ZeppelinView = props => {
-  return (
-    <div>
-      <h1>{props.notebook.name}</h1>
-      {props.notebook.paragraphs.map(paragraph => (
-        <pre key={paragraph.id}>{paragraph.text}</pre>
-      ))}
-    </div>
-  );
-};
-
 class File extends React.Component {
   shouldComponentUpdate() {
     return false;
@@ -73,23 +66,23 @@ class File extends React.Component {
 
     // Super mega advanced file detection
     if (this.props.entry.name.endsWith(".json")) {
-      // Zeppelin notebooks are called note.json, we'll go ahead and render them
-      if (this.props.entry.name === "note.json") {
-        try {
-          const notebook = JSON.parse(this.props.entry.content);
-          return <ZeppelinView notebook={notebook} />;
-        } catch (e) {
-          return (
-            <div>
-              <h1>Failed to parse Zeppelin Notebook</h1>
-              <pre>{e.toString()}</pre>
-              <code>{this.props.entry.content}</code>
-            </div>
-          );
+      const content = JSON.parse(this.props.entry.content);
+      try {
+        // Zeppelin notebooks are called note.json, we'll go ahead and render them
+        if (this.props.entry.name === "note.json") {
+          return <ZeppelinView notebook={content} />;
         }
-      }
 
-      return <pre>{this.props.entry.content}</pre>;
+        return <JSONTransform data={content} />;
+      } catch (e) {
+        return (
+          <div>
+            <h1>Failed to parse Zeppelin Notebook</h1>
+            <pre>{e.toString()}</pre>
+            <code>{this.props.entry.content}</code>
+          </div>
+        );
+      }
     }
 
     return <Redirect to={`/files${this.props.pathname}`} />;
