@@ -125,9 +125,9 @@ class Contents extends React.Component {
       this.loadData(nextProps);
   }
 
-  loadData = ({ location, dispatch }) =>
+  loadData = ({ location, dispatch }) => {
     dispatch(fetchContents(stripView(location.pathname)));
-
+  };
   handleClick = path => this.props.history.push(path);
 
   render() {
