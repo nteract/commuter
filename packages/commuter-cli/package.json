@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-cli",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "cli to setup commuter client and server",
   "bin": {
     "commuter": "lib/index.js"
@@ -32,8 +32,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@nteract/commuter-client": "^0.1.8",
-    "@nteract/commuter-server": "^0.1.5",
+    "@nteract/commuter-client": "^0.1.9",
+    "@nteract/commuter-server": "^0.1.6",
     "commander": "^2.9.0",
     "concurrently": "^3.1.0",
     "copy-dir": "^0.3.0",
