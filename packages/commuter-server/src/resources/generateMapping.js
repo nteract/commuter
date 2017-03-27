@@ -49,10 +49,12 @@ const getCommuterSchema = () => ({
         },
         created: {
           description: "Date created",
+          index: "not_analyzed",
           type: "string"
         },
         last_modified: {
           description: "Date modified",
+          index: "not_analyzed",
           type: "string"
         },
         mimetype: {
