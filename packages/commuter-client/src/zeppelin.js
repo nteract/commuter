@@ -86,6 +86,10 @@ const Result = props => {
   if (!props.result) {
     return null;
   }
+  if (!props.result.msg) {
+    return <UnsupportedResult result={props.result} />;
+  }
+
   switch (props.result.type) {
     case "HTML":
       return <HTML data={props.result.msg} />;
