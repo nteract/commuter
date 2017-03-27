@@ -69,6 +69,15 @@ const HokeyTable = props => (
 const UnsupportedResult = props => (
   <div>
     <h1>UNSUPPORTED ZEPPELIN RESULT</h1>
+    <p>
+      Post an issue to
+      {" "}
+      <a href="https://github.com/nteract/commuter/issues/new" target="_blank">
+        commuter
+      </a>
+      {" "}
+      to let us know about it
+    </p>
     <JSONTransform data={props.result} />
   </div>
 );
@@ -92,8 +101,9 @@ const Result = props => {
           rows={props.result.rows}
         />
       );
+    default:
+      return <UnsupportedResult result={props.result} />;
   }
-  return <UnsupportedResult result={props.result} />;
 };
 
 const Paragraph = props => {
