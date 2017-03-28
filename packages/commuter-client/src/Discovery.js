@@ -13,6 +13,8 @@ import { StyleSheet, css } from "aphrodite";
 
 import { styles } from "./stylesheets/commuter";
 
+const base = "/view";
+
 const Authors = props => (
   <span className="authors">
     {props.authors.map(author => author.name).join(", ")}
@@ -49,7 +51,7 @@ const DiscoveryItem = props => (
       src={props.image ? props.image : "https://icon.now.sh/library_books/ccc"}
     />
     <Item.Content>
-      <Item.Header as="a" href={props.path}>
+      <Item.Header as="a" href={`${base}${props.path}`}>
         {props.metadata.title ? props.metadata.title : props.name}
       </Item.Header>
       <Item.Meta>
