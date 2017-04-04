@@ -34,9 +34,31 @@ Try **commuter** today and take your notebooks wherever you need them.
 
 Requires Node.js 6+ and npm 3+.
 
+#### Required env variables
+`export COMMUTER_BUCKET=<name> COMMUTER_S3_KEY=<key> COMMUTER_S3_SECRET=<secret>`
+
+#### Quick Start
+
 1. `git clone git@github.com:nteract/commuter.git`
 1. `npm install`
-1. `COMMUTER_BUCKET=<name> COMMUTER_S3_KEY=<key> COMMUTER_S3_SECRET=<secret> npm start`
+1. `npm start`
+1. open `http://localhost:3000`
+
+#### Watch mode
+For more granular control and automatic reloads run following in seperate terminals:
+
+1. `npm run client` - browser refresh
+1. `npm run server:watch` - reload express on file changes
+1. `npm run watch` - build lerna components 
+
+*Notes*
+
+In watch mode, API server (express) runs on `port 4000` and the client (webpack dev server) runs on `port 3000`. 
+And for ease of development the webpack dev server proxies requests made on `port 3000` to `port 4000` (also avoids CORS issues).
+On production, the server directly renders `index.html` with bundled static assets.
+
+1. Directory explorer - `http://localhost:3000` 
+1. API server - `http://localhost:4000/api/contents/<S3_PATH>`
 
 *Available env options*
 
@@ -50,15 +72,9 @@ COMMUTER_PATH_DELIMITER (optional, defaults to "/")
 COMMUTER_PORT (optional, defaults to 4000)
 ```
 
-*Notes*
+Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and [package.json] (https://github.com/nteract/commuter/blob/master/package.json) has more options).
 
-The API server (express) runs on port 4000 while the client (UI) runs on port 3000. The client uses the webpack dev server and proxies 3000 -> 4000 to avoid CORS issues. On production the express App serves `index.html` and static assets.
-
-View the dashboard at `http://localhost:3000/<S3_PATH>` and the API at `http://localhost:4000/api/contents/<S3_PATH>`
-
-Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and package.json has more options).
-
-## Test
+## Tests
 
 1. `npm test`
 
@@ -66,29 +82,16 @@ Project uses [prettier](https://github.com/jlongster/prettier) for code formatti
 
 coming soon...
 
-## ROADMAP
+## Publish
 
-This roadmap is organized into stages of development, leading towards a backend for (mostly) real-time collaboration.
+1. `npm publish` - on npm under `@nteract` org
+2. `git push --tags`
+2. [@nteract/commuter-client](https://www.npmjs.com/package/@nteract/commuter-client)
+2. [@nteract/commuter-server](https://www.npmjs.com/package/@nteract/commuter-server)
+2. [@nteract/commuter-cli](https://www.npmjs.com/package/@nteract/commuter-cli)
+2. [@nteract/commuter-breadcrumb](https://www.npmjs.com/package/@nteract/commuter-breadcrumb)
+2. [@nteract/commuter-directory-listing](https://www.npmjs.com/package/@nteract/commuter-directory-listing)
+ 
+## Roadmap
 
-### Stage I
-
-- [x] List and Load notebooks from S3
-  - [x] Bucket, etc. loaded from configuration (e.g. `COMMUTER_BUCKET=xyz`)
-  - [x] Roles or Amazon environment variables automatically picked up (via `aws-sdk`)
-- [x] Tree view of notebook content
-- [x] Render page using notebook-preview
-
-### Stage II
-
-- [ ] Start outlining an authentication and permissions strategy
-- [ ] Provide/use kernels from configured source (e.g. tmpnb.org, jupyterhub, or your private setup)
-- [x] Render page using nteract/nteract components
-
-### Stage III
-
-- [x] Save notebooks back to S3
-- [x] Delete notebooks
-
-### Stage IV
-
-- [ ] Create server side in-memory model of notebook and transient models, push to clients
+Details [here](https://github.com/nteract/commuter/blob/master/ROADMAP.md)
