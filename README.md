@@ -22,13 +22,17 @@ As an opinionated [nteract](https://nteract.io) focused server, **commuter**
 reads notebooks from Amazon S3, has a directory explorer to find notebooks,
 and provides a jupyter compatible version of the contents API. You determine
 where your notebooks should reside and where they should be shared. Flexibility
-and convenience. 
+and convenience.
 
 ![commuter](https://cloud.githubusercontent.com/assets/836375/23089382/e330effa-f53c-11e6-85d0-7561ccdbe163.gif)
 
 Try **commuter** today and take your notebooks wherever you need them.
 
 [Demo](https://nteract-commuter.herokuapp.com/)
+
+## Roadmap
+
+Details [here](https://github.com/nteract/commuter/blob/master/ROADMAP.md)
 
 ## Development
 
@@ -49,15 +53,15 @@ For more granular control and automatic reloads run following in seperate termin
 
 1. `npm run client` - browser refresh
 1. `npm run server:watch` - reload express on file changes
-1. `npm run watch` - build lerna components 
+1. `npm run watch` - build lerna components
 
 *Notes*
 
-In watch mode, API server (express) runs on `port 4000` and the client (webpack dev server) runs on `port 3000`. 
+In watch mode, API server (express) runs on `port 4000` and the client (webpack dev server) runs on `port 3000`.
 And for ease of development the webpack dev server proxies requests made on `port 3000` to `port 4000` (also avoids CORS issues).
 On production, the server directly renders `index.html` with bundled static assets.
 
-1. Directory explorer - `http://localhost:3000` 
+1. Directory explorer - `http://localhost:3000`
 1. API server - `http://localhost:4000/api/contents/<S3_PATH>`
 
 *Available env options*
@@ -72,7 +76,7 @@ COMMUTER_PATH_DELIMITER (optional, defaults to "/")
 COMMUTER_PORT (optional, defaults to 4000)
 ```
 
-Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and [package.json] (https://github.com/nteract/commuter/blob/master/package.json) has more options).
+Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and [package.json](https://github.com/nteract/commuter/blob/master/package.json) has more options).
 
 ## Tests
 
@@ -80,7 +84,17 @@ Project uses [prettier](https://github.com/jlongster/prettier) for code formatti
 
 ## Deployment
 
-coming soon...
+There are few different ways to get commuter deployed on your severs:
+
+Firstly, to change default port `4000` set env variables `COMMUTER_PORT`
+
+1. If you want to deploy `master` branch then do `git clone git@github.com:nteract/commuter.git` and run `npm run start:production` on your server
+1. Currently, the [Demo](https://nteract-commuter.herokuapp.com/) app is deployed on [Heroku](https://www.heroku.com/).
+Instructions for getting started and setting up heroku-cli are [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction).
+Once all **required env variables** are set do `git push heroku master`
+1. If you want to deploy npm published packages (**recomended**) then:
+  * Install commuter cli `npm install @nteract/commuter-cli -g`
+  * `exec commuter server` - the service is typically wrapped inside [daemontools](https://cr.yp.to/daemontools.html)
 
 ## Publish
 
@@ -91,7 +105,4 @@ coming soon...
 2. [@nteract/commuter-cli](https://www.npmjs.com/package/@nteract/commuter-cli)
 2. [@nteract/commuter-breadcrumb](https://www.npmjs.com/package/@nteract/commuter-breadcrumb)
 2. [@nteract/commuter-directory-listing](https://www.npmjs.com/package/@nteract/commuter-directory-listing)
- 
-## Roadmap
 
-Details [here](https://github.com/nteract/commuter/blob/master/ROADMAP.md)
