@@ -47,3 +47,6 @@ lib
 
 # Yarn Integrity file
 .yarn-integrity
+
+# xmark files
+.xmark.*
