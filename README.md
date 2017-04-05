@@ -44,7 +44,7 @@ Requires Node.js 6+ and npm 3+.
 #### Quick Start
 
 1. `git clone git@github.com:nteract/commuter.git`
-1. `npm install`
+1. `npm i`
 1. `npm start`
 1. open `http://localhost:3000`
 
@@ -88,21 +88,36 @@ There are few different ways to get commuter deployed on your severs:
 
 Firstly, to change default port `4000` set env variables `COMMUTER_PORT`
 
-1. If you want to deploy `master` branch then do `git clone git@github.com:nteract/commuter.git` and run `npm run start:production` on your server
+#### From master branch
+
+1. Enter in the terminal:
+
+        git clone git@github.com:nteract/commuter.git
+        npm i
+        npm start
+        open http://localhost:3000
+
+
 1. Currently, the [Demo](https://nteract-commuter.herokuapp.com/) app is deployed on [Heroku](https://www.heroku.com/).
-Instructions for getting started and setting up heroku-cli are [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction).
-Once all **required env variables** are set do `git push heroku master`
-1. If you want to deploy npm published packages (**recomended**) then:
-  * Install commuter cli `npm install @nteract/commuter-cli -g`
-  * `exec commuter server` - the service is typically wrapped inside [daemontools](https://cr.yp.to/daemontools.html)
+Heroku provides [a guide for getting started with the heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction) which will get you
+all set up. After all **required env variables** are set, run:
+
+        git push heroku master
+
+#### From published packages (**recommended**)
+  1. Install commuter cli `npm install @nteract/commuter-cli -g`
+  1. `exec commuter server` - the service is typically wrapped inside [daemontools](https://cr.yp.to/daemontools.html)
 
 ## Publish
 
-1. `npm publish` - on npm under `@nteract` org
-2. `git push --tags`
-2. [@nteract/commuter-client](https://www.npmjs.com/package/@nteract/commuter-client)
-2. [@nteract/commuter-server](https://www.npmjs.com/package/@nteract/commuter-server)
-2. [@nteract/commuter-cli](https://www.npmjs.com/package/@nteract/commuter-cli)
-2. [@nteract/commuter-breadcrumb](https://www.npmjs.com/package/@nteract/commuter-breadcrumb)
-2. [@nteract/commuter-directory-listing](https://www.npmjs.com/package/@nteract/commuter-directory-listing)
+1. `npm publish`
+1. `git push --tags`
+
+#### commuter packages
+* [@nteract/commuter-client](https://www.npmjs.com/package/@nteract/commuter-client)
+* [@nteract/commuter-server](https://www.npmjs.com/package/@nteract/commuter-server)
+* [@nteract/commuter-cli](https://www.npmjs.com/package/@nteract/commuter-cli)
+* [@nteract/commuter-breadcrumb](https://www.npmjs.com/package/@nteract/commuter-breadcrumb)
+* [@nteract/commuter-directory-listing](https://www.npmjs.com/package/@nteract/commuter-directory-listing)
+
 
