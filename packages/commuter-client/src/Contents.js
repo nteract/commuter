@@ -47,16 +47,8 @@ class HTMLView extends React.Component {
             width: "100%",
             height: "100%",
             border: "none",
-            // position: "fixed",
-            // position: "absolute",
-            // top: "200px",
-            // left: "0px",
-            // bottom: "0px",
-            // right: "0px",
             margin: "0",
             padding: "0",
-            // overflow: "hidden",
-            // zIndex: "999999",
             display: "block"
           }}
           srcDoc={this.props.entry.content}
@@ -158,14 +150,17 @@ class Contents extends React.Component {
     const pathname = stripView(this.props.location.pathname);
     return (
       <div className={css(styles.outerContainer)}>
-        <BreadCrumb
-          path={pathname}
-          onClick={this.handleClick}
-          basepath={"/view"}
+        <div
           style={{
             marginLeft: "1rem"
           }}
-        />
+        >
+          <BreadCrumb
+            path={pathname}
+            onClick={this.handleClick}
+            basepath={"/view"}
+          />
+        </div>
         <Entry
           entry={this.props.entry}
           pathname={pathname}
