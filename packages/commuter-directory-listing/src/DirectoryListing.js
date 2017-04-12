@@ -18,9 +18,7 @@ const DirectoryListing = props => {
         <Segment>
           <Table basic="very" padded>
             <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell colSpan="2">Listing</Table.HeaderCell>
-              </Table.Row>
+              <Table.Row />
             </Table.Header>
             <Table.Body>
               {props.contents.map((row, index) => {

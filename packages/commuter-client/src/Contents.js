@@ -34,15 +34,22 @@ class HTMLView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%"
+        }}
+      >
         <iframe
           sandbox="allow-scripts"
           style={{
             width: "100%",
             height: "100%",
             border: "none",
-            position: "absolute",
-            left: "10rem"
+            margin: "0",
+            padding: "0",
+            display: "block"
           }}
           srcDoc={this.props.entry.content}
           ref={f => {
@@ -102,7 +109,11 @@ const Entry = props => {
   switch (props.entry.type) {
     case "directory":
       return (
-        <Container className={css(styles.innerContainer)} textAlign="center">
+        <Container
+          fluid
+          className={css(styles.innerContainer)}
+          textAlign="center"
+        >
           <DirectoryListing
             path={props.pathname}
             contents={props.entry.content}
@@ -142,12 +153,18 @@ class Contents extends React.Component {
   render() {
     const pathname = stripView(this.props.location.pathname);
     return (
-      <Container className={css(styles.outerContainer)}>
-        <BreadCrumb
-          path={pathname}
-          onClick={this.handleClick}
-          basepath={"/view"}
-        />
+      <Container fluid className={css(styles.outerContainer)}>
+        <div
+          style={{
+            marginLeft: "1rem"
+          }}
+        >
+          <BreadCrumb
+            path={pathname}
+            onClick={this.handleClick}
+            basepath={"/view"}
+          />
+        </div>
         <Entry
           entry={this.props.entry}
           pathname={pathname}
