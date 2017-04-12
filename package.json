@@ -16,7 +16,7 @@
     "clean:build": "lerna exec -- rm -rf ./build",
     "format:code": "prettier --write 'packages/*/src/**/*.js' 'packages/*/test/**/*.js'",
     "install": "npm run lerna && npm run build",
-    "lerna": "lerna bootstrap",
+    "lerna": "lerna init && lerna bootstrap",
     "publish": "npm run clean && npm install && lerna publish",
     "start": "lerna exec --scope @nteract/commuter-cli -- npm run start",
     "start:watch": "concurrently \"lerna exec --scope @nteract/commuter-cli -- npm run start\" \"npm run watch\"",
@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
-    "lerna": "2.0.0-rc.1"
+    "lerna": "^2.0.0-rc.1"
   },
   "devDependencies": {
     "concurrently": "^3.1.0",
