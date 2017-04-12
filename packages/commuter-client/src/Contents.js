@@ -109,7 +109,11 @@ const Entry = props => {
   switch (props.entry.type) {
     case "directory":
       return (
-        <Container className={css(styles.innerContainer)} textAlign="center">
+        <Container
+          fluid
+          className={css(styles.innerContainer)}
+          textAlign="center"
+        >
           <DirectoryListing
             path={props.pathname}
             contents={props.entry.content}
@@ -149,7 +153,7 @@ class Contents extends React.Component {
   render() {
     const pathname = stripView(this.props.location.pathname);
     return (
-      <div className={css(styles.outerContainer)}>
+      <Container fluid className={css(styles.outerContainer)}>
         <div
           style={{
             marginLeft: "1rem"
@@ -166,7 +170,7 @@ class Contents extends React.Component {
           pathname={pathname}
           handleClick={this.handleClick}
         />
-      </div>
+      </Container>
     );
   }
 }
