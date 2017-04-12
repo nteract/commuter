@@ -34,15 +34,30 @@ class HTMLView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%"
+        }}
+      >
         <iframe
           sandbox="allow-scripts"
           style={{
             width: "100%",
             height: "100%",
             border: "none",
-            position: "absolute",
-            left: "10rem"
+            // position: "fixed",
+            // position: "absolute",
+            // top: "200px",
+            // left: "0px",
+            // bottom: "0px",
+            // right: "0px",
+            margin: "0",
+            padding: "0",
+            // overflow: "hidden",
+            // zIndex: "999999",
+            display: "block"
           }}
           srcDoc={this.props.entry.content}
           ref={f => {
@@ -142,18 +157,21 @@ class Contents extends React.Component {
   render() {
     const pathname = stripView(this.props.location.pathname);
     return (
-      <Container className={css(styles.outerContainer)}>
+      <div className={css(styles.outerContainer)}>
         <BreadCrumb
           path={pathname}
           onClick={this.handleClick}
           basepath={"/view"}
+          style={{
+            marginLeft: "1rem"
+          }}
         />
         <Entry
           entry={this.props.entry}
           pathname={pathname}
           handleClick={this.handleClick}
         />
-      </Container>
+      </div>
     );
   }
 }

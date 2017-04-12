@@ -6,10 +6,10 @@ import Header from "./Header";
 class App extends React.Component {
   render() {
     return (
-      <Container>
+      <div>
         <Header />
         {this.props.children}
-      </Container>
+      </div>
     );
   }
 }
