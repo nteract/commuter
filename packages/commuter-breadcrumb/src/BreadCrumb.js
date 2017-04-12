@@ -17,7 +17,11 @@ const BreadCrumb = props => {
 
   breadCrumbs.push(
     <Breadcrumb.Section key="home">
-      <a href={`${basepath}/`} onClick={handleClick(`${basepath}/`)}>
+      <a
+        href={`${basepath}/`}
+        onClick={handleClick(`${basepath}/`)}
+        style={{ display: "block", width: "1rem", height: "1rem" }}
+      >
         /
       </a>
     </Breadcrumb.Section>
