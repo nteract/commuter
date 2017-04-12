@@ -20,7 +20,7 @@ const BreadCrumb = props => {
       <a
         href={`${basepath}/`}
         onClick={handleClick(`${basepath}/`)}
-        style={{ display: "block", width: "1rem", height: "1rem" }}
+        style={{ display: "block", width: "2em", height: "2em" }}
       >
         /
       </a>
