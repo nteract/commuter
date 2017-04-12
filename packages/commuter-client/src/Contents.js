@@ -115,6 +115,7 @@ const Entry = props => {
           textAlign="center"
         >
           <DirectoryListing
+            className={css(styles.listing)}
             path={props.pathname}
             contents={props.entry.content}
             onClick={props.handleClick}
@@ -155,8 +156,9 @@ class Contents extends React.Component {
     return (
       <Container fluid className={css(styles.outerContainer)}>
         <div
+          className={css(styles.listing)}
           style={{
-            marginLeft: "1rem"
+            marginLeft: "2rem"
           }}
         >
           <BreadCrumb

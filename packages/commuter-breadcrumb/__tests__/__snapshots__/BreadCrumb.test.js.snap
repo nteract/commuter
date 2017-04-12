@@ -12,6 +12,13 @@ exports[`renders correctly 1`] = `
     <a
       href="/view/"
       onClick={[Function]}
+      style={
+        Object {
+          "display": "block",
+          "height": "2em",
+          "width": "2em",
+        }
+      }
     >
       /
     </a>
