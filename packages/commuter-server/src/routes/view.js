@@ -8,22 +8,31 @@ const path = require("path");
 
 const router = express.Router();
 
+const suffixRegex = /(?:\.([^.]+))?$/;
+
+const renderSuffixes = new Set(["ipynb", "html", "json", "md", "rmd"]);
+const renderAccepts = new Set(["text/html", "application/xhtml+xml"]);
+
 router.get("*", (req, res) => {
-  log.info("on the view path");
+  const suffix = (suffixRegex.exec(req.path)[1] || "").toLowerCase();
+  const accepts = (req.headers.accept || "").split(",");
+
   if (
-    req.path.endsWith(".ipynb") ||
-    req.path.endsWith(".html") ||
-    req.path.endsWith(".json") ||
-    req.path.endsWith(".md") ||
-    req.path.endsWith(".Rmd") ||
-    req.path.endsWith("/")
+    // If one of our suffixes is a renderable item
+    renderSuffixes.has(suffix) ||
+    // If the file is requested as `text/html` first and foremost, we'll also
+    // render our file viewer
+    renderAccepts.has(accepts[0]) ||
+    renderAccepts.has(accepts[1])
   ) {
     res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
-  } else {
-    // TODO: Include the config.basePath
-    const newPath = req.path.replace(/^\//, "/files/");
-    res.redirect(newPath);
+    return;
   }
+
+  // TODO: Include the config.basePath
+  const newPath = req.path.replace(/^\//, "/files/");
+  res.redirect(newPath);
+  return;
 });
 
 module.exports = router;
