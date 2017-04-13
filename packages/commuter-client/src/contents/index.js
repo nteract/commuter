@@ -14,7 +14,7 @@ import "codemirror/lib/codemirror.css";
 import "@nteract/notebook-preview/styles/main.css";
 import "@nteract/notebook-preview/styles/theme-light.css";
 
-import { fetchContents } from "./actions";
+import { fetchContents } from "../actions";
 
 import { Container } from "semantic-ui-react";
 
@@ -22,7 +22,7 @@ import { Redirect } from "react-router-dom";
 
 import { css } from "aphrodite";
 
-import { styles } from "./stylesheets/commuter";
+import { styles } from "../stylesheets/commuter";
 import stripView from "./strip-view";
 
 import ZeppelinView from "./zeppelin";
