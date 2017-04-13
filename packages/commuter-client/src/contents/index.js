@@ -56,20 +56,22 @@ class File extends React.Component {
       case "gif":
       case "jpeg":
       case "png":
-        console.log("woo");
         return (
           <Container fluid className={css(styles.innerContainer)}>
-            <img src={`/files${this.props.pathname}`} />
+            <img
+              src={`/files${this.props.pathname}`}
+              alt={this.props.pathname}
+            />
           </Container>
         );
+      default:
+        return (
+          <div>
+            <p>Downloading file</p>
+            <Redirect to={`/files${this.props.pathname}`} />
+          </div>
+        );
     }
-
-    return (
-      <div>
-        <p>Downloading file</p>
-        <Redirect to={`/files${this.props.pathname}`} />
-      </div>
-    );
   }
 }
 
