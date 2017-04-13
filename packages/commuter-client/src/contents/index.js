@@ -1,20 +1,18 @@
 import React, { PropTypes as T } from "react";
 import { connect } from "react-redux";
 
-import Immutable from "immutable";
-
 import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "@nteract/commuter-directory-listing";
 import BreadCrumb from "@nteract/commuter-breadcrumb";
 
-import JSONTransform from "@nteract/transforms/lib/json";
+import MarkdownTransform from "@nteract/transforms/lib/markdown";
 
 import "normalize.css/normalize.css";
 import "codemirror/lib/codemirror.css";
 import "@nteract/notebook-preview/styles/main.css";
 import "@nteract/notebook-preview/styles/theme-light.css";
 
-import { fetchContents } from "./actions";
+import { fetchContents } from "../actions";
 
 import { Container } from "semantic-ui-react";
 
@@ -22,46 +20,13 @@ import { Redirect } from "react-router-dom";
 
 import { css } from "aphrodite";
 
-import { styles } from "./stylesheets/commuter";
+import { styles } from "../stylesheets/commuter";
 import stripView from "./strip-view";
 
-import ZeppelinView from "./zeppelin";
+import HTMLView from "./html";
+import JSONView from "./json";
 
-class HTMLView extends React.Component {
-  shouldComponentUpdate() {
-    return false;
-  }
-
-  render() {
-    return (
-      <div
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "100%"
-        }}
-      >
-        <iframe
-          sandbox="allow-scripts"
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "none",
-            margin: "0",
-            padding: "0",
-            display: "block"
-          }}
-          srcDoc={this.props.entry.content}
-          ref={f => {
-            this.ifr = f;
-          }}
-          height="100%"
-          width="100%"
-        />
-      </div>
-    );
-  }
-}
+const suffixRegex = /(?:\.([^.]+))?$/;
 
 class File extends React.Component {
   shouldComponentUpdate() {
@@ -69,39 +34,44 @@ class File extends React.Component {
   }
 
   render() {
-    if (this.props.entry.name.endsWith(".html")) {
-      return <HTMLView entry={this.props.entry} />;
-    }
+    const name = this.props.entry.name;
+    const suffix = (suffixRegex.exec(name)[1] || "").toLowerCase();
 
-    // Super mega advanced file detection
-    if (this.props.entry.name.endsWith(".json")) {
-      const content = JSON.parse(this.props.entry.content);
-      try {
-        // Zeppelin notebooks are called note.json, we'll go ahead and render them
-        if (this.props.entry.name === "note.json") {
-          return <ZeppelinView notebook={content} />;
-        }
-
+    switch (suffix) {
+      case "html":
+        return <HTMLView entry={this.props.entry} />;
+      case "json":
+        return <JSONView entry={this.props.entry} />;
+      case "md":
+      case "markdown":
+      case "rmd":
         return (
-          <JSONTransform
-            data={content}
-            metadata={Immutable.Map({
-              expanded: true
-            })}
-          />
+          <Container fluid className={css(styles.innerContainer)}>
+            <MarkdownTransform
+              style={{ paddingLeft: "2rem" }}
+              data={this.props.entry.content}
+            />
+          </Container>
         );
-      } catch (e) {
+      case "gif":
+      case "jpeg":
+      case "png":
+        return (
+          <Container fluid className={css(styles.innerContainer)}>
+            <img
+              src={`/files${this.props.pathname}`}
+              alt={this.props.pathname}
+            />
+          </Container>
+        );
+      default:
         return (
           <div>
-            <h1>Failed to parse Zeppelin Notebook</h1>
-            <pre>{e.toString()}</pre>
-            <code>{this.props.entry.content}</code>
+            <p>Downloading file</p>
+            <Redirect to={`/files${this.props.pathname}`} />
           </div>
         );
-      }
     }
-
-    return <Redirect to={`/files${this.props.pathname}`} />;
   }
 }
 

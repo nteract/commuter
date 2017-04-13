@@ -14,7 +14,7 @@ import configureStore from "./store/configureStore";
 
 import App from "./App";
 import Discovery from "./Discovery";
-import Contents from "./Contents";
+import Contents from "./contents";
 
 const store = configureStore(INITIAL_STATE);
 
