@@ -31,6 +31,7 @@
     "@nteract/notebook-preview": "^1.1.1",
     "aphrodite": "^1.1.0",
     "codemirror": "~5.24.0",
+    "d3-dsv": "^1.0.5",
     "normalize.css": "^6.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
