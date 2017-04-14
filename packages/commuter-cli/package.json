@@ -6,7 +6,7 @@
     "commuter": "lib/index.js"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently --kill-others \"npm run server\" \"npm run client\"",
     "start:production": "NODE_ENV=production&&npm run server",
     "server": "./src/index.js server",
     "server:watch": "nodemon --watch ./../commuter-server/src ./src/index.js server",
