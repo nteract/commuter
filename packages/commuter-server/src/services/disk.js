@@ -127,36 +127,58 @@ function createContentPromise(filePath): Promise<Content> {
   });
 }
 
-function getDirectory(dirPath): Promise<DirectoryContent> {
-  // TODO: dirPath should be normalized
-  const directoryContentP = createContentPromise(dirPath);
+function get(filePath): Promise<Content> {
+  // TODO: filePath should be normalized
+  const contentP = createContentPromise(filePath);
+  return contentP.then(content => {
+    if (content.type === "directory") {
+      return getDirectory(content);
+    }
+    if (content.type === "file") {
+      return getFile(content);
+    }
+    throw new Error("WHOA THERE BUCKAROO");
+  });
+}
 
-  return createContentPromise(dirPath).then((directory: DirectoryContent) => {
-    return new Promise((resolve, reject) => {
-      fs.readdir(dirPath, (err, listing) => {
-        if (err) {
-          reject(err);
-          return;
-        }
+function getDirectory(directory: DirectoryContent): Promise<DirectoryContent> {
+  return new Promise((resolve, reject) => {
+    fs.readdir(directory.path, (err, listing) => {
+      if (err) {
+        reject(err);
+        return;
+      }
 
-        // Perform a stat call on each file, creating a promise for each
-        // return value
-        const contentPromises = listing.map(
-          // map across each file listed from the directory
-          fname =>
-            // creating a promise for each filename
-            createContentPromise(path.join(dirPath, fname))
-        );
+      // Perform a stat call on each file, creating a promise for each
+      // return value
+      const contentPromises = listing.map(
+        // map across each file listed from the directory
+        fname =>
+          // creating a promise for each filename
+          createContentPromise(path.join(directory.path, fname))
+      );
 
-        Promise.all(contentPromises)
-          .then(contents => contents.filter(x => x !== null))
-          .then(contents => {
-            directory.content = contents;
-            resolve(directory);
-          });
-      });
+      Promise.all(contentPromises)
+        .then(contents => contents.filter(x => x !== null))
+        .then(contents => {
+          resolve(Object.assign({}, directory, { content: contents }));
+        });
     });
   });
 }
 
-getDirectory(".").then(console.log);
+function getFile(file: FileContent): Promise<FileContent> {
+  return new Promise((resolve, reject) => {
+    // TODO: Should we support a streaming interface or nah
+    fs.readFile(file.path, (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(Object.assign({}, file, { content: data.toString() }));
+    });
+  });
+}
+
+get("./").then(ls => console.log("\n**LISTING**\n", ls));
+
+get("./package.json").then(fi => console.log("\n**FILE**\n", fi));
