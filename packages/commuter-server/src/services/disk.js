@@ -1,18 +1,13 @@
 // @flow
+
 /**
- * Goal:
- *
- * - Create a local storage provider for commuter
- * - Unify interface between S3 and local storage
- *
+ * Local storage provider for commuter
  */
 
 // TODO: Deal with directory traversal (that's a no-no)
 
 const fs = require("fs");
 const path = require("path");
-
-type TimeStamp = Date;
 
 type DirectoryContent = {
   type: "directory",
@@ -22,8 +17,8 @@ type DirectoryContent = {
   name: string,
   path: string,
 
-  created: TimeStamp,
-  last_modified: TimeStamp,
+  created: Date,
+  last_modified: Date,
   writable: boolean,
   format: "json"
 };
@@ -31,13 +26,13 @@ type DirectoryContent = {
 type NotebookContent = {
   type: "notebook",
   mimetype: null,
-  content: null | Object, // Could allow for some notebookisms here
+  content: null | Object,
 
   name: string,
   path: string,
 
-  created: TimeStamp,
-  last_modified: TimeStamp,
+  created: Date,
+  last_modified: Date,
   writable: boolean,
   format: "json"
 };
@@ -50,13 +45,17 @@ type FileContent = {
   name: string,
   path: string,
 
-  created: TimeStamp,
-  last_modified: TimeStamp,
+  created: Date,
+  last_modified: Date,
   writable: boolean,
   format: null | "text" | "base64"
 };
 
 type Content = DirectoryContent | FileContent | NotebookContent;
+
+type DiskProviderOptions = {
+  baseDirectory: string
+};
 
 function createContentResponse(
   parsedFilePath: {
@@ -122,11 +121,15 @@ function createContentResponse(
   );
 }
 
-function createContentPromise(filePath): Promise<Content> {
+function createContentPromise(
+  options: DiskProviderOptions,
+  filePath: string
+): Promise<Content> {
+  const fullPath = path.join(options.baseDirectory, filePath);
   const parsedFilePath = path.parse(filePath);
   return new Promise((resolve, reject) => {
     // perform a STAT call to create contents response
-    fs.stat(filePath, (err, stat) => {
+    fs.stat(fullPath, (err, stat) => {
       if (err) {
         // Could also resolve with an error, then filter it out
         // TODO: Decide on what to do in error case
@@ -142,24 +145,34 @@ function createContentPromise(filePath): Promise<Content> {
   });
 }
 
-function get(filePath): Promise<Content> {
+function get(
+  options: DiskProviderOptions,
+  unsafeFilePath: string
+): Promise<Content> {
+  const filePath = path.join(
+    path.normalize(unsafeFilePath).replace(/^(\.\.[\/\\])+/, "")
+  );
+
   // TODO: filePath should be normalized
-  const contentP = createContentPromise(filePath);
+  const contentP = createContentPromise(options, filePath);
   return contentP.then(content => {
     if (content.type === "directory") {
-      return getDirectory(content);
+      return getDirectory(options, content);
     }
     if (content.type === "file") {
-      return getFile(content);
+      return getFile(options, content);
     }
     if (content.type === "notebook") {
-      return getNotebook(content);
+      return getNotebook(options, content);
     }
-    throw new Error("WHOA THERE BUCKAROO");
+    throw new Error(`Unrecognized content type "${content.type}"`);
   });
 }
 
-function getDirectory(directory: DirectoryContent): Promise<DirectoryContent> {
+function getDirectory(
+  options: DiskProviderOptions,
+  directory: DirectoryContent
+): Promise<DirectoryContent> {
   return new Promise((resolve, reject) => {
     fs.readdir(directory.path, (err, listing) => {
       if (err) {
@@ -174,6 +187,7 @@ function getDirectory(directory: DirectoryContent): Promise<DirectoryContent> {
         fname =>
           // creating a promise for each filename
           createContentPromise(path.join(directory.path, fname))
+        // TODO: Should we catch here
       );
 
       Promise.all(contentPromises)
@@ -185,7 +199,10 @@ function getDirectory(directory: DirectoryContent): Promise<DirectoryContent> {
   });
 }
 
-function getFile(file: FileContent): Promise<FileContent> {
+function getFile(
+  options: DiskProviderOptions,
+  file: FileContent
+): Promise<FileContent> {
   return new Promise((resolve, reject) => {
     // TODO: Should we support a streaming interface or nah
     fs.readFile(file.path, (err, data) => {
@@ -197,7 +214,10 @@ function getFile(file: FileContent): Promise<FileContent> {
   });
 }
 
-function getNotebook(notebook: NotebookContent): Promise<NotebookContent> {
+function getNotebook(
+  options: DiskProviderOptions,
+  notebook: NotebookContent
+): Promise<NotebookContent> {
   return new Promise((resolve, reject) => {
     // TODO: Should we support a streaming interface or nah
     fs.readFile(notebook.path, (err, data) => {
@@ -205,7 +225,7 @@ function getNotebook(notebook: NotebookContent): Promise<NotebookContent> {
         reject(err);
       }
       try {
-        const notebookJSON = JSON.parse(data.toString());
+        const notebookJSON: Object = JSON.parse(data.toString());
         resolve(Object.assign({}, notebook, { content: notebookJSON }));
         return;
       } catch (err) {
@@ -224,4 +244,9 @@ get("./Untitled.ipynb").then(nb =>
 );
 */
 
-get("./src/services").then(ls => console.log("\n**LISTING**\n", ls));
+const options = {
+  baseDirectory: "/Users/kylek"
+};
+
+get(options, "").then(ls => console.log("\n**LISTING**\n", ls));
+// get(baseDirectory, ".").then(ls => console.log("\n**LISTING**\n", ls));
