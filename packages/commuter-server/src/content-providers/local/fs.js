@@ -157,11 +157,8 @@ function createContentPromise(
   });
 }
 
-function get(
-  options: DiskProviderOptions,
-  unsafeFilePath: string
-): Promise<Content> {
-  const filePath = path.join(
+function sanitizeFilePath(unsafeFilePath: string): string {
+  return path.join(
     path
       .normalize(unsafeFilePath)
       // Remove leading `..`
@@ -169,6 +166,13 @@ function get(
       // Remove leading '/'
       .replace(/^([\/\\])+/, "")
   );
+}
+
+function get(
+  options: DiskProviderOptions,
+  unsafeFilePath: string
+): Promise<Content> {
+  const filePath = sanitizeFilePath(unsafeFilePath);
 
   // TODO: filePath should be normalized
   const contentP = createContentPromise(options, filePath);
@@ -258,5 +262,6 @@ function getNotebook(
 }
 
 module.exports = {
-  get
+  get,
+  sanitizeFilePath
 };
