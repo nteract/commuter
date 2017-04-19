@@ -25,6 +25,7 @@ import stripView from "./strip-view";
 
 import HTMLView from "./html";
 import JSONView from "./json";
+import CSVView from "./csv";
 
 const suffixRegex = /(?:\.([^.]+))?$/;
 
@@ -42,6 +43,12 @@ class File extends React.Component {
         return <HTMLView entry={this.props.entry} />;
       case "json":
         return <JSONView entry={this.props.entry} />;
+      case "csv":
+        return (
+          <Container fluid className={css(styles.innerContainer)}>
+            <CSVView entry={this.props.entry} />
+          </Container>
+        );
       case "md":
       case "markdown":
       case "rmd":
@@ -64,6 +71,7 @@ class File extends React.Component {
             />
           </Container>
         );
+
       default:
         return (
           <div>
