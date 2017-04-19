@@ -4,12 +4,10 @@
  * Local storage provider for commuter
  */
 
-// TODO: Deal with directory traversal (that's a no-no)
-
 const fs = require("fs");
 const path = require("path");
 
-type DirectoryContent = {
+export type DirectoryContent = {
   type: "directory",
   mimetype: null,
   content: null | Array<Content>, // Technically content-free content ;)
@@ -23,7 +21,7 @@ type DirectoryContent = {
   format: "json"
 };
 
-type NotebookContent = {
+export type NotebookContent = {
   type: "notebook",
   mimetype: null,
   content: null | Object,
@@ -37,7 +35,7 @@ type NotebookContent = {
   format: "json"
 };
 
-type FileContent = {
+export type FileContent = {
   type: "file",
   mimetype: null | string,
   content: null | string,
@@ -51,9 +49,9 @@ type FileContent = {
   format: null | "text" | "base64"
 };
 
-type Content = DirectoryContent | FileContent | NotebookContent;
+export type Content = DirectoryContent | FileContent | NotebookContent;
 
-type DiskProviderOptions = {
+export type DiskProviderOptions = {
   baseDirectory: string
 };
 
@@ -259,14 +257,6 @@ function getNotebook(
   });
 }
 
-const options = {
-  baseDirectory: "/Users/kylek"
+module.exports = {
+  get
 };
-
-var d = "";
-
-if (process.argv[2]) {
-  d = process.argv[2];
-}
-
-get(options, d).then(console.log.bind(console));
