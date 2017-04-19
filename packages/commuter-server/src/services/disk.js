@@ -57,6 +57,18 @@ type DiskProviderOptions = {
   baseDirectory: string
 };
 
+/**
+ * Convert a single dot or slash to ''
+ *
+ * This is for conforming to the Jupyter contents API for the `/` endpoint
+ */
+function cleanBaseDir(s: string) {
+  if (s === "." || s === "/") {
+    return "";
+  }
+  return s;
+}
+
 function createContentResponse(
   parsedFilePath: {
     root: string,
@@ -67,8 +79,10 @@ function createContentResponse(
   },
   stat: fs.Stats
 ): Content {
-  const name = parsedFilePath.base;
-  const filePath = path.join(parsedFilePath.dir, parsedFilePath.base);
+  const name = cleanBaseDir(parsedFilePath.base);
+  const filePath = cleanBaseDir(
+    path.join(parsedFilePath.dir, parsedFilePath.base)
+  );
   const writable = Boolean(fs.constants.W_OK & stat.mode);
   // $FlowFixMe: See https://github.com/facebook/flow/pull/3767
   const created: Date = stat.birthtime;
@@ -81,8 +95,8 @@ function createContentResponse(
       format: "json",
       content: null,
       writable: true,
-      name,
-      path: filePath,
+      name: name === "." ? "" : name,
+      path: filePath === "." ? "" : filePath,
       created,
       last_modified
     };
@@ -150,7 +164,12 @@ function get(
   unsafeFilePath: string
 ): Promise<Content> {
   const filePath = path.join(
-    path.normalize(unsafeFilePath).replace(/^(\.\.[\/\\])+/, "")
+    path
+      .normalize(unsafeFilePath)
+      // Remove leading `..`
+      .replace(/^(\.\.[\/\\])+/, "")
+      // Remove leading '/'
+      .replace(/^([\/\\])+/, "")
   );
 
   // TODO: filePath should be normalized
@@ -174,28 +193,30 @@ function getDirectory(
   directory: DirectoryContent
 ): Promise<DirectoryContent> {
   return new Promise((resolve, reject) => {
-    fs.readdir(directory.path, (err, listing) => {
-      if (err) {
-        reject(err);
-        return;
+    fs.readdir(
+      path.join(options.baseDirectory, directory.path),
+      (err, listing) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        // Perform a stat call on each file, creating a promise for each
+        // return value
+        const contentPromises = listing.map(
+          // map across each file listed from the directory
+          fname =>
+            // creating a promise for each filename
+            createContentPromise(options, path.join(directory.path, fname))
+          // TODO: Should we catch here
+        );
+
+        Promise.all(contentPromises)
+          .then(contents => contents.filter(x => x !== null))
+          .then(contents => {
+            resolve(Object.assign({}, directory, { content: contents }));
+          });
       }
-
-      // Perform a stat call on each file, creating a promise for each
-      // return value
-      const contentPromises = listing.map(
-        // map across each file listed from the directory
-        fname =>
-          // creating a promise for each filename
-          createContentPromise(path.join(directory.path, fname))
-        // TODO: Should we catch here
-      );
-
-      Promise.all(contentPromises)
-        .then(contents => contents.filter(x => x !== null))
-        .then(contents => {
-          resolve(Object.assign({}, directory, { content: contents }));
-        });
-    });
+    );
   });
 }
 
@@ -205,7 +226,7 @@ function getFile(
 ): Promise<FileContent> {
   return new Promise((resolve, reject) => {
     // TODO: Should we support a streaming interface or nah
-    fs.readFile(file.path, (err, data) => {
+    fs.readFile(path.join(options.baseDirectory, file.path), (err, data) => {
       if (err) {
         reject(err);
       }
@@ -220,33 +241,32 @@ function getNotebook(
 ): Promise<NotebookContent> {
   return new Promise((resolve, reject) => {
     // TODO: Should we support a streaming interface or nah
-    fs.readFile(notebook.path, (err, data) => {
-      if (err) {
-        reject(err);
+    fs.readFile(
+      path.join(options.baseDirectory, notebook.path),
+      (err, data) => {
+        if (err) {
+          reject(err);
+        }
+        try {
+          const notebookJSON: Object = JSON.parse(data.toString());
+          resolve(Object.assign({}, notebook, { content: notebookJSON }));
+          return;
+        } catch (err) {
+          reject(err);
+        }
       }
-      try {
-        const notebookJSON: Object = JSON.parse(data.toString());
-        resolve(Object.assign({}, notebook, { content: notebookJSON }));
-        return;
-      } catch (err) {
-        reject(err);
-      }
-    });
+    );
   });
 }
-
-/*
-get("./").then(ls => console.log("\n**LISTING**\n", ls));
-
-get("./package.json").then(fi => console.log("\n**FILE**\n", fi));
-get("./Untitled.ipynb").then(nb =>
-  console.log("\n**NOTEBOOK**\n", JSON.stringify(nb, null, 2))
-);
-*/
 
 const options = {
   baseDirectory: "/Users/kylek"
 };
 
-get(options, "").then(ls => console.log("\n**LISTING**\n", ls));
-// get(baseDirectory, ".").then(ls => console.log("\n**LISTING**\n", ls));
+var d = "";
+
+if (process.argv[2]) {
+  d = process.argv[2];
+}
+
+get(options, d).then(console.log.bind(console));
