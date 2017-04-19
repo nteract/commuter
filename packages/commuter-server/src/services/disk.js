@@ -7,6 +7,8 @@
  *
  */
 
+// TODO: Deal with directory traversal (that's a no-no)
+
 const fs = require("fs");
 const path = require("path");
 
@@ -66,7 +68,7 @@ function createContentResponse(
   },
   stat: fs.Stats
 ): Content {
-  const name = parsedFilePath.name;
+  const name = parsedFilePath.base;
   const filePath = path.join(parsedFilePath.dir, parsedFilePath.base);
   const writable = Boolean(fs.constants.W_OK & stat.mode);
   // $FlowFixMe: See https://github.com/facebook/flow/pull/3767
@@ -87,8 +89,21 @@ function createContentResponse(
     };
   } else if (stat.isFile()) {
     // TODO: Handle notebook differently
-    // TODO: Mimetype detection
+    if (parsedFilePath.ext === ".ipynb") {
+      return {
+        type: "notebook",
+        mimetype: null,
+        format: "json",
+        content: null,
+        writable: true,
+        name,
+        path: filePath,
+        created,
+        last_modified
+      };
+    }
 
+    // TODO: Mimetype detection
     return {
       type: "file",
       mimetype: null,
@@ -137,6 +152,9 @@ function get(filePath): Promise<Content> {
     if (content.type === "file") {
       return getFile(content);
     }
+    if (content.type === "notebook") {
+      return getNotebook(content);
+    }
     throw new Error("WHOA THERE BUCKAROO");
   });
 }
@@ -179,6 +197,31 @@ function getFile(file: FileContent): Promise<FileContent> {
   });
 }
 
+function getNotebook(notebook: NotebookContent): Promise<NotebookContent> {
+  return new Promise((resolve, reject) => {
+    // TODO: Should we support a streaming interface or nah
+    fs.readFile(notebook.path, (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      try {
+        const notebookJSON = JSON.parse(data.toString());
+        resolve(Object.assign({}, notebook, { content: notebookJSON }));
+        return;
+      } catch (err) {
+        reject(err);
+      }
+    });
+  });
+}
+
+/*
 get("./").then(ls => console.log("\n**LISTING**\n", ls));
 
 get("./package.json").then(fi => console.log("\n**FILE**\n", fi));
+get("./Untitled.ipynb").then(nb =>
+  console.log("\n**NOTEBOOK**\n", JSON.stringify(nb, null, 2))
+);
+*/
+
+get("./src/services").then(ls => console.log("\n**LISTING**\n", ls));
