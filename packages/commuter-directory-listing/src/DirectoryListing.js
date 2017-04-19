@@ -20,7 +20,9 @@ const DirectoryListing = props => {
             <Table.Row />
           </Table.Header>
           <Table.Body>
-            {props.contents.map((row, index) => {
+            {props.contents.filter((z) => {
+               return z.name[0] !== '.';
+            }).map((row, index) => {
               const fullPath = `${base}${row.path}`;
 
               switch (row.type) {
