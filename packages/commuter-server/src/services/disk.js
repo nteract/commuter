@@ -56,47 +56,22 @@ type FileContent = {
 
 type Content = DirectoryContent | FileContent | NotebookContent;
 
-const defaultDirectoryContent: DirectoryContent = Object.freeze({
-  type: "directory",
-  mimetype: null,
-  writable: true,
-  format: "json",
-
-  content: null,
-  name: "",
-  path: "",
-  created: new Date(),
-  last_modified: new Date()
-});
-
-const defaultFileContent: FileContent = Object.freeze({
-  type: "file",
-  mimetype: null,
-  writable: true,
-  format: "text",
-
-  content: null,
-  name: "",
-  path: "",
-  created: new Date(),
-  last_modified: new Date()
-});
-
 function createContentResponse(
-  name: string,
-  path: string,
+  parsedFilePath: {
+    root: string,
+    dir: string,
+    base: string,
+    ext: string,
+    name: string
+  },
   stat: fs.Stats
 ): Content {
-  const contentBase = {
-    name,
-    path,
-    writable: Boolean(fs.constants.W_OK & stat.mode),
-
-    // $FlowFixMe: See https://github.com/facebook/flow/pull/3767
-    created: stat.birthtime,
-
-    last_modified: stat.mtime
-  };
+  const name = parsedFilePath.name;
+  const filePath = path.join(parsedFilePath.dir, parsedFilePath.base);
+  const writable = Boolean(fs.constants.W_OK & stat.mode);
+  // $FlowFixMe: See https://github.com/facebook/flow/pull/3767
+  const created: Date = stat.birthtime;
+  const last_modified = stat.mtime;
 
   if (stat.isDirectory()) {
     return {
@@ -106,10 +81,9 @@ function createContentResponse(
       content: null,
       writable: true,
       name,
-      path,
-      // $FlowFixMe: See https://github.com/facebook/flow/pull/3767
-      created: stat.birthtime,
-      last_modified: stat.mtime
+      path: filePath,
+      created,
+      last_modified
     };
   } else if (stat.isFile()) {
     // TODO: Handle notebook differently
@@ -122,10 +96,9 @@ function createContentResponse(
       content: null,
       writable: true,
       name,
-      path,
-      // $FlowFixMe: See https://github.com/facebook/flow/pull/3767
-      created: stat.birthtime,
-      last_modified: stat.mtime
+      path: filePath,
+      created,
+      last_modified
     };
   }
 
@@ -134,97 +107,56 @@ function createContentResponse(
   );
 }
 
-function getDirectory(dirPath): Promise<DirectoryContent> {
-  // TODO: dirPath should be normalized
+function createContentPromise(filePath): Promise<Content> {
+  const parsedFilePath = path.parse(filePath);
   return new Promise((resolve, reject) => {
-    fs.readdir(dirPath, (err, listing) => {
+    // perform a STAT call to create contents response
+    fs.stat(filePath, (err, stat) => {
       if (err) {
+        // Could also resolve with an error, then filter it out
+        // TODO: Decide on what to do in error case
         reject(err);
         return;
       }
-
-      const parsedDirPath = path.parse(dirPath);
-
-      const directory = Object.assign({}, defaultDirectoryContent, {
-        name: parsedDirPath.name,
-        path: dirPath,
-        created: new Date(),
-        last_modified: new Date()
-      });
-
-      // Perform a stat call on each file, creating a promise for each
-      // return value
-      const contentPromises = listing.map(
-        // map across each file listed from the directory
-        fname =>
-          // creating a promise for each filename
-          new Promise((resolve, reject) => {
-            const filePath = path.join(dirPath, fname);
-            // perform a STAT call to create contents response
-            fs.stat(filePath, (err, stat) => {
-              if (err) {
-                // Could also resolve with an error, then filter it out
-                // TODO: Decide on what to do in error case
-                reject(err);
-                return;
-              }
-              if (!(stat.isDirectory() || stat.isFile())) {
-                // Mark non-directory and non-file as to be ignored
-                reject(new Error(`${filePath} is not a directory or file`));
-              }
-              resolve(createContentResponse(fname, filePath, stat));
-            });
-          })
-      );
-
-      Promise.all(contentPromises)
-        .then(contents => contents.filter(x => x !== null))
-        .then(contents => {
-          directory.content = contents;
-          resolve(directory);
-        });
-      return;
+      if (!(stat.isDirectory() || stat.isFile())) {
+        // Mark non-directory and non-file as to be ignored
+        reject(new Error(`${filePath} is not a directory or file`));
+      }
+      resolve(createContentResponse(parsedFilePath, stat));
     });
   });
 }
 
-/*
-function formContentsResponse(type, callback) {
-  return function(err, data) {
-    if (err) {
-      callback(err);
-      return;
-    }
+function getDirectory(dirPath): Promise<DirectoryContent> {
+  // TODO: dirPath should be normalized
+  const directoryContentP = createContentPromise(dirPath);
 
-    callback(err, data);
-  };
-}
+  return createContentPromise(dirPath).then((directory: DirectoryContent) => {
+    return new Promise((resolve, reject) => {
+      fs.readdir(dirPath, (err, listing) => {
+        if (err) {
+          reject(err);
+          return;
+        }
 
-function get(commuterOptions, path, callback) {
-  // TODO: Check if file or directory
-  fs.readdir(path, formContentsResponse("directory", callback));
-  fs.stat(path, (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(data);
-    console.log();
+        // Perform a stat call on each file, creating a promise for each
+        // return value
+        const contentPromises = listing.map(
+          // map across each file listed from the directory
+          fname =>
+            // creating a promise for each filename
+            createContentPromise(path.join(dirPath, fname))
+        );
+
+        Promise.all(contentPromises)
+          .then(contents => contents.filter(x => x !== null))
+          .then(contents => {
+            directory.content = contents;
+            resolve(directory);
+          });
+      });
+    });
   });
 }
-*/
 
-/*get("", (err, data) => {
-  console.log(err);
-  console.log(data);
-});*/
-
-fs.stat(".", (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  console.log(data);
-});
-
-getDirectory(".");
+getDirectory(".").then(console.log);
