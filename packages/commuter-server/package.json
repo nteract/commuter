@@ -6,7 +6,9 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
     "watch": "echo \"Info: skipping commuter-server watch \" && exit 0",
-    "build": "echo \"Info: skipping commuter-server build \" && exit 0"
+    "build": "babel src -d lib",
+    "prepublish": "npm run build",
+    "flow": "flow"
   },
   "repository": {
     "type": "git",
@@ -43,7 +45,11 @@
     "winston": "^2.3.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
     "chai": "^3.5.0",
+    "flow-bin": "^0.44.2",
+    "flow-remove-types": "^1.2.0",
     "mocha": "^3.2.0",
     "proxyquire": "^1.7.10",
     "supertest": "^3.0.0"
