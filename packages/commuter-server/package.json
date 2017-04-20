@@ -4,7 +4,7 @@
   "description": "commuting notebooks across S3 to multi-users",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
+    "test": "mocha --compilers js:babel-core/register",
     "watch": "echo \"Info: skipping commuter-server watch \" && exit 0",
     "build": "babel src -d lib",
     "prepublish": "npm run build",
