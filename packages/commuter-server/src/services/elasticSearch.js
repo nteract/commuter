@@ -1,10 +1,12 @@
+// @flow
+
 const config = require("../config"),
   bodybuilder = require("bodybuilder"),
   elasticsearch = require("elasticsearch");
 
 const client = new elasticsearch.Client(config.elasticSearch);
 
-exports.list = (cb, error) =>
+exports.list = (cb: Function, error: Function) =>
   client
     .search({
       index: "commuter",

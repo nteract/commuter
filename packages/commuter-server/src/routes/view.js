@@ -1,3 +1,7 @@
+// @flow
+
+import type { $Request, $Response } from "express";
+
 const express = require("express");
 
 const { isDir } = require("./util");
@@ -13,7 +17,7 @@ const suffixRegex = /(?:\.([^.]+))?$/;
 const renderSuffixes = new Set(["ipynb", "html", "json", "md", "rmd"]);
 const renderAccepts = new Set(["text/html", "application/xhtml+xml"]);
 
-router.get("*", (req, res) => {
+router.get("*", (req: $Request, res: $Response) => {
   const suffix = (suffixRegex.exec(req.path)[1] || "").toLowerCase();
   const accepts = (req.headers.accept || "").split(",");
 

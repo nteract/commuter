@@ -1,3 +1,7 @@
+// @flow
+
+import type { $Request, $Response } from "express";
+
 const express = require("express"),
   router = express.Router(),
   { isDir } = require("../util"),
@@ -14,7 +18,7 @@ const errObject = (err, path) => ({
   reason: err.code
 });
 
-router.get("/*", (req, res) => {
+router.get("/*", (req: $Request, res: $Response) => {
   const path = req.params["0"];
   const cb = (err, data) => {
     if (err) res.status(500).json(errObject(err, path));
@@ -24,7 +28,7 @@ router.get("/*", (req, res) => {
   else getObject(path, cb);
 });
 
-router.delete("/*", (req, res) => {
+router.delete("/*", (req: $Request, res: $Response) => {
   const path = req.params["0"];
   const cb = (err, data) => {
     if (err) res.status(500).json(errObject(err, path));
@@ -34,7 +38,7 @@ router.delete("/*", (req, res) => {
   else deleteObject(path, cb);
 });
 
-router.post("/*", (req, res) => {
+router.post("/*", (req: $Request, res: $Response) => {
   const path = req.params["0"];
   const cb = (err, data) => {
     if (err) res.status(500).json(errObject(err, path));

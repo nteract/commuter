@@ -1,1 +1,2 @@
-exports.isDir = path => !path || (path && path.endsWith("/"));
+// @flow
+exports.isDir = (path: string) => !path || (path && path.endsWith("/"));
