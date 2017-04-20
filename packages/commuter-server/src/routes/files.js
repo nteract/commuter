@@ -1,3 +1,5 @@
+// @flow
+
 const express = require("express"),
   config = require("../config"),
   router = express.Router(),

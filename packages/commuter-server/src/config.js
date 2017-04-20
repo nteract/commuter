@@ -1,10 +1,11 @@
+// @flow
 const {
   COMMUTER_BUCKET = null,
-  COMMUTER_PATH_DELIMITER = "/",
+  COMMUTER_PATH_DELIMITER,
   COMMUTER_BASEPATH = null,
   COMMUTER_PORT = 4000,
   PORT,
-  NODE_ENV = "test",
+  NODE_ENV,
   COMMUTER_S3_KEY,
   COMMUTER_S3_SECRET,
   COMMUTER_ES_HOST
@@ -25,8 +26,8 @@ module.exports = {
     host: COMMUTER_ES_HOST,
     log: "debug"
   },
-  pathDelimiter: COMMUTER_PATH_DELIMITER,
+  pathDelimiter: COMMUTER_PATH_DELIMITER || "/",
   basePath: COMMUTER_BASEPATH,
-  nodeEnv: NODE_ENV,
+  nodeEnv: NODE_ENV || "test",
   port: PORT || COMMUTER_PORT
 };

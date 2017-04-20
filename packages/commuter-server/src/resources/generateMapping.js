@@ -1,3 +1,4 @@
+// @flow
 const path = require("path"),
   jsonfile = require("jsonfile"),
   nbformatv4Schema = require("nbschema").v4;
