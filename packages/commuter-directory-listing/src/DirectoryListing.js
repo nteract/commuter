@@ -21,7 +21,7 @@ const DirectoryListing = props => {
           </Table.Header>
           <Table.Body>
             {props.contents.filter((z) => {
-               return z.name[0] !== '.';
+               return !z.name[0].startsWith('.');
             }).map((row, index) => {
               const fullPath = `${base}${row.path}`;
 
