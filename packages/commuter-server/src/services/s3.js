@@ -5,11 +5,11 @@ const config = require("../config"),
 
 const s3 = new S3(config.s3);
 
-const fileName = path =>
+const fileName = (path: string): string =>
   chain(path).trimEnd("/").split(config.pathDelimiter).last().value();
-const filePath = path =>
+const filePath = (path: string) =>
   (config.basePath ? path.replace(`${config.basePath}`, "") : `/${path}`);
-const s3Prefix = path =>
+const s3Prefix = (path: string) =>
   (config.basePath ? `${config.basePath}/${path}` : path);
 
 const dirObject = data => ({
@@ -24,7 +24,7 @@ const dirObject = data => ({
   format: null
 });
 
-const isNotebook = s3data => s3data.Key.endsWith("ipynb");
+const isNotebook = s3data => s3data.Key && s3data.Key.endsWith("ipynb");
 
 const fileObject = data => ({
   name: fileName(data.Key),
@@ -48,22 +48,32 @@ const listObjects = (path: string, callback: Function) => {
     StartAfter: s3Prefix(path)
   };
   s3.listObjectsV2(params, (err, data) => {
-    if (err) callback(err);
-    else {
-      const files = data.Contents.map(fileObject);
-      const dirs = data.CommonPrefixes.map(dirObject);
-      callback(null, {
-        name: fileName(path),
-        path: path,
-        type: "directory",
-        writable: true,
-        created: null,
-        last_modified: null,
-        mimetype: null,
-        content: [...files, ...dirs],
-        format: "json"
-      });
+    if (err || !data) {
+      callback(err);
+      return;
     }
+    if (!data.Contents) {
+      callback(new Error("Missing contents from S3 Response"));
+      return;
+    }
+    if (!data.CommonPrefixes) {
+      callback(new Error("Missing CommonPrefixes from S3 Response"));
+      return;
+    }
+
+    const files = data.Contents.map(fileObject);
+    const dirs = data.CommonPrefixes.map(dirObject);
+    callback(null, {
+      name: fileName(path),
+      path: path,
+      type: "directory",
+      writable: true,
+      created: null,
+      last_modified: null,
+      mimetype: null,
+      content: [...files, ...dirs],
+      format: "json"
+    });
   });
 };
 
