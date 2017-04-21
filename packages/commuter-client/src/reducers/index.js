@@ -7,10 +7,16 @@ const commuter = (state = {}, action) => {
       return Object.assign({}, state, { isFetching: action.isFetching });
     case types.RECEIVE_CONTENTS:
     // filter out hidden files
-    const content = action.entry.type === 'directory' ?
-    action.entry.content.filter((file) => {
-      return !file.name.startsWith('.')
-    }) : action.entry.content;
+      let content;
+      switch (action.entry.type) {
+        case 'directory':
+          content = action.entry.content.filter((file) => {
+            return !file.name.startsWith('.');
+          });
+        break;
+      default:
+        return action.entry.content;
+      }
     const entry = Object.assign({}, action.entry, { content });
       return Object.assign({}, state, {
         entry,
