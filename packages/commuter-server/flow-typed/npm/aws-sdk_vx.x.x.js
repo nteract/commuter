@@ -323,7 +323,7 @@ declare module "aws-sdk/clients/s3" {
   ) => Request<Result>;
 
   declare type S3$20060301$DeleteObjectRequest = {
-    Bucket: string,
+    Bucket?: string,
     Key: string,
     MFA?: string,
     VersionId?: string,
@@ -365,7 +365,7 @@ declare module "aws-sdk/clients/s3" {
   };
   declare type S3$20060301$ObjectIdentifierList = S3$20060301$ObjectIdentifier[];
   declare type S3$20060301$Object = {
-    Key?: string,
+    Key: string,
     LastModified?: Date,
     ETag?: string,
     Size?: number,
@@ -375,14 +375,14 @@ declare module "aws-sdk/clients/s3" {
   declare type S3$20060301$ObjectList = S3$20060301$Object[];
 
   declare type S3$20060301$DeleteObjectsRequest = {
-    Bucket: string,
+    Bucket?: string,
     Delete: S3$20060301$Delete,
     MFA?: string,
     RequestPayer?: "requester"
   };
 
   declare type S3$20060301$CommonPrefix = {
-    Prefix?: string
+    Prefix: string
   };
   declare type S3$20060301$CommonPrefixList = S3$20060301$CommonPrefix[];
 
@@ -417,7 +417,7 @@ declare module "aws-sdk/clients/s3" {
     ReplicationStatus?: "COMPLETE" | "PENDING" | "FAILED" | "REPLICA"
   };
   declare type S3$20060301$GetObjectRequest = {
-    Bucket: string,
+    Bucket?: string,
     IfMatch?: string,
     IfModifiedSince?: Date,
     IfNoneMatch?: string,
@@ -443,7 +443,7 @@ declare module "aws-sdk/clients/s3" {
     Prefix?: string,
     Delimiter?: string,
     MaxKeys?: number,
-    CommonPrefixes?: S3$20060301$CommonPrefixList,
+    CommonPrefixes: S3$20060301$CommonPrefixList,
     EncodingType?: "url",
     KeyCount?: number,
     ContinuationToken?: string,
@@ -451,7 +451,7 @@ declare module "aws-sdk/clients/s3" {
     StartAfter?: string
   };
   declare type S3$20060301$ListObjectsV2Request = {
-    Bucket: string,
+    Bucket?: string,
     Delimiter?: string,
     EncodingType?: "url",
     MaxKeys?: number,
