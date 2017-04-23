@@ -1,6 +1,6 @@
 // @flow
 
-let {
+const {
   COMMUTER_BUCKET = null,
   COMMUTER_PATH_DELIMITER,
   COMMUTER_BASEPATH = "",
@@ -20,6 +20,12 @@ function deprecate(oldVar, newVar) {
 }
 
 deprecate("COMMUTER_BASEPATH", "COMMUTER_S3_BASE_PREFIX");
+deprecate("COMMUTER_PATH_DELIMITER", "COMMUTER_S3_PATH_DELIMITER");
+
+const s3PathDelimiter =
+  process.env.COMMUTER_S3_PATH_DELIMITER ||
+  process.env.COMMUTER_PATH_DELIMITER ||
+  "/";
 
 const basePrefix = (process.env.COMMUTER_S3_BASE_PREFIX ||
 process.env.COMMUTER_BASEPATH || // deprecated
@@ -42,7 +48,8 @@ module.exports = {
     host: COMMUTER_ES_HOST,
     log: "debug"
   },
-  pathDelimiter: COMMUTER_PATH_DELIMITER || "/",
+  // TODO: These should both be named in the s3 namespace
+  pathDelimiter: s3PathDelimiter,
   basePrefix,
 
   nodeEnv: NODE_ENV || "test",

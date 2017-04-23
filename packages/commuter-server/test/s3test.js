@@ -49,7 +49,7 @@ describe("Test S3 service", function() {
       content: [
         {
           name: "test.ipynb",
-          path: "/dir/one/test.ipynb",
+          path: "dir/one/test.ipynb",
           type: "notebook",
           writable: true,
           created: null,
@@ -60,7 +60,7 @@ describe("Test S3 service", function() {
         },
         {
           name: "one",
-          path: "/dir/one/",
+          path: "dir/one/",
           type: "directory",
           writable: true,
           created: null,
@@ -95,7 +95,7 @@ describe("Test S3 service", function() {
           }
         };
       },
-      "../config": { s3: { Bucket: "test" }, basePath: "s3BasePath" }
+      "../config": { s3: { Bucket: "test" }, basePrefix: "s3BasePath" }
     });
 
     const expectedData = {
@@ -109,7 +109,7 @@ describe("Test S3 service", function() {
       content: [
         {
           name: "test.ipynb",
-          path: "/dir/one/test.ipynb",
+          path: "dir/one/test.ipynb",
           type: "notebook",
           writable: true,
           created: null,

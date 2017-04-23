@@ -7,7 +7,10 @@ const s3 = new S3(config.s3);
 
 const fileName = (path: string): string =>
   chain(path).trimEnd("/").split(config.pathDelimiter).last().value();
-const filePath = (path: string) => path.replace(`${config.basePrefix}`, "");
+
+const filePath = (path: string) =>
+  path.replace(`${config.basePrefix}`, "").replace(/^\//, "");
+
 const s3Prefix = (path: string) =>
   (config.basePrefix ? `${config.basePrefix}/${path}` : path);
 
