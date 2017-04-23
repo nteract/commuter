@@ -1,15 +1,31 @@
 // @flow
-const {
+
+let {
   COMMUTER_BUCKET = null,
   COMMUTER_PATH_DELIMITER,
-  COMMUTER_BASEPATH = null,
+  COMMUTER_BASEPATH = "",
   COMMUTER_PORT = 4000,
+  COMMUTER_S3_BASE_PREFIX = "",
   PORT,
   NODE_ENV,
   COMMUTER_S3_KEY,
   COMMUTER_S3_SECRET,
   COMMUTER_ES_HOST
 } = process.env;
+
+function deprecate(oldVar, newVar) {
+  if (process.env[oldVar]) {
+    console.warn(`${oldVar} is deprecated, please use ${newVar}`);
+  }
+}
+
+deprecate("COMMUTER_BASEPATH", "COMMUTER_S3_BASE_PREFIX");
+
+const basePrefix = (process.env.COMMUTER_S3_BASE_PREFIX ||
+process.env.COMMUTER_BASEPATH || // deprecated
+  "")
+  // trim off trailing slashes
+  .replace(/\/+$/, "");
 
 module.exports = {
   s3: {
@@ -27,7 +43,8 @@ module.exports = {
     log: "debug"
   },
   pathDelimiter: COMMUTER_PATH_DELIMITER || "/",
-  basePath: COMMUTER_BASEPATH,
+  basePrefix,
+
   nodeEnv: NODE_ENV || "test",
   port: PORT || COMMUTER_PORT
 };

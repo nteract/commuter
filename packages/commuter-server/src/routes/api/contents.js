@@ -54,4 +54,5 @@ function createRouter(): express.Router {
   return router;
 }
 
+// TODO: Export the router creator rather than a bound router
 module.exports = createRouter();
