@@ -13,7 +13,8 @@
     "client": "./src/index.js client",
     "test": "echo \"Warning: no test specified\" && exit 0",
     "build": "./node_modules/.bin/babel ./src --out-dir ./lib --quiet",
-    "watch": "echo \"Info: skipping commuter-cli watch \" && exit 0"
+    "watch": "echo \"Info: skipping commuter-cli watch \" && exit 0",
+    "flow": "echo \" flow not configured \" && exit 0"
   },
   "repository": {
     "type": "git",

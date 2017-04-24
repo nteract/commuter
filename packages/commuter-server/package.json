@@ -53,5 +53,10 @@
     "mocha": "^3.2.0",
     "proxyquire": "^1.7.10",
     "supertest": "^3.0.0"
+  },
+  "babel": {
+    "presets": [
+      "flow"
+    ]
   }
 }
