@@ -10,9 +10,9 @@ const {
   deleteObject,
   deleteObjects,
   uploadObject
-} = require("./../../services/s3");
+} = require("./s3");
 
-const { isDir } = require("../util");
+const isDir = (path: string) => !path || (path && path.endsWith("/"));
 
 const errObject = (err, path) => ({
   message: `${err.message}: ${path}`,
@@ -54,5 +54,6 @@ function createRouter(): express.Router {
   return router;
 }
 
-// TODO: Export the router creator rather than a bound router
-module.exports = createRouter();
+module.exports = {
+  createRouter
+};

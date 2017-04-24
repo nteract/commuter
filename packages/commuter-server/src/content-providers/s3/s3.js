@@ -1,5 +1,5 @@
 // @flow
-const config = require("../config"),
+const config = require("../../config"),
   S3 = require("aws-sdk/clients/s3"),
   { chain } = require("lodash");
 

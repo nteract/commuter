@@ -4,8 +4,6 @@ import type { $Request, $Response } from "express";
 
 const express = require("express");
 
-const { isDir } = require("./util");
-
 const Log = require("log"), log = new Log("info");
 
 const path = require("path");
