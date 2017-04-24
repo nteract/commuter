@@ -1,16 +1,18 @@
 // @flow
-const config = require("../config"),
+const config = require("../../config"),
   S3 = require("aws-sdk/clients/s3"),
   { chain } = require("lodash");
 
 const s3 = new S3(config.s3);
 
-const fileName = path =>
-  chain(path).trimEnd("/").split(config.pathDelimiter).last().value();
-const filePath = path =>
-  (config.basePath ? path.replace(`${config.basePath}`, "") : `/${path}`);
-const s3Prefix = path =>
-  (config.basePath ? `${config.basePath}/${path}` : path);
+const fileName = (path: string): string =>
+  chain(path).trimEnd("/").split(config.s3PathDelimiter).last().value();
+
+const filePath = (path: string) =>
+  path.replace(`${config.s3BasePrefix}`, "").replace(/^\//, "");
+
+const s3Prefix = (path: string) =>
+  (config.s3BasePrefix ? `${config.s3BasePrefix}/${path}` : path);
 
 const dirObject = data => ({
   name: fileName(data.Prefix),
@@ -24,7 +26,7 @@ const dirObject = data => ({
   format: null
 });
 
-const isNotebook = s3data => s3data.Key.endsWith("ipynb");
+const isNotebook = s3data => s3data.Key && s3data.Key.endsWith("ipynb");
 
 const fileObject = data => ({
   name: fileName(data.Key),
@@ -41,29 +43,39 @@ const fileObject = data => ({
 const listObjects = (path: string, callback: Function) => {
   const params = {
     Prefix: s3Prefix(path),
-    Delimiter: config.pathDelimiter,
+    Delimiter: config.s3PathDelimiter,
     // Maximum allowed by S3 API
     MaxKeys: 2147483647,
     //remove the folder name from listing
     StartAfter: s3Prefix(path)
   };
   s3.listObjectsV2(params, (err, data) => {
-    if (err) callback(err);
-    else {
-      const files = data.Contents.map(fileObject);
-      const dirs = data.CommonPrefixes.map(dirObject);
-      callback(null, {
-        name: fileName(path),
-        path: path,
-        type: "directory",
-        writable: true,
-        created: null,
-        last_modified: null,
-        mimetype: null,
-        content: [...files, ...dirs],
-        format: "json"
-      });
+    if (err || !data) {
+      callback(err);
+      return;
     }
+    if (!data.Contents) {
+      callback(new Error("Missing contents from S3 Response"));
+      return;
+    }
+    if (!data.CommonPrefixes) {
+      callback(new Error("Missing CommonPrefixes from S3 Response"));
+      return;
+    }
+
+    const files = data.Contents.map(fileObject);
+    const dirs = data.CommonPrefixes.map(dirObject);
+    callback(null, {
+      name: fileName(path),
+      path: path,
+      type: "directory",
+      writable: true,
+      created: null,
+      last_modified: null,
+      mimetype: null,
+      content: [...files, ...dirs],
+      format: "json"
+    });
   });
 };
 

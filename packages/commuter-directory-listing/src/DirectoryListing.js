@@ -4,13 +4,12 @@ import { Table, Grid, Segment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const DirectoryListing = props => {
-  const handleClick = path =>
-    e => {
-      if (props.onClick) {
-        e.preventDefault();
-        props.onClick(path);
-      }
-    };
+  const handleClick = path => e => {
+    if (props.onClick) {
+      e.preventDefault();
+      props.onClick(path);
+    }
+  };
   const base = props.basepath;
   return (
     <Grid>
@@ -21,8 +20,7 @@ const DirectoryListing = props => {
           </Table.Header>
           <Table.Body>
             {props.contents.map((row, index) => {
-              const fullPath = `${base}${row.path}`;
-
+              const fullPath = `${base}/${row.path}`;
               switch (row.type) {
                 case "notebook":
                   return (
