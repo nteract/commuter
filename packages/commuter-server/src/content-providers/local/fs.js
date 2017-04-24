@@ -15,7 +15,9 @@ import type {
 } from "../base";
 
 export type DiskProviderOptions = {
-  baseDirectory: string
+  local: {
+    baseDirectory: string
+  }
 };
 
 /**

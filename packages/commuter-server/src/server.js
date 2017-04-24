@@ -21,10 +21,6 @@ function createServer() {
     express.static(path.resolve(__dirname, "..", "build"))
   );
 
-  if (!config.s3.params.Bucket) {
-    log.error("S3 bucket name missing!!");
-    process.exit(1);
-  }
   // Last middleware
   app.use(require("./routes"));
 

@@ -1,13 +1,9 @@
 // @flow
 
-const express = require("express"),
-  config = require("../../config"),
-  s3Proxy = require("s3-proxy");
+const express = require("express"), s3Proxy = require("s3-proxy");
 
-// TODO: Get away from singleton config
-// This is currently impure, however that will have to be fixed up later to
-// fully adapt to the functional interface
-function createRouter(): express.Router {
+// TODO: Flow type config
+function createRouter(config: Object): express.Router {
   const router = express.Router();
 
   router.get(

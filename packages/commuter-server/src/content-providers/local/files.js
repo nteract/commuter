@@ -14,7 +14,7 @@ type ErrorResponse = {
 };
 
 function createRouter(options: DiskProviderOptions) {
-  if (!options.baseDirectory) {
+  if (!options.local.baseDirectory) {
     throw new Error("Base directory must be specified for the local provider");
   }
 
@@ -24,7 +24,7 @@ function createRouter(options: DiskProviderOptions) {
     const unsafeFilePath = req.params["0"];
 
     const filePath = path.join(
-      options.baseDirectory,
+      options.local.baseDirectory,
       sanitizeFilePath(unsafeFilePath)
     );
 

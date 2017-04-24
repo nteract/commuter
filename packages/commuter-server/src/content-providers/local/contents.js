@@ -12,16 +12,14 @@ type ErrorResponse = {
 };
 
 function createRouter(options: DiskProviderOptions) {
-  if (!options.baseDirectory) {
+  if (!options.local.baseDirectory) {
     throw new Error("Base directory must be specified for the local provider");
   }
-
   const router = express.Router();
-
   router.get("/*", (req: $Request, res: $Response) => {
     const path = req.params["0"];
     fs
-      .get(options, path)
+      .get(options.local, path)
       .then(content => {
         res.json(content);
       })
@@ -34,7 +32,6 @@ function createRouter(options: DiskProviderOptions) {
   });
   return router;
 }
-
 module.exports = {
   createRouter
 };
