@@ -6,13 +6,13 @@ const config = require("../config"),
 const s3 = new S3(config.s3);
 
 const fileName = (path: string): string =>
-  chain(path).trimEnd("/").split(config.pathDelimiter).last().value();
+  chain(path).trimEnd("/").split(config.s3PathDelimiter).last().value();
 
 const filePath = (path: string) =>
-  path.replace(`${config.basePrefix}`, "").replace(/^\//, "");
+  path.replace(`${config.s3BasePrefix}`, "").replace(/^\//, "");
 
 const s3Prefix = (path: string) =>
-  (config.basePrefix ? `${config.basePrefix}/${path}` : path);
+  (config.s3BasePrefix ? `${config.s3BasePrefix}/${path}` : path);
 
 const dirObject = data => ({
   name: fileName(data.Prefix),
@@ -43,7 +43,7 @@ const fileObject = data => ({
 const listObjects = (path: string, callback: Function) => {
   const params = {
     Prefix: s3Prefix(path),
-    Delimiter: config.pathDelimiter,
+    Delimiter: config.s3PathDelimiter,
     // Maximum allowed by S3 API
     MaxKeys: 2147483647,
     //remove the folder name from listing

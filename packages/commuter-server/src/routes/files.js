@@ -9,7 +9,7 @@ router.get(
   "/*",
   s3Proxy({
     bucket: config.s3.params.Bucket,
-    prefix: config.basePrefix,
+    prefix: config.s3BasePrefix,
     accessKeyId: config.s3.accessKeyId,
     secretAccessKey: config.s3.secretAccessKey,
     overrideCacheControl: "max-age=100000"

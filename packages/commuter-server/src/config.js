@@ -27,7 +27,7 @@ const s3PathDelimiter =
   process.env.COMMUTER_PATH_DELIMITER ||
   "/";
 
-const basePrefix = (process.env.COMMUTER_S3_BASE_PREFIX ||
+const s3BasePrefix = (process.env.COMMUTER_S3_BASE_PREFIX ||
 process.env.COMMUTER_BASEPATH || // deprecated
   "")
   // trim off trailing slashes
@@ -49,8 +49,8 @@ module.exports = {
     log: "debug"
   },
   // TODO: These should both be named in the s3 namespace
-  pathDelimiter: s3PathDelimiter,
-  basePrefix,
+  s3PathDelimiter,
+  s3BasePrefix,
 
   nodeEnv: NODE_ENV || "test",
   port: PORT || COMMUTER_PORT
