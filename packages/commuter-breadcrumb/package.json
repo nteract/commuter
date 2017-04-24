@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "watch": "watch \"npm run build\" --ignoreDirectoryPattern=/lib/g ./src",
-    "build": "./node_modules/.bin/babel ./src --out-dir ./lib --quiet"
+    "build": "./node_modules/.bin/babel ./src --out-dir ./lib --quiet",
+    "flow": "echo \" flow not configured \" && exit 0"
   },
   "repository": {
     "type": "git",

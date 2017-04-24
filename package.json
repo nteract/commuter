@@ -15,9 +15,12 @@
     "clean:lib": "lerna exec -- rm -rf ./lib",
     "clean:build": "lerna exec -- rm -rf ./build",
     "format:code": "prettier --write 'packages/*/src/**/*.js' 'packages/*/test/**/*.js'",
+    "flow": "lerna run flow",
     "install": "npm run lerna && npm run build",
     "lerna": "lerna init && lerna bootstrap",
     "publish": "npm run clean && npm install && lerna publish",
+    "precommit": "lint-staged",
+    "prepush": "npm run flow && export CI=true&&npm test",
     "start": "lerna exec --scope @nteract/commuter-cli -- npm run start",
     "start:watch": "concurrently \"lerna exec --scope @nteract/commuter-cli -- npm run start\" \"npm run watch\"",
     "start:production": "lerna exec --scope @nteract/commuter-cli -- npm run start:production",
@@ -25,6 +28,12 @@
     "server:watch": "lerna exec --scope @nteract/commuter-cli -- npm run server:watch",
     "test": "lerna run test",
     "watch": "lerna exec --ignore @nteract/commuter-client -- npm run watch"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -47,6 +56,8 @@
   },
   "devDependencies": {
     "concurrently": "^3.1.0",
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
     "prettier": "1.2.0"
   }
 }
