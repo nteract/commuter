@@ -48,7 +48,6 @@ module.exports = {
     host: COMMUTER_ES_HOST,
     log: "debug"
   },
-  // TODO: These should both be named in the s3 namespace
   s3PathDelimiter,
   s3BasePrefix,
 

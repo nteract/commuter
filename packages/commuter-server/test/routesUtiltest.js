@@ -1,5 +1,6 @@
+// @flow
 const assert = require("chai").assert,
-  isDir = require("./../src/routes/util").isDir;
+  isDir = require("./../src/content-providers/s3/contents").isDir;
 
 describe("Routes util tests", function() {
   it("returns isDir true", function() {

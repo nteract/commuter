@@ -12,7 +12,9 @@ const {
   uploadObject
 } = require("./s3");
 
-const isDir = (path: string) => !path || (path && path.endsWith("/"));
+// TODO: typing here reflects what was put in place before, this could be
+// more strict while letting flow do the work vs. the testing of common functions
+const isDir = (path?: string | null) => !path || (path && path.endsWith("/"));
 
 const errObject = (err, path) => ({
   message: `${err.message}: ${path}`,
@@ -55,5 +57,6 @@ function createRouter(): express.Router {
 }
 
 module.exports = {
-  createRouter
+  createRouter,
+  isDir
 };
