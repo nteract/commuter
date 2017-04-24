@@ -1,1 +1,1 @@
-export default p => p.replace(/^\/view\//, "/");
+export default p => p.replace(/^\/view\//, "");
