@@ -19,7 +19,7 @@ notebooks, **commuter** has you covered.
 ## What is "commuter"?
 
 As an opinionated [nteract](https://nteract.io) focused server, **commuter**
-reads notebooks from Amazon S3, has a directory explorer to find notebooks,
+reads notebooks from a local directory or Amazon S3, has a directory explorer to find notebooks,
 and provides a jupyter compatible version of the contents API. You determine
 where your notebooks should reside and where they should be shared. Flexibility
 and convenience.
@@ -30,6 +30,50 @@ Try **commuter** today and take your notebooks wherever you need them.
 
 [Demo](https://nteract-commuter.herokuapp.com/)
 
+## Installation
+
+```
+npm install @nteract/commuter-cli -g
+```
+
+## Usage
+
+Configure and run commuter with environment variables and `commuter server`.
+
+Example local run (using a network file share!):
+
+```sh
+COMMUTER_LOCAL_STORAGE_BASEDIRECTORY=/efs/users/ commuter server
+```
+
+Example S3 run:
+
+```sh
+COMMUTER_BUCKET=sweet-notebooks commuter server
+```
+
+## Environment Variables
+
+### General Environment Variables
+
+| Environment Variable | Description | Default |
+| ------------  | :------------ |:------------ |
+| `COMMUTER_STORAGE_BACKEND` | `local` or `s3` | `local` |
+| `COMMUTER_DISCOVERY_BACKEND` | either elasticsearch or none | `"none"` |
+| `COMMUTER_PORT` | Port to run commuter on | 4000 |
+| `COMMUTER_LOCAL_STORAGE_BASEDIRECTORY` | directory to serve in local storage mode | `process.cwd()` |
+| `COMMUTER_ES_HOST` | ElasticSearch Host | `""` |
+
+### Environment Variables for S3 Storage
+
+| Environment Variable | Description | Default |
+| ------------  | :------------ |:------------ |
+| `COMMUTER_S3_BASE_PREFIX` | prefix on the bucket, similar to base directory | `""` |
+| `COMMUTER_S3_PATH_DELIMITER` | separator for "paths" | `"/"` |
+| `COMMUTER_BUCKET` | bucket contents served from | Required in S3 mode, no default|
+| `COMMUTER_S3_KEY` | AWS Key | Optional, uses IAM roles or `~/.aws/credentials` otherwise |
+| `COMMUTER_S3_SECRET` | AWS Secret | Optional, uses IAM roles or `~/.aws/credentials` otherwise |
+
 ## Roadmap
 
 Details [here](https://github.com/nteract/commuter/blob/master/ROADMAP.md)
@@ -39,17 +83,17 @@ Details [here](https://github.com/nteract/commuter/blob/master/ROADMAP.md)
 Requires Node.js 6+ and npm 3+.
 
 #### Required env variables
-`export COMMUTER_BUCKET=<name> COMMUTER_S3_KEY=<key> COMMUTER_S3_SECRET=<secret>`
 
 #### Quick Start
 
 1. `git clone git@github.com:nteract/commuter.git`
+1. `cd commuter`
 1. `npm i`
 1. `npm start`
 1. open `http://localhost:3000`
 
 #### Watch mode
-For more granular control and automatic reloads run following in seperate terminals:
+For more granular control and automatic reloads run the following in separate terminals:
 
 1. `npm run client` - browser refresh
 1. `npm run server:watch` - reload express on file changes
@@ -57,24 +101,12 @@ For more granular control and automatic reloads run following in seperate termin
 
 *Notes*
 
-In watch mode, API server (express) runs on `port 4000` and the client (webpack dev server) runs on `port 3000`.
-And for ease of development the webpack dev server proxies requests made on `port 3000` to `port 4000` (also avoids CORS issues).
+In watch mode, the API server (express) runs on `port 4000` and the client (webpack dev server) runs on `port 3000`.
+For ease of development the webpack dev server proxies requests made on `port 3000` to `port 4000` (also avoids CORS issues).
 On production, the server directly renders `index.html` with bundled static assets.
 
 1. Directory explorer - `http://localhost:3000`
-1. API server - `http://localhost:4000/api/contents/<S3_PATH>`
-
-*Available env options*
-
-```
-COMMUTER_BUCKET (required, without s3://)
-COMMUTER_S3_KEY (required)
-COMMUTER_S3_SECRET (required)
-COMMUTER_ES_HOST (required only for discovery api)
-COMMUTER_BASEPATH (optional, prefix for s3 bucket)
-COMMUTER_PATH_DELIMITER (optional, defaults to "/")
-COMMUTER_PORT (optional, defaults to 4000)
-```
+1. API server - `http://localhost:4000/api/contents/<PATH>`
 
 Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and [package.json](https://github.com/nteract/commuter/blob/master/package.json) has more options).
 
@@ -85,8 +117,6 @@ Project uses [prettier](https://github.com/jlongster/prettier) for code formatti
 ## Deployment
 
 There are few different ways to get commuter deployed on your severs:
-
-Firstly, to change default port `4000` set env variables `COMMUTER_PORT`
 
 #### From master branch
 
@@ -108,7 +138,7 @@ all set up. After all **required env variables** are set, run:
   1. Install commuter cli `npm install @nteract/commuter-cli -g`
   1. `exec commuter server` - the service is typically wrapped inside [daemontools](https://cr.yp.to/daemontools.html)
 
-## Publish
+## Release
 
 1. `npm publish`
 1. `git push --tags`
@@ -119,5 +149,3 @@ all set up. After all **required env variables** are set, run:
 * [@nteract/commuter-cli](https://www.npmjs.com/package/@nteract/commuter-cli)
 * [@nteract/commuter-breadcrumb](https://www.npmjs.com/package/@nteract/commuter-breadcrumb)
 * [@nteract/commuter-directory-listing](https://www.npmjs.com/package/@nteract/commuter-directory-listing)
-
-
