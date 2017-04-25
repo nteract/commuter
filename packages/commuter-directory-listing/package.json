@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-directory-listing",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "nteract directory listing component",
   "main": "./lib/index.js",
   "scripts": {
