@@ -15,7 +15,9 @@ import type {
 } from "../base";
 
 export type DiskProviderOptions = {
-  baseDirectory: string
+  local: {
+    baseDirectory: string
+  }
 };
 
 /**
@@ -100,7 +102,7 @@ function createContentPromise(
   options: DiskProviderOptions,
   filePath: string
 ): Promise<Content> {
-  const fullPath = path.join(options.baseDirectory, filePath);
+  const fullPath = path.join(options.local.baseDirectory, filePath);
   const parsedFilePath = path.parse(filePath);
   return new Promise((resolve, reject) => {
     // perform a STAT call to create contents response
@@ -159,7 +161,7 @@ function getDirectory(
 ): Promise<DirectoryContent> {
   return new Promise((resolve, reject) => {
     fs.readdir(
-      path.join(options.baseDirectory, directory.path),
+      path.join(options.local.baseDirectory, directory.path),
       (err, listing) => {
         if (err) {
           reject(err);
@@ -191,12 +193,15 @@ function getFile(
 ): Promise<FileContent> {
   return new Promise((resolve, reject) => {
     // TODO: Should we support a streaming interface or nah
-    fs.readFile(path.join(options.baseDirectory, file.path), (err, data) => {
-      if (err) {
-        reject(err);
+    fs.readFile(
+      path.join(options.local.baseDirectory, file.path),
+      (err, data) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(Object.assign({}, file, { content: data.toString() }));
       }
-      resolve(Object.assign({}, file, { content: data.toString() }));
-    });
+    );
   });
 }
 
@@ -207,7 +212,7 @@ function getNotebook(
   return new Promise((resolve, reject) => {
     // TODO: Should we support a streaming interface or nah
     fs.readFile(
-      path.join(options.baseDirectory, notebook.path),
+      path.join(options.local.baseDirectory, notebook.path),
       (err, data) => {
         if (err) {
           reject(err);

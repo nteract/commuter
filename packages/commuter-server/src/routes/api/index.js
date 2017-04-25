@@ -11,7 +11,12 @@ function defaultContentTypeMiddleware(req: $Request, res: $Response, next) {
   next();
 }
 
-function createAPIRouter(contentsRouter: express.Router): express.Router {
+type APIRouters = {
+  contents: express.Router,
+  discovery: express.Router
+};
+
+function createAPIRouter(api: APIRouters): express.Router {
   const router = express.Router();
   router.use(defaultContentTypeMiddleware);
   router.use(bodyParser.json({ limit: "50mb" })); //50mb is the current threshold
@@ -21,8 +26,8 @@ function createAPIRouter(contentsRouter: express.Router): express.Router {
     res.json({ message: "pong" });
   });
 
-  router.use("/contents", contentsRouter);
-  router.use("/v1/discovery", require("./v1/discovery"));
+  router.use("/contents", api.contents);
+  router.use("/v1/discovery", api.discovery);
   return router;
 }
 

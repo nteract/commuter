@@ -1,56 +1,107 @@
 // @flow
 
-const {
-  COMMUTER_BUCKET = null,
-  COMMUTER_PATH_DELIMITER,
-  COMMUTER_BASEPATH = "",
-  COMMUTER_PORT = 4000,
-  COMMUTER_S3_BASE_PREFIX = "",
-  PORT,
-  NODE_ENV,
-  COMMUTER_S3_KEY,
-  COMMUTER_S3_SECRET,
-  COMMUTER_ES_HOST
-} = process.env;
-
-function deprecate(oldVar, newVar) {
-  if (process.env[oldVar]) {
+function deprecate(env: Object, oldVar: string, newVar: string) {
+  if (env[oldVar]) {
     console.warn(`${oldVar} is deprecated, please use ${newVar}`);
   }
 }
 
-deprecate("COMMUTER_BASEPATH", "COMMUTER_S3_BASE_PREFIX");
-deprecate("COMMUTER_PATH_DELIMITER", "COMMUTER_S3_PATH_DELIMITER");
+function populateLocalStorageOptions(env): Object {
+  let baseDirectory = process.env.COMMUTER_LOCAL_STORAGE_BASEDIRECTORY;
 
-const s3PathDelimiter =
-  process.env.COMMUTER_S3_PATH_DELIMITER ||
-  process.env.COMMUTER_PATH_DELIMITER ||
-  "/";
+  if (!baseDirectory) {
+    baseDirectory = process.cwd();
+    console.warn("Running in the current working directory, ", baseDirectory);
+  }
 
-const s3BasePrefix = (process.env.COMMUTER_S3_BASE_PREFIX ||
-process.env.COMMUTER_BASEPATH || // deprecated
-  "")
-  // trim off trailing slashes
-  .replace(/\/+$/, "");
+  return {
+    local: {
+      baseDirectory
+    }
+  };
+}
 
-module.exports = {
-  s3: {
-    params: {
-      // required s3 bucket name
-      Bucket: COMMUTER_BUCKET
+function populateS3Options(env): Object {
+  deprecate(env, "COMMUTER_BASEPATH", "COMMUTER_S3_BASE_PREFIX");
+  deprecate(env, "COMMUTER_PATH_DELIMITER", "COMMUTER_S3_PATH_DELIMITER");
+
+  if (!env.COMMUTER_BUCKET) {
+    throw "S3 Bucket Name Missing";
+  }
+
+  const s3PathDelimiter =
+    env.COMMUTER_S3_PATH_DELIMITER || env.COMMUTER_PATH_DELIMITER || "/";
+
+  const s3BasePrefix = (env.COMMUTER_S3_BASE_PREFIX ||
+  env.COMMUTER_BASEPATH || // deprecated
+    "")
+    // trim off trailing slashes
+    .replace(/\/+$/, "");
+
+  const config = {
+    s3: {
+      params: {
+        // required s3 bucket name
+        Bucket: env.COMMUTER_BUCKET
+      },
+      // required key
+      accessKeyId: env.COMMUTER_S3_KEY,
+      // required secret
+      secretAccessKey: env.COMMUTER_S3_SECRET
     },
-    // required key
-    accessKeyId: COMMUTER_S3_KEY,
-    // required secret
-    secretAccessKey: COMMUTER_S3_SECRET
-  },
-  elasticSearch: {
-    host: COMMUTER_ES_HOST,
-    log: "debug"
-  },
-  s3PathDelimiter,
-  s3BasePrefix,
+    s3PathDelimiter,
+    s3BasePrefix
+  };
 
-  nodeEnv: NODE_ENV || "test",
-  port: PORT || COMMUTER_PORT
-};
+  return config;
+}
+
+function instantiate() {
+  const storageBackend = (process.env.COMMUTER_STORAGE_BACKEND || "local")
+    .toLowerCase();
+
+  if (storageBackend !== "local" && storageBackend !== "s3") {
+    throw new Error(`Unknown storageBackend ${storageBackend}`);
+  }
+
+  let discoveryBackend = process.env.COMMUTER_DISCOVERY_BACKEND || "none";
+  // NOTE: The automatic assumption of using elasticsearch could be deprecated
+  //       in favor of selecting it here. Not sure which way to go.
+  //       Deferring that decision to later!
+  if (discoveryBackend === "none" && process.env.COMMUTER_ES_HOST) {
+    discoveryBackend = "elasticsearch";
+  }
+
+  const config = {};
+
+  switch (storageBackend) {
+    case "s3":
+      config.storage = populateS3Options(process.env);
+      break;
+    case "local":
+    default:
+      config.storage = populateLocalStorageOptions(process.env);
+  }
+
+  config.storageBackend = storageBackend;
+
+  switch (discoveryBackend) {
+    case "elasticsearch":
+      config.discovery = {
+        elasticsearch: {
+          host: process.env.COMMUTER_ES_HOST || "",
+          log: "debug"
+        }
+      };
+      break;
+    default:
+      config.discoveryBackend = "none";
+  }
+
+  config.nodeEnv = process.env.NODE_ENV || "test";
+  config.port = process.env.PORT || process.env.COMMUTER_PORT || 4000;
+
+  return config;
+}
+
+module.exports = instantiate();
