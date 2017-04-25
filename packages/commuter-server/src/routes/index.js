@@ -7,10 +7,6 @@ const express = require("express"), path = require("path");
 const createAPIRouter = require("./api");
 
 function createRouter(config): express.Router {
-  const router = express.Router();
-  // TODO: Accept content provider choice
-  // TODO: Load the configured router
-
   let contentsProvider;
 
   switch (config.storageBackend) {
@@ -29,6 +25,8 @@ function createRouter(config): express.Router {
     contents: contentsProvider.createContentsRouter(config.storage),
     discovery: discoveryProvider.createDiscoveryRouter(config.discovery)
   });
+
+  const router = express.Router();
 
   router.use("/api", apiRouter);
   router.use("/files", contentsProvider.createFilesRouter(config.storage));

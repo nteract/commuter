@@ -19,7 +19,7 @@ function createRouter(options: DiskProviderOptions) {
   router.get("/*", (req: $Request, res: $Response) => {
     const path = req.params["0"];
     fs
-      .get(options.local, path)
+      .get(options, path)
       .then(content => {
         res.json(content);
       })
