@@ -1,7 +1,5 @@
 // @flow
-const config = require("../../config"),
-  S3 = require("aws-sdk/clients/s3"),
-  { chain } = require("lodash");
+const S3 = require("aws-sdk/clients/s3"), { chain } = require("lodash");
 
 // TODO: Flowtype config
 function createS3Service(config: Object) {
@@ -9,13 +7,10 @@ function createS3Service(config: Object) {
 
   const fileName = (path: string): string =>
     chain(path).trimEnd("/").split(config.s3PathDelimiter).last().value();
-
   const filePath = (path: string) =>
     path.replace(`${config.s3BasePrefix}`, "").replace(/^\//, "");
-
   const s3Prefix = (path: string) =>
     (config.s3BasePrefix ? `${config.s3BasePrefix}/${path}` : path);
-
   const dirObject = data => ({
     name: fileName(data.Prefix),
     path: filePath(data.Prefix),
@@ -27,9 +22,7 @@ function createS3Service(config: Object) {
     content: null,
     format: null
   });
-
   const isNotebook = s3data => s3data.Key && s3data.Key.endsWith("ipynb");
-
   const fileObject = data => ({
     name: fileName(data.Key),
     path: filePath(data.Key),
@@ -41,14 +34,11 @@ function createS3Service(config: Object) {
     content: null,
     format: null
   });
-
   const listObjects = (path: string, callback: Function) => {
     const params = {
       Prefix: s3Prefix(path),
-      Delimiter: config.s3PathDelimiter,
-      // Maximum allowed by S3 API
-      MaxKeys: 2147483647,
-      //remove the folder name from listing
+      Delimiter: config.s3PathDelimiter, // Maximum allowed by S3 API
+      MaxKeys: 2147483647, //remove the folder name from listing
       StartAfter: s3Prefix(path)
     };
     s3.listObjectsV2(params, (err, data) => {
@@ -64,7 +54,6 @@ function createS3Service(config: Object) {
         callback(new Error("Missing CommonPrefixes from S3 Response"));
         return;
       }
-
       const files = data.Contents.map(fileObject);
       const dirs = data.CommonPrefixes.map(dirObject);
       callback(null, {
@@ -80,7 +69,6 @@ function createS3Service(config: Object) {
       });
     });
   };
-
   const getObject = (path: string, callback: Function) => {
     s3.getObject({ Key: s3Prefix(path) }, (err, data) => {
       if (err) {
@@ -88,10 +76,10 @@ function createS3Service(config: Object) {
         return;
       } else {
         // The Key does not exist on getObject, it's expected to use the path above
-        const s3Response = Object.assign({}, data, { Key: s3Prefix(path) });
-
+        const s3Response = Object.assign({}, data, {
+          Key: s3Prefix(path)
+        });
         let content = s3Response.Body.toString("utf-8");
-
         if (isNotebook(s3Response)) {
           try {
             content = JSON.parse(content);
@@ -99,30 +87,27 @@ function createS3Service(config: Object) {
             callback(err);
             return;
           }
-        }
-
-        // Notebook files end up as pure json
-        // All other files end up as pure strings in the content field
+        } // Notebook files end up as pure json // All other files end up as pure strings in the content field
         const file = Object.assign({}, fileObject(s3Response), {
           content
         });
-
         callback(null, file);
       }
     });
   };
-
   const deleteObject = (path: string, callback: Function) => {
     s3.deleteObject({ Key: s3Prefix(path) }, (err, data) => {
       if (err) callback(err);
       else callback(null, data);
     });
   };
-
   const deleteObjects = (path: string, callback: Function) => {
-    let objects = [{ Key: s3Prefix(path) }];
+    let objects = [
+      {
+        Key: s3Prefix(path)
+      }
+    ];
     let callStack = 1;
-
     const getObjects = path => {
       return new Promise((resolve, reject) => {
         listObjects(path, (err, data) => {
@@ -132,23 +117,27 @@ function createS3Service(config: Object) {
           if (!data.content) {
             reject(err);
           }
-
           callStack -= 1;
           data.content.forEach(o => {
             if (o.type == "directory") {
               callStack += 1; //recurse
               getObjects(o.path.substr(1)).then(() => resolve());
-            } else objects.push({ Key: s3Prefix(o.path.substr(1)) });
+            } else
+              objects.push({
+                Key: s3Prefix(o.path.substr(1))
+              });
           });
           if (callStack == 0) resolve(); // notify end
         });
       });
     };
-
     const s3Delete = () => {
       s3.deleteObjects(
         {
-          Delete: { Objects: objects, Quiet: true }
+          Delete: {
+            Objects: objects,
+            Quiet: true
+          }
         },
         (err, data) => {
           if (err) callback(err);
@@ -156,10 +145,8 @@ function createS3Service(config: Object) {
         }
       );
     };
-
     getObjects(path).then(s3Delete);
   };
-
   const uploadObject = (path: string, body: mixed, callback: Function) => {
     s3.upload(
       {
@@ -180,7 +167,6 @@ function createS3Service(config: Object) {
     uploadObject
   };
 }
-
 module.exports = {
   createS3Service
 };

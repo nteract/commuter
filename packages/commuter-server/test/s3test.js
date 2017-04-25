@@ -4,7 +4,7 @@ const assert = require("chai").assert;
 describe("Test S3 service", function() {
   it("getObject returns notebook content", function() {
     const proxyquire = require("proxyquire");
-    const s3 = proxyquire("./../src/content-providers/s3/s3", {
+    const s3Service = proxyquire("./../src/content-providers/s3/s3", {
       "aws-sdk/clients/s3": function() {
         return {
           getObject: function(params, cb) {
@@ -13,6 +13,9 @@ describe("Test S3 service", function() {
         };
       }
     });
+    const s3 = s3Service.createS3Service({
+      s3: { Bucket: "foo" }
+    });
     s3.getObject("dir/foo.ipynb", (err, data) => {
       assert.deepEqual(data.content, "hello world");
     });
@@ -20,7 +23,7 @@ describe("Test S3 service", function() {
 
   it("listObjectsV2 correctly", function() {
     const proxyquire = require("proxyquire");
-    const s3 = proxyquire("./../src/content-providers/s3/s3", {
+    const s3Service = proxyquire("./../src/content-providers/s3/s3", {
       "aws-sdk/clients/s3": function() {
         return {
           listObjectsV2: function(params, cb) {
@@ -35,8 +38,7 @@ describe("Test S3 service", function() {
             });
           }
         };
-      },
-      "../config": { s3: { Bucket: "test" } }
+      }
     });
 
     const expectedData = {
@@ -73,6 +75,10 @@ describe("Test S3 service", function() {
       ],
       format: "json"
     };
+    const s3 = s3Service.createS3Service({
+      s3: { Bucket: "test" },
+      s3PathDelimiter: "/"
+    });
     s3.listObjects("dir/one", (err, data) => {
       assert.deepEqual(data, expectedData);
     });
@@ -80,8 +86,7 @@ describe("Test S3 service", function() {
 
   it("strips base path from listObjectsV2 listings", function() {
     const proxyquire = require("proxyquire");
-    const s3 = proxyquire("./../src/content-providers/s3/s3", {
-      "../../config": { s3: { Bucket: "test" }, s3BasePrefix: "s3BasePath" },
+    const s3Service = proxyquire("./../src/content-providers/s3/s3", {
       "aws-sdk/clients/s3": function() {
         return {
           listObjectsV2: function(params, cb) {
@@ -122,6 +127,11 @@ describe("Test S3 service", function() {
       ],
       format: "json"
     };
+    const s3 = s3Service.createS3Service({
+      s3: { Bucket: "test" },
+      s3BasePrefix: "s3BasePath",
+      s3PathDelimiter: "/"
+    });
     s3.listObjects("dir/one", (err, data) => {
       assert.deepEqual(data, expectedData);
     });
@@ -129,7 +139,7 @@ describe("Test S3 service", function() {
 
   it("deleteObject deletes the object", function() {
     const proxyquire = require("proxyquire");
-    const s3 = proxyquire("./../src/content-providers/s3/s3", {
+    const s3Service = proxyquire("./../src/content-providers/s3/s3", {
       "aws-sdk/clients/s3": function() {
         return {
           deleteObject: function(params, cb) {
@@ -137,6 +147,10 @@ describe("Test S3 service", function() {
           }
         };
       }
+    });
+    const s3 = s3Service.createS3Service({
+      s3: { Bucket: "foo" },
+      s3PathDelimiter: "/"
     });
     s3.deleteObject("dir/foo.ipynb", (err, data) => {
       assert.deepEqual(data, { DeleteMarker: "true", VersionId: "123" });
@@ -155,7 +169,7 @@ describe("Test S3 service", function() {
     };
     const payload = { msg: "test" };
 
-    const s3 = proxyquire("./../src/content-providers/s3/s3", {
+    const s3Service = proxyquire("./../src/content-providers/s3/s3", {
       "aws-sdk/clients/s3": function() {
         return {
           upload: function(params, cb) {
@@ -163,6 +177,10 @@ describe("Test S3 service", function() {
           }
         };
       }
+    });
+    const s3 = s3Service.createS3Service({
+      s3: { Bucket: "foo" },
+      s3PathDelimiter: "/"
     });
     s3.uploadObject("dir/foo.ipynb", payload, (err, data) => {
       assert.deepEqual(data, expectedData);
