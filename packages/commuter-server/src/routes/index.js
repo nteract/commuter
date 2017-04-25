@@ -8,6 +8,7 @@ const createAPIRouter = require("./api");
 
 function createRouter(config): express.Router {
   let contentsProvider;
+  let discoveryProvider;
 
   switch (config.storageBackend) {
     case "s3":
@@ -18,9 +19,15 @@ function createRouter(config): express.Router {
       contentsProvider = require("../content-providers/local");
   }
 
-  // we only provide the elasticsearch storage currently
-  const discoveryProvider = require("../discovery-providers/elasticsearch");
-
+  switch (config.discoveryBackend) {
+    case "elasticsearch":
+      // we only provide the elasticsearch storage currently
+      discoveryProvider = require("../discovery-providers/elasticsearch");
+      break;
+    // Otherwise, we provide a dummy router for now
+    default:
+      discoveryProvider = require("../discovery-providers/none");
+  }
   const apiRouter = createAPIRouter({
     contents: contentsProvider.createContentsRouter(config.storage),
     discovery: discoveryProvider.createDiscoveryRouter(config.discovery)
