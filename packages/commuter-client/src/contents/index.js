@@ -66,7 +66,7 @@ class File extends React.Component {
         return (
           <Container fluid className={css(styles.innerContainer)}>
             <img
-              src={`/files${this.props.pathname}`}
+              src={`/files/${this.props.pathname}`}
               alt={this.props.pathname}
             />
           </Container>
@@ -76,7 +76,7 @@ class File extends React.Component {
         return (
           <div>
             <p>Downloading file</p>
-            <Redirect to={`/files${this.props.pathname}`} />
+            <Redirect to={`/files/${this.props.pathname}`} />
           </div>
         );
     }
