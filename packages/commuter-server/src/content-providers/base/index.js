@@ -1,4 +1,10 @@
 // @flow
+
+export type ContentError = {
+  reason: string,
+  message: string
+};
+
 export type DirectoryContent = {
   type: "directory",
   mimetype: null,

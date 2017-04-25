@@ -11,7 +11,8 @@ import type {
   Content,
   DirectoryContent,
   FileContent,
-  NotebookContent
+  NotebookContent,
+  ContentError
 } from "../base";
 
 export type DiskProviderOptions = {
@@ -136,7 +137,7 @@ function sanitizeFilePath(unsafeFilePath: string): string {
 function get(
   options: DiskProviderOptions,
   unsafeFilePath: string
-): Promise<Content> {
+): Promise<Content | ContentError> {
   const filePath = sanitizeFilePath(unsafeFilePath);
 
   // TODO: filePath should be normalized
@@ -151,7 +152,11 @@ function get(
     if (content.type === "notebook") {
       return getNotebook(options, content);
     }
-    throw new Error(`Unrecognized content type "${content.type}"`);
+
+    return {
+      reason: "Unsupported content",
+      message: `Unrecognized content type "${content.type}"`
+    };
   });
 }
 
@@ -173,8 +178,17 @@ function getDirectory(
           // map across each file listed from the directory
           fname =>
             // creating a promise for each filename
-            createContentPromise(options, path.join(directory.path, fname))
-          // TODO: Should we catch here
+            createContentPromise(
+              options,
+              path.join(directory.path, fname)
+            ).catch(err => {
+              // Not sure what our flow should be for errors
+              // For now we'll log it since we want the rest of the directory to
+              // show.
+              // TODO: Verify how jupyter handles error cases on stat calls to files
+              //       in the directory
+              console.error(err);
+            })
         );
 
         Promise.all(contentPromises)

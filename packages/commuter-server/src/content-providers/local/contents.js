@@ -27,7 +27,7 @@ function createRouter(options: DiskProviderOptions) {
         const errorResponse: ErrorResponse = {
           message: `${err.message}: ${path}`
         };
-        res.status(500).json();
+        res.status(500).json(errorResponse);
       });
   });
   return router;
