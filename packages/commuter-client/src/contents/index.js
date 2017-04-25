@@ -62,6 +62,7 @@ class File extends React.Component {
         );
       case "gif":
       case "jpeg":
+      case "jpg":
       case "png":
         return (
           <Container fluid className={css(styles.innerContainer)}>
