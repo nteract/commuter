@@ -21,6 +21,9 @@ const DirectoryListing = props => {
           <Table.Body>
             {props.contents.map((row, index) => {
               const fullPath = `${base}/${row.path}`;
+              if (!row.type) {
+                return null;
+              }
               switch (row.type) {
                 case "notebook":
                   return (

@@ -23,10 +23,22 @@ function createRouter(options: DiskProviderOptions) {
       .then(content => {
         res.json(content);
       })
-      .catch((err: Error) => {
+      .catch((err: ErrnoError) => {
         const errorResponse: ErrorResponse = {
           message: `${err.message}: ${path}`
         };
+
+        if (err.code === "ENOENT") {
+          res.status(404).json(errorResponse);
+          return;
+        }
+        if (err.code === "EACCES") {
+          // When unable to access a file, assume 404 in the GitHub security style
+          // Even though we're providing all the information in the response...
+          res.status(404).json(errorResponse);
+          return;
+        }
+
         res.status(500).json(errorResponse);
       });
   });

@@ -11,7 +11,7 @@ const commuter = (state = {}, action) => {
       switch (action.entry.type) {
         case "directory":
           content = action.entry.content.filter(file => {
-            return !file.name.startsWith(".");
+            return file && file.name && !file.name.startsWith(".");
           });
           break;
         default:
