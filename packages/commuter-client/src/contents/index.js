@@ -30,11 +30,9 @@ import {
 } from "@nteract/transforms";
 
 import DataResourceTransform from "@nteract/transform-dataresource";
-import PlotlyTransform from "@nteract/transform-plotly";
 
 const { transforms, displayOrder } = [
-  DataResourceTransform,
-  PlotlyTransform
+  DataResourceTransform
 ].reduce(registerTransform, {
   transforms: standardTransforms,
   displayOrder: standardDisplayOrder
