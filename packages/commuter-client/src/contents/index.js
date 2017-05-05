@@ -23,6 +23,21 @@ import { css } from "aphrodite";
 import { styles } from "../stylesheets/commuter";
 import stripView from "./strip-view";
 
+import {
+  standardTransforms,
+  standardDisplayOrder,
+  registerTransform
+} from "@nteract/transforms";
+
+import DataResourceTransform from "@nteract/transform-dataresource";
+
+const { transforms, displayOrder } = [
+  DataResourceTransform
+].reduce(registerTransform, {
+  transforms: standardTransforms,
+  displayOrder: standardDisplayOrder
+});
+
 import HTMLView from "./html";
 import JSONView from "./json";
 import CSVView from "./csv";
@@ -106,7 +121,13 @@ const Entry = props => {
       // TODO: Case off various file types (by extension, mimetype)
       return <File entry={props.entry} pathname={props.pathname} />;
     case "notebook":
-      return <NotebookPreview notebook={props.entry.content} />;
+      return (
+        <NotebookPreview
+          notebook={props.entry.content}
+          displayOrder={displayOrder}
+          transforms={transforms}
+        />
+      );
     default:
       console.log("Unknown contents ");
       return <pre>{JSON.stringify(props.entry.content)}</pre>;
