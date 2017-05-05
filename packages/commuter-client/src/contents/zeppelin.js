@@ -117,6 +117,22 @@ const whichLanguage = source => {
     return "text/x-hive";
   }
 
+  if (/^%pyspark/.test(source)) {
+    return "python";
+  }
+
+  if (/^%spark/.test(source)) {
+    return "text/x-scala";
+  }
+
+  if (/^%r/.test(source)) {
+    return "r";
+  }
+
+  if (/^%html/.test(source)) {
+    return "html";
+  }
+
   return "text/x-scala";
 };
 
