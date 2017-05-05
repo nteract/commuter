@@ -150,6 +150,19 @@ const whichLanguage = source => {
 
 const Paragraph = props => {
   const lang = whichLanguage(props.text);
+  if (lang === "markdown") {
+    return (
+      <div
+        style={{
+          paddingBottom: "10px",
+          paddingTop: "10px"
+        }}
+      >
+        <Result result={props.result} />
+      </div>
+    );
+  }
+
   return (
     <div>
       <Editor
