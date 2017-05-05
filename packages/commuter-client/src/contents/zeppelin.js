@@ -117,8 +117,20 @@ const whichLanguage = source => {
     return "text/x-hive";
   }
 
-  if (/^%pyspark/.test(source)) {
+  if (/^%pig/.test(source)) {
+    return "pig";
+  }
+
+  if (
+    /^%spark\.pyspark/.test(source) ||
+    /^%pyspark/.test(source) ||
+    /^%python/.test(source)
+  ) {
     return "python";
+  }
+
+  if (/^%sh/.test(source)) {
+    return "shell";
   }
 
   if (/^%spark/.test(source)) {
