@@ -9,8 +9,7 @@ import Editor from "@nteract/notebook-preview/lib/editor";
 const HokeyTable = props => (
   <div>
     <style>
-      {
-        `
+      {`
       table {
         border-collapse: collapse;
         border-spacing: 0;
@@ -44,8 +43,7 @@ const HokeyTable = props => (
           text-align: left;
           vertical-align: bottom;
       }
-      `
-      }
+      `}
     </style>
     <table>
       <thead>
@@ -83,7 +81,7 @@ const UnsupportedResult = props => (
 );
 
 const Result = props => {
-  if (!props.result) {
+  if (!props.result || props.result.msg === "") {
     return null;
   }
   if (!props.result.msg) {
@@ -110,13 +108,54 @@ const Result = props => {
   }
 };
 
+const whichLanguage = source => {
+  if (/^%md/.test(source)) {
+    return "markdown";
+  }
+
+  if (/^%sql/.test(source)) {
+    return "text/x-hive";
+  }
+
+  if (/^%pig/.test(source)) {
+    return "pig";
+  }
+
+  if (
+    /^%spark\.pyspark/.test(source) ||
+    /^%pyspark/.test(source) ||
+    /^%python/.test(source)
+  ) {
+    return "python";
+  }
+
+  if (/^%sh/.test(source)) {
+    return "shell";
+  }
+
+  if (/^%spark/.test(source)) {
+    return "text/x-scala";
+  }
+
+  if (/^%r/.test(source)) {
+    return "r";
+  }
+
+  if (/^%html/.test(source)) {
+    return "html";
+  }
+
+  return "text/x-scala";
+};
+
 const Paragraph = props => {
+  const lang = whichLanguage(props.text);
   return (
     <div>
       <Editor
         completion
         input={props.text}
-        language="scala"
+        language={lang}
         theme="composition"
         cellFocused={false}
         onChange={() => {}}
@@ -132,14 +171,21 @@ const Paragraph = props => {
           paddingTop: "10px"
         }}
       />
-      <Result result={props.result} />
+      <div
+        style={{
+          paddingBottom: "10px",
+          paddingTop: "10px"
+        }}
+      >
+        <Result result={props.result} />
+      </div>
     </div>
   );
 };
 
 const ZeppelinView = props => {
   return (
-    <div>
+    <div style={{ paddingLeft: "10px" }}>
       <h1>{props.notebook.name}</h1>
       {props.notebook.paragraphs.map(p => <Paragraph key={p.id} {...p} />)}
     </div>
