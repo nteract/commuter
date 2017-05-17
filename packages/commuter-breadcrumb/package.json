@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-breadcrumb",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "bread crumb navigation",
   "main": "lib/index.js",
   "scripts": {
