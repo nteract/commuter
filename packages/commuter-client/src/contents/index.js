@@ -16,8 +16,6 @@ import { fetchContents } from "../actions";
 
 import { Container } from "semantic-ui-react";
 
-import { Redirect } from "react-router-dom";
-
 import { css } from "aphrodite";
 
 import { styles } from "../stylesheets/commuter";
@@ -87,13 +85,11 @@ class File extends React.Component {
             />
           </Container>
         );
-
       default:
         return (
-          <div>
-            <p>Downloading file</p>
-            <Redirect to={`/files/${this.props.pathname}`} />
-          </div>
+          <Container fluid className={css(styles.innerContainer)}>
+            <a href={`/files/${this.props.pathname}`}>Download raw file</a>
+          </Container>
         );
     }
   }
