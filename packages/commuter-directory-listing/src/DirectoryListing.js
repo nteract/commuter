@@ -4,12 +4,6 @@ import { Table, Grid, Segment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const DirectoryListing = props => {
-  const handleClick = path => e => {
-    if (props.onClick) {
-      e.preventDefault();
-      props.onClick(path);
-    }
-  };
   const base = props.basepath;
   return (
     <Grid>
@@ -29,9 +23,9 @@ const DirectoryListing = props => {
                   return (
                     <Table.Row key={index}>
                       <Table.Cell>
-                        <a href={fullPath} onClick={handleClick(fullPath)}>
+                        <Link to={fullPath}>
                           <Icon name="book" color="grey" />{row.name}
-                        </a>
+                        </Link>
                       </Table.Cell>
                       <Table.Cell collapsing textAlign="right" />
                     </Table.Row>
@@ -40,9 +34,9 @@ const DirectoryListing = props => {
                   return (
                     <Table.Row key={index}>
                       <Table.Cell collapsing>
-                        <a href={fullPath} onClick={handleClick(fullPath)}>
+                        <Link to={fullPath}>
                           <Icon name="folder" color="blue" />{row.name}
-                        </a>
+                        </Link>
                       </Table.Cell>
                       <Table.Cell collapsing textAlign="right" />
                     </Table.Row>
@@ -51,9 +45,9 @@ const DirectoryListing = props => {
                   return (
                     <Table.Row key={index}>
                       <Table.Cell collapsing>
-                        <a href={fullPath} onClick={handleClick(fullPath)}>
+                        <Link to={fullPath}>
                           <Icon name="file" color="grey" />{row.name}
-                        </a>
+                        </Link>
                       </Table.Cell>
                       <Table.Cell collapsing textAlign="right" />
                     </Table.Row>

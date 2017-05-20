@@ -26,6 +26,7 @@
     "lodash": "^4.17.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
     "semantic-ui-react": "^0.67.2"
   },
   "devDependencies": {

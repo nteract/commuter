@@ -112,7 +112,6 @@ const Entry = props => {
             className={css(styles.listing)}
             path={props.pathname}
             contents={props.entry.content}
-            onClick={props.handleClick}
             basepath={"/view"}
           />
         </Container>
@@ -149,7 +148,6 @@ class Contents extends React.Component {
   loadData = ({ location, dispatch }) => {
     dispatch(fetchContents(stripView(location.pathname)));
   };
-  handleClick = path => this.props.history.push(path);
 
   render() {
     const pathname = stripView(this.props.location.pathname);
@@ -161,17 +159,9 @@ class Contents extends React.Component {
             marginLeft: "2rem"
           }}
         >
-          <BreadCrumb
-            path={pathname}
-            onClick={this.handleClick}
-            basepath={"/view"}
-          />
+          <BreadCrumb path={pathname} basepath={"/view"} />
         </div>
-        <Entry
-          entry={this.props.entry}
-          pathname={pathname}
-          handleClick={this.handleClick}
-        />
+        <Entry entry={this.props.entry} pathname={pathname} />
       </Container>
     );
   }

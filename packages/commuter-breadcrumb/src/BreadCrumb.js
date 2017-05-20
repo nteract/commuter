@@ -2,28 +2,21 @@ import React, { PropTypes as T } from "react";
 import { Breadcrumb } from "semantic-ui-react";
 import { trim } from "lodash";
 
+import { Link } from "react-router-dom";
+
 const BreadCrumb = props => {
   const { path, basepath, onClick } = props;
   const paths = trim(path, "/").split("/");
   let breadCrumbs = [];
 
-  const handleClick = path =>
-    e => {
-      if (onClick) {
-        e.preventDefault();
-        onClick(path);
-      }
-    };
-
   breadCrumbs.push(
     <Breadcrumb.Section key="home">
-      <a
-        href={`${basepath}/`}
-        onClick={handleClick(`${basepath}/`)}
+      <Link
+        to={`${basepath}/`}
         style={{ display: "block", width: "2em", height: "2em" }}
       >
         /
-      </a>
+      </Link>
     </Breadcrumb.Section>
   );
   paths.forEach((name, index) => {
@@ -41,12 +34,9 @@ const BreadCrumb = props => {
     else
       breadCrumbs.push(
         <Breadcrumb.Section key={`section-${index}`}>
-          <a
-            href={`${basepath}/${filePath}/`}
-            onClick={handleClick(`${basepath}/${filePath}/`)}
-          >
+          <Link to={`${basepath}/${filePath}/`}>
             {name}
-          </a>
+          </Link>
         </Breadcrumb.Section>
       );
   });
