@@ -28,7 +28,24 @@ function createRouter(options: DiskProviderOptions) {
       sanitizeFilePath(unsafeFilePath)
     );
 
-    fs.createReadStream(filePath).pipe(res);
+    // Assume it's a file by default, fall to error handling otherwise
+    const rs = fs.createReadStream(filePath);
+
+    rs.on("error", err => {
+      const errorResponse: ErrorResponse = {
+        message: `${err.message}: ${filePath}`
+      };
+
+      if (err.code === "ENOENT" || err.code === "EACCES") {
+        res.status(404).send(errorResponse);
+        return;
+      }
+
+      console.error(err.stack);
+      res.status(500).send(errorResponse);
+    });
+
+    rs.pipe(res);
   });
   return router;
 }
