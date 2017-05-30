@@ -44,7 +44,11 @@ function createRouter(config): express.Router {
   router.get("*", (req: $Request, res: $Response) => {
     res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
   });
-  return router;
+
+  const baseRouter = express.Router();
+  baseRouter.use(config.baseURI, router);
+
+  return baseRouter;
 }
 
 // Keeping the singleton on the export to make it work in-place right now
