@@ -98,6 +98,8 @@ function instantiate() {
       config.discoveryBackend = "none";
   }
 
+  config.baseURI = process.env.COMMUTER_BASE_URI || "/";
+
   config.nodeEnv = process.env.NODE_ENV || "test";
   config.port = process.env.PORT || process.env.COMMUTER_PORT || 4000;
 
