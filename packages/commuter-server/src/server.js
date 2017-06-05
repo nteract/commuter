@@ -12,14 +12,10 @@ function createServer() {
   const app = express();
   app.use(morgan("common"));
 
+  // Route config prefix needs to go here too...
   app.use(express.static("static"));
 
   log.info(`Node env: ${config.nodeEnv}`);
-
-  app.use(
-    "/nteract/commuter",
-    express.static(path.resolve(__dirname, "..", "build"))
-  );
 
   // Last middleware
   app.use(require("./routes"));

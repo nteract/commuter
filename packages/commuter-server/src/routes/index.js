@@ -4,7 +4,11 @@ import type { $Request, $Response } from "express";
 
 const express = require("express"), path = require("path");
 
+const fs = require("fs");
+
 const createAPIRouter = require("./api");
+
+const cheerio = require("cheerio");
 
 function createRouter(config): express.Router {
   let contentsProvider;
@@ -34,6 +38,10 @@ function createRouter(config): express.Router {
   });
 
   const router = express.Router();
+  router.use(
+    "/nteract/commuter",
+    express.static(path.resolve(__dirname, "..", "build"))
+  );
 
   router.use("/api", apiRouter);
   router.use("/files", contentsProvider.createFilesRouter(config.storage));
@@ -41,8 +49,21 @@ function createRouter(config): express.Router {
   router.use("/view", require("./view"));
 
   //commuter-client
+  const indexFilename = path.resolve(
+    __dirname,
+    "..",
+    "..",
+    "build",
+    "index.html"
+  );
+
+  const basePage = fs
+    .readFileSync(indexFilename)
+    .toString()
+    .replace(/%COMMUTER_BASE_URI%/g, config.baseURI);
+
   router.get("*", (req: $Request, res: $Response) => {
-    res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
+    res.send(basePage);
   });
 
   const baseRouter = express.Router();
