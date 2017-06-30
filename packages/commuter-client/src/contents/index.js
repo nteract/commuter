@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "@nteract/commuter-directory-listing";
-import BreadCrumb from "@nteract/commuter-breadcrumb";
+import BreadCrumb from "./bread-crumb";
 
 import MarkdownTransform from "@nteract/transforms/lib/markdown";
 
