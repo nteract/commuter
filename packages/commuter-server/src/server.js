@@ -17,6 +17,11 @@ function createServer() {
 
   log.info(`Node env: ${config.nodeEnv}`);
 
+  app.use(
+    "/nteract/commuter",
+    express.static(path.resolve(__dirname, "..", "build"))
+  );
+
   // Last middleware
   app.use(require("./routes"));
 

@@ -63,6 +63,8 @@ function createRouter(config): express.Router {
     .toString()
     .replace(/%COMMUTER_BASE_URI%/g, config.baseURI);
 
+  console.log(basePage);
+
   router.get("*", (req: $Request, res: $Response) => {
     res.send(basePage);
   });
