@@ -2,13 +2,12 @@
 
 import type { $Request, $Response } from "express";
 
-const express = require("express"), path = require("path");
+const express = require("express"),
+  path = require("path");
 
 const fs = require("fs");
 
 const createAPIRouter = require("./api");
-
-const cheerio = require("cheerio");
 
 function createRouter(config): express.Router {
   let contentsProvider;
