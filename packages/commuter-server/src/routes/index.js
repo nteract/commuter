@@ -36,6 +36,8 @@ function createRouter(config): express.Router {
     discovery: discoveryProvider.createDiscoveryRouter(config.discovery)
   });
 
+  console.log(config);
+
   const router = express.Router();
   router.use(
     "/nteract/commuter",
