@@ -8,6 +8,11 @@ const express = require("express"),
   Log = require("log"),
   log = new Log("info");
 
+const next = require("next");
+
+const dev = process.env.NODE_ENV !== "production";
+const nextApp = next({ dev });
+
 function createServer() {
   const app = express();
   app.use(morgan("common"));
