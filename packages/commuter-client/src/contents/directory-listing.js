@@ -1,5 +1,5 @@
 import React, { PropTypes as T } from "react";
-import { Table, Grid, Segment, Icon } from "semantic-ui-react";
+import { Table, Grid, Icon } from "semantic-ui-react";
 
 import { Link } from "react-router-dom";
 
