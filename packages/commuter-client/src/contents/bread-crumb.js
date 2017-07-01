@@ -5,7 +5,7 @@ import { trim } from "lodash";
 import { Link } from "react-router-dom";
 
 const BreadCrumb = props => {
-  const { path, basepath, onClick } = props;
+  const { path, basepath } = props;
   const paths = trim(path, "/").split("/");
   let breadCrumbs = [];
 
@@ -25,7 +25,7 @@ const BreadCrumb = props => {
       <Breadcrumb.Divider key={`divider-${index}`} icon="right angle" />
     );
     // last index
-    if (index == paths.length - 1)
+    if (index === paths.length - 1)
       breadCrumbs.push(
         <Breadcrumb.Section key={`section-${index}`} active>
           {name}
@@ -47,6 +47,6 @@ const BreadCrumb = props => {
   );
 };
 
-BreadCrumb.propTypes = { path: T.string.isRequired, onClick: T.func };
+BreadCrumb.propTypes = { path: T.string.isRequired };
 
 export default BreadCrumb;
