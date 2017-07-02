@@ -1,5 +1,7 @@
 // @flow
 
+import type { $Request, $Response } from "express";
+
 const express = require("express"),
   http = require("http"),
   path = require("path"),
@@ -18,6 +20,14 @@ function createServer() {
   return nextApp.prepare().then(() => {
     const app = express();
     app.use(morgan("common"));
+
+    const nextJSRouter = express.Router();
+    nextJSRouter.get("*", (req: $Request, res: $Response) => {
+      console.log("NEXTING", req);
+      nextApp.render(req, res, "/what", req.query);
+    });
+
+    app.use("/next", nextJSRouter);
 
     app.use(express.static("static"));
 
