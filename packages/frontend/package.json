@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No tests for now\""
   },
   "dependencies": {
     "nbschema": "^0.1.0",
