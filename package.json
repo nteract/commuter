@@ -52,6 +52,7 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
+    "fs-extra": "^3.0.1",
     "lerna": "^2.0.0-rc.5"
   },
   "devDependencies": {

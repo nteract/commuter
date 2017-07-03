@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "echo totes built",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kyle Kelley <rgbkrk@gmail.com>",
