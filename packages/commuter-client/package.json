@@ -27,8 +27,6 @@
     "react-scripts": "^0.9.5"
   },
   "dependencies": {
-    "@nteract/commuter-breadcrumb": "^1.0.0",
-    "@nteract/commuter-directory-listing": "^1.0.0",
     "@nteract/notebook-preview": "^1.2.0",
     "@nteract/transform-dataresource": "^1.0.6",
     "aphrodite": "^1.2.1",

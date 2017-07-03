@@ -60,7 +60,10 @@
   },
   "babel": {
     "presets": [
-      "flow"
+        "next/babel"
+    ],
+    "plugins": [
+        "transform-flow-strip-types"
     ]
   }
 }

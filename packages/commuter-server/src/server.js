@@ -23,8 +23,11 @@ function createServer() {
 
     const nextJSRouter = express.Router();
     nextJSRouter.get("*", (req: $Request, res: $Response) => {
+      const handle = nextApp.getRequestHandler();
+
+      handle(req, res);
       console.log("NEXTING", req);
-      nextApp.render(req, res, "/what", req.query);
+      // nextApp.render(req, res, "/what", req.query);
     });
 
     app.use("/next", nextJSRouter);
