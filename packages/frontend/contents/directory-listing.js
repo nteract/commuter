@@ -24,7 +24,8 @@ const DirectoryListing = props => {
                     <Table.Row key={index}>
                       <Table.Cell>
                         <Link to={fullPath}>
-                          <Icon name="book" color="grey" />{row.name}
+                          <Icon name="book" color="grey" />
+                          {row.name}
                         </Link>
                       </Table.Cell>
                       <Table.Cell collapsing textAlign="right" />
@@ -35,7 +36,8 @@ const DirectoryListing = props => {
                     <Table.Row key={index}>
                       <Table.Cell collapsing>
                         <Link to={fullPath}>
-                          <Icon name="folder" color="blue" />{row.name}
+                          <Icon name="folder" color="blue" />
+                          {row.name}
                         </Link>
                       </Table.Cell>
                       <Table.Cell collapsing textAlign="right" />
@@ -46,7 +48,8 @@ const DirectoryListing = props => {
                     <Table.Row key={index}>
                       <Table.Cell collapsing>
                         <Link to={fullPath}>
-                          <Icon name="file" color="grey" />{row.name}
+                          <Icon name="file" color="grey" />
+                          {row.name}
                         </Link>
                       </Table.Cell>
                       <Table.Cell collapsing textAlign="right" />

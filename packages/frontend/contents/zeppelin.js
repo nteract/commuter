@@ -6,7 +6,7 @@ import Text from "@nteract/transforms/lib/text";
 
 import Editor from "@nteract/notebook-preview/lib/editor";
 
-const HokeyTable = props => (
+const HokeyTable = props =>
   <div>
     <style>
       {`
@@ -48,37 +48,39 @@ const HokeyTable = props => (
     <table>
       <thead>
         <tr>
-          {props.columnNames.map(column => (
-            <th key={column.index}>{column.name}</th>
-          ))}
+          {props.columnNames.map(column =>
+            <th key={column.index}>
+              {column.name}
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
-        {props.rows.map((row, idx) => (
+        {props.rows.map((row, idx) =>
           <tr key={idx}>
-            {row.map((item, colIdx) => <td key={colIdx}>{item}</td>)}
+            {row.map((item, colIdx) =>
+              <td key={colIdx}>
+                {item}
+              </td>
+            )}
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
-  </div>
-);
+  </div>;
 
-const UnsupportedResult = props => (
+const UnsupportedResult = props =>
   <div>
     <h1>UNSUPPORTED ZEPPELIN RESULT</h1>
     <p>
-      Post an issue to
-      {" "}
+      Post an issue to{" "}
       <a href="https://github.com/nteract/commuter/issues/new" target="_blank">
         commuter
-      </a>
-      {" "}
+      </a>{" "}
       to let us know about it
     </p>
     <JSONTransform data={props.result} />
-  </div>
-);
+  </div>;
 
 const Result = props => {
   if (!props.result || props.result.msg === "") {
@@ -199,7 +201,9 @@ const Paragraph = props => {
 const ZeppelinView = props => {
   return (
     <div style={{ paddingLeft: "10px" }}>
-      <h1>{props.notebook.name}</h1>
+      <h1>
+        {props.notebook.name}
+      </h1>
       {props.notebook.paragraphs.map(p => <Paragraph key={p.id} {...p} />)}
     </div>
   );

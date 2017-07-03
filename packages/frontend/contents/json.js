@@ -34,8 +34,12 @@ export default props => {
     return (
       <div>
         <h1>Failed to parse Zeppelin Notebook</h1>
-        <pre>{e.toString()}</pre>
-        <code>{this.props.entry.content}</code>
+        <pre>
+          {e.toString()}
+        </pre>
+        <code>
+          {this.props.entry.content}
+        </code>
       </div>
     );
   }

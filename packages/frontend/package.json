@@ -9,10 +9,16 @@
     "test": "echo \"No tests for now\""
   },
   "dependencies": {
+    "@nteract/notebook-preview": "^1.2.2",
+    "@nteract/transforms": "^1.1.0",
+    "codemirror": "^5.27.4",
     "nbschema": "^0.1.0",
     "next": "rgbkrk/next.git#clean-allowed-from-non-cwd",
+    "normalize.css": "^7.0.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "semantic-ui-react": "^0.70.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

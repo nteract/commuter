@@ -125,7 +125,11 @@ const Entry = props => {
       );
     default:
       console.log("Unknown contents ");
-      return <pre>{JSON.stringify(props.entry.content)}</pre>;
+      return (
+        <pre>
+          {JSON.stringify(props.entry.content)}
+        </pre>
+      );
   }
 };
 
