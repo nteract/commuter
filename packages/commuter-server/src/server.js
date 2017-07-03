@@ -10,46 +10,27 @@ const express = require("express"),
   Log = require("log"),
   log = new Log("info");
 
-const next = require("next");
-
-const dev = process.env.NODE_ENV !== "production";
-const nextApp = next({ dev });
-const handle = nextApp.getRequestHandler();
-
 function createServer() {
-  return nextApp.prepare().then(() => {
-    const app = express();
-    app.use(morgan("common"));
+  const app = express();
+  app.use(morgan("common"));
 
-    const nextJSRouter = express.Router();
-    nextJSRouter.get("*", (req: $Request, res: $Response) => {
-      const handle = nextApp.getRequestHandler();
+  app.use(express.static("static"));
 
-      handle(req, res);
-      console.log("NEXTING", req);
-      // nextApp.render(req, res, "/what", req.query);
-    });
+  log.info(`Node env: ${config.nodeEnv}`);
 
-    app.use("/next", nextJSRouter);
+  app.use(
+    "/nteract/commuter",
+    express.static(path.resolve(__dirname, "..", "build"))
+  );
 
-    app.use(express.static("static"));
+  // Last middleware
+  app.use(require("./routes"));
 
-    log.info(`Node env: ${config.nodeEnv}`);
+  const server = http.createServer(app);
 
-    app.use(
-      "/nteract/commuter",
-      express.static(path.resolve(__dirname, "..", "build"))
-    );
-
-    // Last middleware
-    app.use(require("./routes"));
-
-    const server = http.createServer(app);
-
-    return new Promise(accept => {
-      server.listen(config.port, () => {
-        accept(server);
-      });
+  return new Promise(accept => {
+    server.listen(config.port, () => {
+      accept(server);
     });
   });
 }

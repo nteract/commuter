@@ -15,12 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": [
-    "nteract",
-    "jupyter",
-    "s3",
-    "notebook"
-  ],
+  "keywords": ["nteract", "jupyter", "s3", "notebook"],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
@@ -41,10 +36,8 @@
     "log": "^1.4.0",
     "morgan": "^1.7.0",
     "nbschema": "^0.1.0",
-    "next": "^2.4.6",
+    "@nteract/commuter-frontend": "^1.0.0",
     "node-fetch": "^1.6.3",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "s3-proxy": "^1.1.0",
     "winston": "^2.3.0"
   },
@@ -59,11 +52,7 @@
     "supertest": "^3.0.0"
   },
   "babel": {
-    "presets": [
-        "next/babel"
-    ],
-    "plugins": [
-        "transform-flow-strip-types"
-    ]
+    "presets": ["next/babel"],
+    "plugins": ["transform-flow-strip-types"]
   }
 }
