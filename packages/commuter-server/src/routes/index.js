@@ -2,7 +2,8 @@
 
 import type { $Request, $Response } from "express";
 
-const express = require("express"), path = require("path");
+const express = require("express"),
+  path = require("path");
 
 const createAPIRouter = require("./api");
 
@@ -38,12 +39,13 @@ function createRouter(config): express.Router {
   router.use("/api", apiRouter);
   router.use("/files", contentsProvider.createFilesRouter(config.storage));
 
-  router.use("/view", require("./view"));
+  // TODO: Provide same view handling within the next.js version
+  // router.use("/view", require("./view"));
 
   //commuter-client
-  router.get("*", (req: $Request, res: $Response) => {
-    res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
-  });
+  // router.get("*", (req: $Request, res: $Response) => {
+  //   res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
+  // });
   return router;
 }
 

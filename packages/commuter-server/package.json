@@ -52,7 +52,6 @@
     "supertest": "^3.0.0"
   },
   "babel": {
-    "presets": ["next/babel"],
     "plugins": ["transform-flow-strip-types"]
   }
 }

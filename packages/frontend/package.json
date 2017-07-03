@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo totes built",
+    "dev": "next",
+    "build": "next build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "nbschema": "^0.1.0",
-    "next": "^2.4.6",
+    "next": "rgbkrk/next.git#clean-allowed-from-non-cwd",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
@@ -24,8 +25,12 @@
     "supertest": "^3.0.0"
   },
   "babel": {
-    "presets": ["next/babel"],
-    "plugins": ["transform-flow-strip-types"]
+    "presets": [
+      "next/babel"
+    ],
+    "plugins": [
+      "transform-flow-strip-types"
+    ]
   },
   "author": "Kyle Kelley <rgbkrk@gmail.com>",
   "license": "BSD-3-Clause"

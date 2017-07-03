@@ -13,7 +13,7 @@
  * https://github.com/flowtype/flow-typed
  */
 
-declare module 'flow-remove-types' {
+declare module "flow-remove-types" {
   declare module.exports: any;
 }
 
@@ -22,17 +22,17 @@ declare module 'flow-remove-types' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'flow-remove-types/register' {
+declare module "flow-remove-types/register" {
   declare module.exports: any;
 }
 
 // Filename aliases
-declare module 'flow-remove-types/index' {
-  declare module.exports: $Exports<'flow-remove-types'>;
+declare module "flow-remove-types/index" {
+  declare module.exports: $Exports<"flow-remove-types">;
 }
-declare module 'flow-remove-types/index.js' {
-  declare module.exports: $Exports<'flow-remove-types'>;
+declare module "flow-remove-types/index.js" {
+  declare module.exports: $Exports<"flow-remove-types">;
 }
-declare module 'flow-remove-types/register.js' {
-  declare module.exports: $Exports<'flow-remove-types/register'>;
+declare module "flow-remove-types/register.js" {
+  declare module.exports: $Exports<"flow-remove-types/register">;
 }

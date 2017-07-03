@@ -30,21 +30,13 @@
     "watch": "lerna exec --ignore @nteract/commuter-client -- npm run watch"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ]
+    "packages/**/*.js": ["prettier --write", "git add"]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": [
-    "nteract",
-    "jupyter",
-    "s3",
-    "notebook"
-  ],
+  "keywords": ["nteract", "jupyter", "s3", "notebook"],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
