@@ -11,6 +11,7 @@
   "dependencies": {
     "@nteract/notebook-preview": "^1.2.2",
     "@nteract/transforms": "^1.1.0",
+    "aphrodite": "^1.2.1",
     "codemirror": "^5.27.4",
     "nbschema": "^0.1.0",
     "next": "rgbkrk/next.git#clean-allowed-from-non-cwd",
