@@ -25,7 +25,6 @@ function createServer() {
 
     // Last middleware
     const router = require("./routes");
-    app.use(router);
 
     router.get(["/view", "/view*"], (req: $Request, res: $Response) => {
       const { pathname, query } = parse(req.url, true);
@@ -39,6 +38,14 @@ function createServer() {
 
     // Hokey pokey passthrough for now
     router.get("*", (req: $Request, res: $Response) => {
+      return frontend.handle(req, res);
+    });
+
+    const baseURI = "/trial";
+    app.use(baseURI, router);
+
+    // Hokey pokey passthrough for now
+    app.use((req: $Request, res: $Response) => {
       return frontend.handle(req, res);
     });
 

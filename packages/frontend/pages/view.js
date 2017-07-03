@@ -2,7 +2,7 @@ export default props => {
   console.log(props);
   return (
     <div>
-      <p>view</p>
+      <p>view it</p>
       <pre>
         {JSON.stringify(props.url.query.viewPath)}
       </pre>
