@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
   },
   divider: { marginTop: "0rem" },
   listing: {
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   }
 });
 

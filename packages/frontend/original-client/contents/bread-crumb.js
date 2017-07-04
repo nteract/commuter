@@ -2,7 +2,7 @@ import React, { PropTypes as T } from "react";
 import { Breadcrumb } from "semantic-ui-react";
 import { trim } from "lodash";
 
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const BreadCrumb = props => {
   const { path, basepath } = props;

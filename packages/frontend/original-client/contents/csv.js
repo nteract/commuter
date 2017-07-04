@@ -1,7 +1,7 @@
 const d3 = Object.assign({}, require("d3-dsv"));
 
 import React from "react";
-import DataTransform from "@nteract/transform-dataresource";
+// import DataTransform from "@nteract/transform-dataresource";
 
 export default class CSVView extends React.Component {
   shouldComponentUpdate() {
@@ -12,7 +12,7 @@ export default class CSVView extends React.Component {
     const data = d3.csvParse(this.props.entry.content);
     return (
       <div>
-        <DataTransform data={{ data }} theme="light" />
+        {/* <DataTransform data={{ data }} theme="light" /> */}
       </div>
     );
   }

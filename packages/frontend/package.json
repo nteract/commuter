@@ -10,15 +10,20 @@
   },
   "dependencies": {
     "@nteract/notebook-preview": "^1.2.2",
+    "@nteract/transform-dataresource": "^1.0.7",
     "@nteract/transforms": "^1.1.0",
     "aphrodite": "^1.2.1",
     "codemirror": "^5.27.4",
+    "d3-dsv": "^1.0.5",
+    "jsdom": "^11.1.0",
     "nbschema": "^0.1.0",
     "next": "rgbkrk/next.git#clean-allowed-from-non-cwd",
     "normalize.css": "^7.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
+    "redux": "^3.6.0",
+    "rx-jupyter": "^2.0.0",
     "semantic-ui-react": "^0.70.0"
   },
   "devDependencies": {

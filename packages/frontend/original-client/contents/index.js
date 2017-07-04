@@ -7,10 +7,12 @@ import BreadCrumb from "./bread-crumb";
 
 import MarkdownTransform from "@nteract/transforms/lib/markdown";
 
-import "normalize.css/normalize.css";
-import "codemirror/lib/codemirror.css";
-import "@nteract/notebook-preview/styles/main.css";
-import "@nteract/notebook-preview/styles/theme-light.css";
+// TODO: Introduce these into the <Head />
+//       or scope them with <style jsx>
+// import "normalize.css/normalize.css";
+// import "codemirror/lib/codemirror.css";
+// import "@nteract/notebook-preview/styles/main.css";
+// import "@nteract/notebook-preview/styles/theme-light.css";
 
 import { fetchContents } from "../actions";
 
@@ -27,10 +29,10 @@ import {
   registerTransform
 } from "@nteract/transforms";
 
-import DataResourceTransform from "@nteract/transform-dataresource";
+// import DataResourceTransform from "@nteract/transform-dataresource";
 
 const { transforms, displayOrder } = [
-  DataResourceTransform
+  //  DataResourceTransform
 ].reduce(registerTransform, {
   transforms: standardTransforms,
   displayOrder: standardDisplayOrder
@@ -134,8 +136,6 @@ const Entry = props => {
 };
 
 class Contents extends React.Component {
-  static contextTypes = { router: T.object.isRequired };
-
   componentDidMount() {
     this.loadData(this.props);
   }

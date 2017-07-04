@@ -1,7 +1,7 @@
 import React, { PropTypes as T } from "react";
 import { Table, Grid, Icon } from "semantic-ui-react";
 
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const DirectoryListing = props => {
   const base = props.basepath;
