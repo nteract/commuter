@@ -30,7 +30,7 @@
     "watch": "lerna exec --ignore @nteract/commuter-client -- npm run watch"
   },
   "lint-staged": {
-    "*.js": [
+    "packages/**/*.js": [
       "prettier --write",
       "git add"
     ]
@@ -52,7 +52,8 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
-    "lerna": "^2.0.0-rc.4"
+    "fs-extra": "^3.0.1",
+    "lerna": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "concurrently": "^3.1.0",

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "echo noop",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "echo \" flow not configured \" && exit 0"
@@ -27,8 +27,6 @@
     "react-scripts": "^0.9.5"
   },
   "dependencies": {
-    "@nteract/commuter-breadcrumb": "^1.0.0",
-    "@nteract/commuter-directory-listing": "^1.0.0",
     "@nteract/notebook-preview": "^1.2.0",
     "@nteract/transform-dataresource": "^1.0.6",
     "aphrodite": "^1.2.1",

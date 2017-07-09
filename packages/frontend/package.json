@@ -1,0 +1,50 @@
+{
+  "name": "@nteract/commuter-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "test": "echo \"No tests for now\""
+  },
+  "dependencies": {
+    "@nteract/notebook-preview": "^1.2.2",
+    "@nteract/transform-dataresource": "^1.0.7",
+    "@nteract/transforms": "^1.1.0",
+    "aphrodite": "^1.2.1",
+    "codemirror": "^5.27.4",
+    "d3-dsv": "^1.0.5",
+    "jsdom": "^11.1.0",
+    "nbschema": "^0.1.0",
+    "next": "rgbkrk/next.git#clean-allowed-from-non-cwd",
+    "normalize.css": "^7.0.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-no-ssr": "^1.1.0",
+    "react-redux": "^5.0.5",
+    "redux": "^3.6.0",
+    "rx-jupyter": "^2.0.0",
+    "semantic-ui-react": "^0.70.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "chai": "^3.5.0",
+    "flow-bin": "^0.44.2",
+    "flow-remove-types": "^1.2.0",
+    "mocha": "^3.2.0",
+    "proxyquire": "^1.7.10",
+    "supertest": "^3.0.0"
+  },
+  "babel": {
+    "presets": [
+      "next/babel"
+    ],
+    "plugins": [
+      "transform-flow-strip-types"
+    ]
+  },
+  "author": "Kyle Kelley <rgbkrk@gmail.com>",
+  "license": "BSD-3-Clause"
+}

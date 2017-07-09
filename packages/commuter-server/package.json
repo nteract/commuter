@@ -2,11 +2,12 @@
   "name": "@nteract/commuter-server",
   "version": "0.1.12",
   "description": "commuting notebooks across S3 to multi-users",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
     "watch": "echo \"Info: skipping commuter-server watch \" && exit 0",
     "build": "babel src -d lib",
+    "start": "node lib/index.js",
     "prepublish": "npm run build",
     "flow": "flow"
   },
@@ -14,12 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": [
-    "nteract",
-    "jupyter",
-    "s3",
-    "notebook"
-  ],
+  "keywords": ["nteract", "jupyter", "s3", "notebook"],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
@@ -40,6 +36,7 @@
     "log": "^1.4.0",
     "morgan": "^1.7.0",
     "nbschema": "^0.1.0",
+    "@nteract/commuter-frontend": "^1.0.0",
     "node-fetch": "^1.6.3",
     "s3-proxy": "^1.1.0",
     "winston": "^2.3.0"
@@ -55,8 +52,6 @@
     "supertest": "^3.0.0"
   },
   "babel": {
-    "presets": [
-      "flow"
-    ]
+    "plugins": ["transform-flow-strip-types"]
   }
 }
