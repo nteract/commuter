@@ -1,9 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-global.navigator = {};
-
-import Contents from "../original-client/contents";
+// import Contents from "../original-client/contents";
 
 class ViewPage extends React.Component {
   static async getInitialProps({ req }) {
@@ -13,22 +11,24 @@ class ViewPage extends React.Component {
     // during the refactor
     // The best choice will be to rely only on client side for now
     // I'm sure
-    return req ? { server: true } : { server: false };
+    return req
+      ? {
+          server: true,
+          pth: req.params[0] || "/",
+          test: { params: req.params, query: req.query, url: req.url }
+        }
+      : { server: false, test: "x" };
   }
 
   render() {
-    console.log("props: ", this.props);
-
-    // TODO: navigator won't be defined on server side for codemirror, we need
-    //       to hack around it
-
+    // console.log(this.props);
     return (
       <div>
         <p>view it</p>
         <Link href="/view">
           <a>view</a>
         </Link>
-        {this.props.server ? null : <Contents />}
+        {this.props.server ? <pre>server</pre> : <pre>client</pre>}
 
         <pre>
           {JSON.stringify(this.props.url.query.viewPath)}
