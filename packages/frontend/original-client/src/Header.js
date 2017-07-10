@@ -7,9 +7,8 @@ import { css } from "aphrodite";
 
 import { styles } from "./stylesheets/commuter";
 
-export default () => (
+export default () =>
   <div>
     <Image src={logo} size="small" />
     <Divider className={css(styles.divider)} section />
-  </div>
-);
+  </div>;
