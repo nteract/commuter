@@ -4,6 +4,9 @@
   "description": "Frontend for commuter",
   "main": "index.js",
   "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "echo \"This must be run with the commuter server\"",
     "test": "echo \"no test for now\""
   },
   "repository": {
