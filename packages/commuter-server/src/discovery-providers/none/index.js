@@ -4,7 +4,7 @@ import type { $Request, $Response } from "express";
 
 const express = require("express");
 
-function createDiscoveryRouter(): express.Router {
+function createDiscoveryRouter(options?: Object): express.Router {
   const router = express.Router();
   router.get("/*", (req: $Request, res: $Response) => {
     res.json({
