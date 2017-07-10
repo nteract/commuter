@@ -29,6 +29,8 @@
   "dependencies": {
     "@nteract/notebook-preview": "^2.1.0",
     "@nteract/transform-dataresource": "^1.1.0",
+    "@nteract/transforms": "^2.1.0",
+    "ansi-to-react": "^1.4.2",
     "aphrodite": "^1.2.1",
     "codemirror": "^5.27.0",
     "d3-dsv": "^1.0.5",
