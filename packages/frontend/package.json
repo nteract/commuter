@@ -1,0 +1,35 @@
+{
+  "name": "@nteract/commuter-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for commuter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test for now\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nteract/commuter.git"
+  },
+  "author": "Kyle Kelley <rgbkrk@gmail.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/nteract/commuter/issues"
+  },
+  "homepage": "https://github.com/nteract/commuter#readme",
+  "dependencies": {
+    "@nteract/notebook-preview": "^2.1.0",
+    "@nteract/transform-dataresource": "^1.1.0",
+    "next": "^2.4.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "rx-jupyter": "^2.0.0"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.49.1",
+    "flow-remove-types": "^1.2.1"
+  },
+  "babel": {
+    "presets": ["next/babel"],
+    "plugins": ["transform-flow-strip-types"]
+  }
+}
