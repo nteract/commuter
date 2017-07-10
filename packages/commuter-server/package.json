@@ -48,7 +48,6 @@
     "babel-cli": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "chai": "^3.5.0",
-    "flow-bin": "^0.44.2",
     "flow-remove-types": "^1.2.0",
     "mocha": "^3.2.0",
     "proxyquire": "^1.7.10",
