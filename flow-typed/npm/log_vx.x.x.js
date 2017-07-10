@@ -13,7 +13,7 @@
  * https://github.com/flowtype/flow-typed
  */
 
-declare module 'log' {
+declare module "log" {
   declare module.exports: any;
 }
 
@@ -22,38 +22,38 @@ declare module 'log' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'log/examples/file' {
+declare module "log/examples/file" {
   declare module.exports: any;
 }
 
-declare module 'log/examples/reader' {
+declare module "log/examples/reader" {
   declare module.exports: any;
 }
 
-declare module 'log/examples/stdout' {
+declare module "log/examples/stdout" {
   declare module.exports: any;
 }
 
-declare module 'log/lib/log' {
+declare module "log/lib/log" {
   declare module.exports: any;
 }
 
 // Filename aliases
-declare module 'log/examples/file.js' {
-  declare module.exports: $Exports<'log/examples/file'>;
+declare module "log/examples/file.js" {
+  declare module.exports: $Exports<"log/examples/file">;
 }
-declare module 'log/examples/reader.js' {
-  declare module.exports: $Exports<'log/examples/reader'>;
+declare module "log/examples/reader.js" {
+  declare module.exports: $Exports<"log/examples/reader">;
 }
-declare module 'log/examples/stdout.js' {
-  declare module.exports: $Exports<'log/examples/stdout'>;
+declare module "log/examples/stdout.js" {
+  declare module.exports: $Exports<"log/examples/stdout">;
 }
-declare module 'log/index' {
-  declare module.exports: $Exports<'log'>;
+declare module "log/index" {
+  declare module.exports: $Exports<"log">;
 }
-declare module 'log/index.js' {
-  declare module.exports: $Exports<'log'>;
+declare module "log/index.js" {
+  declare module.exports: $Exports<"log">;
 }
-declare module 'log/lib/log.js' {
-  declare module.exports: $Exports<'log/lib/log'>;
+declare module "log/lib/log.js" {
+  declare module.exports: $Exports<"log/lib/log">;
 }
