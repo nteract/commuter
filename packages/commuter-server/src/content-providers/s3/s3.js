@@ -1,5 +1,6 @@
 // @flow
-const S3 = require("aws-sdk/clients/s3"), { chain } = require("lodash");
+const S3 = require("aws-sdk/clients/s3"),
+  { chain } = require("lodash");
 
 // TODO: Flowtype config
 function createS3Service(config: Object) {
@@ -10,7 +11,7 @@ function createS3Service(config: Object) {
   const filePath = (path: string) =>
     path.replace(`${config.s3BasePrefix}`, "").replace(/^\//, "");
   const s3Prefix = (path: string) =>
-    (config.s3BasePrefix ? `${config.s3BasePrefix}/${path}` : path);
+    config.s3BasePrefix ? `${config.s3BasePrefix}/${path}` : path;
   const dirObject = data => ({
     name: fileName(data.Prefix),
     path: filePath(data.Prefix),
@@ -79,7 +80,7 @@ function createS3Service(config: Object) {
         const s3Response = Object.assign({}, data, {
           Key: s3Prefix(path)
         });
-        let content = s3Response.Body.toString("utf-8");
+        let content = s3Response.Body.toString();
         if (isNotebook(s3Response)) {
           try {
             content = JSON.parse(content);
