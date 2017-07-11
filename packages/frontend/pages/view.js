@@ -33,15 +33,27 @@ class ViewPage extends React.Component {
 
     const url = `${BASE_PATH}api/contents/${viewPath}`;
 
-    const contents = await fetch(url).then(x => x.json());
+    const res = await fetch(url);
+
+    const statusCode = res.status > 200 ? res.status : false;
+    const json = await res.json();
 
     return {
-      contents,
+      contents: json,
+      statusCode,
       viewPath
     };
   }
 
   render() {
+    if (this.props.statusCode) {
+      return (
+        <div>
+          {`Nothing found for ${this.props.viewPath}`}
+        </div>
+      );
+    }
+
     return (
       <div>
         {/* Nav */}
@@ -54,6 +66,7 @@ class ViewPage extends React.Component {
             padding-bottom: 20px;
           }
         `}</style>
+        {/* Entry */}
         <div>
           <Entry
             entry={this.props.contents}
@@ -68,24 +81,6 @@ class ViewPage extends React.Component {
         `}</style>
       </div>
     );
-
-    switch (this.props.contents.type) {
-      case "directory":
-        return (
-          <DirectoryListing
-            contents={this.props.contents.content}
-            basepath="/view"
-          />
-        );
-      case "notebook":
-        return <NotebookPreview notebook={this.props.contents.content} />;
-      default:
-        return (
-          <pre>
-            {JSON.stringify(this.props.contents, null, 2)}
-          </pre>
-        );
-    }
   }
 }
 
