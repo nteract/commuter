@@ -5,8 +5,11 @@ import NextLink from "next/link";
 
 // Convert simple links to next style href + as
 // TODO: Actually finish implementing this...
-const Link = ({ to, children }) =>
-  <NextLink href={to} as={to}>
+const Link = ({ to, children, basepath }) =>
+  <NextLink
+    href={{ pathname: "/view", query: { viewPath: to } }}
+    as={basepath + "/" + to}
+  >
     <a>
       {children}
     </a>
@@ -23,7 +26,6 @@ const DirectoryListing = props => {
           </Table.Header>
           <Table.Body>
             {props.contents.map((row, index) => {
-              const fullPath = `${base}/${row.path}`;
               if (!row.type) {
                 return null;
               }
@@ -32,7 +34,7 @@ const DirectoryListing = props => {
                   return (
                     <Table.Row key={index}>
                       <Table.Cell>
-                        <Link to={fullPath}>
+                        <Link to={row.path} basepath={base}>
                           <Icon name="book" color="grey" />
                           {row.name}
                         </Link>
@@ -44,7 +46,7 @@ const DirectoryListing = props => {
                   return (
                     <Table.Row key={index}>
                       <Table.Cell collapsing>
-                        <Link to={fullPath}>
+                        <Link to={row.path} basepath={base}>
                           <Icon name="folder" color="blue" />
                           {row.name}
                         </Link>
@@ -56,7 +58,7 @@ const DirectoryListing = props => {
                   return (
                     <Table.Row key={index}>
                       <Table.Cell collapsing>
-                        <Link to={fullPath}>
+                        <Link to={row.path} basepath={base}>
                           <Icon name="file" color="grey" />
                           {row.name}
                         </Link>
