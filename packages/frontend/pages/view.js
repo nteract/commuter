@@ -42,11 +42,22 @@ class ViewPage extends React.Component {
 
   render() {
     return (
-      <Entry
-        entry={this.props.contents}
-        pathname={this.props.viewPath}
-        basepath={"/view"}
-      />
+      <div>
+        {/* Nav */}
+        {/* BreadCrumb */}
+        <div>
+          <Entry
+            entry={this.props.contents}
+            pathname={this.props.viewPath}
+            basepath={"/view"}
+          />
+        </div>
+        <style jsx>{`
+          div {
+            padding-left: 2rem;
+          }
+        `}</style>
+      </div>
     );
 
     switch (this.props.contents.type) {
