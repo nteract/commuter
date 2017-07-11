@@ -23,7 +23,8 @@ const BreadCrumb = props => {
   breadCrumbs.push(
     <Breadcrumb.Section key="home">
       <Link
-        to={`${basepath}/`}
+        to={``}
+        basepath={basepath}
         style={{ display: "block", width: "2em", height: "2em" }}
       >
         /
@@ -45,12 +46,13 @@ const BreadCrumb = props => {
     else
       breadCrumbs.push(
         <Breadcrumb.Section key={`section-${index}`}>
-          <Link to={`${basepath}/${filePath}/`}>
+          <Link to={`${filePath}/`} basepath={basepath}>
             {name}
           </Link>
         </Breadcrumb.Section>
       );
   });
+
   return (
     <Breadcrumb>
       {breadCrumbs}

@@ -5,6 +5,7 @@ require("isomorphic-fetch");
 import { join as pathJoin } from "path";
 
 import DirectoryListing from "../components/contents/directory-listing";
+import Breadcrumb from "../components/bread-crumb";
 
 import { Entry } from "../components/contents";
 
@@ -45,6 +46,14 @@ class ViewPage extends React.Component {
       <div>
         {/* Nav */}
         {/* BreadCrumb */}
+        <div className="breadCrumb">
+          <Breadcrumb path={this.props.viewPath} basepath={"/view"} />
+        </div>
+        <style jsx>{`
+          div {
+            padding-bottom: 20px;
+          }
+        `}</style>
         <div>
           <Entry
             entry={this.props.contents}

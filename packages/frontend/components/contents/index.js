@@ -57,11 +57,6 @@ class File extends React.Component {
             <div>
               <MarkdownTransform data={this.props.entry.content} />
             </div>
-            <style jsx>{`
-              div {
-                padding-left: 2rem;
-              }
-            `}</style>
           </Container>
         );
       case "gif":
@@ -118,28 +113,3 @@ export const Entry = props => {
       );
   }
 };
-
-// TODO: Bring this into overall nav
-class Contents extends React.Component {
-  render() {
-    return (
-      <Container fluid>
-        <style jsx>{`
-          div: {
-            margin-left: 2rem;
-          }
-        `}</style>
-        <div>
-          <BreadCrumb path={pathname} basepath={"/view"} />
-        </div>
-        <Entry entry={this.props.entry} pathname={pathname} />
-      </Container>
-    );
-  }
-}
-
-Contents.propTypes = {
-  entry: T.object //  object,
-};
-
-export default Contents;
