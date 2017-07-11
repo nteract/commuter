@@ -2,8 +2,11 @@
   "name": "@nteract/commuter-server",
   "version": "0.1.12",
   "description": "commuting notebooks across S3 to multi-users",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "predev": "npm run build",
+    "dev": "NODE_ENV=development node lib/index.js",
+    "start": "node lib/index.js",
     "test": "mocha --compilers js:babel-core/register",
     "watch": "echo \"Info: skipping commuter-server watch \" && exit 0",
     "build": "babel src -d lib",
