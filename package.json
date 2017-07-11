@@ -45,6 +45,7 @@
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
     "flow-bin": "^0.50.0",
+    "flow-typed": "^2.1.2",
     "lerna": "^2.0.0"
   },
   "devDependencies": {
