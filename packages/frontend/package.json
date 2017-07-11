@@ -25,6 +25,7 @@
     "aphrodite": "^1.2.1",
     "d3-dsv": "^1.0.5",
     "next": "^2.4.7",
+    "nprogress": "^0.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "rx-jupyter": "^2.0.0",

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 class IndexPage extends React.Component {
   static async getInitialProps(ctx) {
@@ -8,6 +9,7 @@ class IndexPage extends React.Component {
     } else {
       document.location.pathname = "/view/";
     }
+    return {};
   }
 
   render() {

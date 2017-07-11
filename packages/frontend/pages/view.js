@@ -9,6 +9,10 @@ import Breadcrumb from "../components/bread-crumb";
 
 import { Entry } from "../components/contents";
 
+import Header from "../components/header";
+
+import { Container } from "semantic-ui-react";
+
 // import Contents from "../original-client/contents";
 
 class ViewPage extends React.Component {
@@ -56,29 +60,30 @@ class ViewPage extends React.Component {
 
     return (
       <div>
-        {/* Nav */}
-        {/* BreadCrumb */}
-        <div className="breadCrumb">
-          <Breadcrumb path={this.props.viewPath} basepath={"/view"} />
-        </div>
-        <style jsx>{`
-          div {
-            padding-bottom: 20px;
-          }
-        `}</style>
-        {/* Entry */}
-        <div>
-          <Entry
-            entry={this.props.contents}
-            pathname={this.props.viewPath}
-            basepath={"/view"}
-          />
-        </div>
-        <style jsx>{`
-          div {
-            padding-left: 2rem;
-          }
-        `}</style>
+        <Header />
+        <Container className="main">
+          <div className="breadCrumb">
+            <Breadcrumb path={this.props.viewPath} basepath={"/view"} />
+          </div>
+          <style jsx>{`
+            div {
+              padding-bottom: 20px;
+            }
+          `}</style>
+          {/* Entry */}
+          <div>
+            <Entry
+              entry={this.props.contents}
+              pathname={this.props.viewPath}
+              basepath={"/view"}
+            />
+          </div>
+          <style jsx>{`
+            div {
+              padding-left: 2rem;
+            }
+          `}</style>
+        </Container>
       </div>
     );
   }
