@@ -1,25 +1,12 @@
 import React, { PropTypes as T } from "react";
-import { connect } from "react-redux";
 
 import NotebookPreview from "@nteract/notebook-preview";
 import DirectoryListing from "./directory-listing";
-import BreadCrumb from "./bread-crumb";
+import BreadCrumb from "../bread-crumb";
 
 import MarkdownTransform from "@nteract/transforms/lib/markdown";
 
-import "normalize.css/normalize.css";
-import "codemirror/lib/codemirror.css";
-import "@nteract/notebook-preview/styles/main.css";
-import "@nteract/notebook-preview/styles/theme-light.css";
-
-import { fetchContents } from "../actions";
-
 import { Container } from "semantic-ui-react";
-
-import { css } from "aphrodite";
-
-import { styles } from "../stylesheets/commuter";
-import stripView from "./strip-view";
 
 import {
   standardTransforms,
@@ -58,7 +45,7 @@ class File extends React.Component {
         return <JSONView entry={this.props.entry} />;
       case "csv":
         return (
-          <Container fluid className={css(styles.innerContainer)}>
+          <Container fluid>
             <CSVView entry={this.props.entry} />
           </Container>
         );
@@ -66,11 +53,15 @@ class File extends React.Component {
       case "markdown":
       case "rmd":
         return (
-          <Container fluid className={css(styles.innerContainer)}>
-            <MarkdownTransform
-              style={{ paddingLeft: "2rem" }}
-              data={this.props.entry.content}
-            />
+          <Container fluid>
+            <div>
+              <MarkdownTransform data={this.props.entry.content} />
+            </div>
+            <style jsx>{`
+              div {
+                padding-left: 2rem;
+              }
+            `}</style>
           </Container>
         );
       case "gif":
@@ -78,7 +69,7 @@ class File extends React.Component {
       case "jpg":
       case "png":
         return (
-          <Container fluid className={css(styles.innerContainer)}>
+          <Container fluid>
             <img
               src={`/files/${this.props.pathname}`}
               alt={this.props.pathname}
@@ -87,7 +78,7 @@ class File extends React.Component {
         );
       default:
         return (
-          <Container fluid className={css(styles.innerContainer)}>
+          <Container fluid>
             <a href={`/files/${this.props.pathname}`}>Download raw file</a>
           </Container>
         );
@@ -95,17 +86,12 @@ class File extends React.Component {
   }
 }
 
-const Entry = props => {
+export const Entry = props => {
   switch (props.entry.type) {
     case "directory":
       return (
-        <Container
-          fluid
-          className={css(styles.innerContainer)}
-          textAlign="center"
-        >
+        <Container fluid textAlign="center">
           <DirectoryListing
-            className={css(styles.listing)}
             path={props.pathname}
             contents={props.entry.content}
             basepath={"/view"}
@@ -133,32 +119,17 @@ const Entry = props => {
   }
 };
 
+// TODO: Bring this into overall nav
 class Contents extends React.Component {
-  static contextTypes = { router: T.object.isRequired };
-
-  componentDidMount() {
-    this.loadData(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.location.pathname !== nextProps.location.pathname)
-      this.loadData(nextProps);
-  }
-
-  loadData = ({ location, dispatch }) => {
-    dispatch(fetchContents(stripView(location.pathname)));
-  };
-
   render() {
-    const pathname = stripView(this.props.location.pathname);
     return (
-      <Container fluid className={css(styles.outerContainer)}>
-        <div
-          className={css(styles.listing)}
-          style={{
-            marginLeft: "2rem"
-          }}
-        >
+      <Container fluid>
+        <style jsx>{`
+          div: {
+            margin-left: 2rem;
+          }
+        `}</style>
+        <div>
           <BreadCrumb path={pathname} basepath={"/view"} />
         </div>
         <Entry entry={this.props.entry} pathname={pathname} />
@@ -168,16 +139,7 @@ class Contents extends React.Component {
 }
 
 Contents.propTypes = {
-  entry: T.object, //  object,
-  isFetching: T.bool.isRequired,
-  location: T.shape({
-    pathname: T.string.isRequired
-  })
+  entry: T.object //  object,
 };
 
-const mapStateToProps = state => ({
-  entry: state.commuter.entry,
-  isFetching: state.commuter.isFetching
-});
-
-export default connect(mapStateToProps)(Contents);
+export default Contents;

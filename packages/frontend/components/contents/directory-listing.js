@@ -4,7 +4,6 @@ import { Table, Grid, Icon } from "semantic-ui-react";
 import NextLink from "next/link";
 
 // Convert simple links to next style href + as
-// TODO: Actually finish implementing this...
 const Link = ({ to, children, basepath }) =>
   <NextLink
     href={{ pathname: "/view", query: { viewPath: to } }}

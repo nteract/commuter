@@ -4,8 +4,6 @@ import { Container } from "semantic-ui-react";
 
 import { css } from "aphrodite";
 
-import { styles } from "../stylesheets/commuter";
-
 import ZeppelinView from "./zeppelin";
 
 import JSONTransform from "@nteract/transforms/lib/json";
@@ -21,7 +19,7 @@ export default props => {
     }
 
     return (
-      <Container fluid className={css(styles.innerContainer)}>
+      <Container fluid>
         <JSONTransform
           data={content}
           metadata={Immutable.Map({

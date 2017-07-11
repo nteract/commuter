@@ -6,6 +6,8 @@ import { join as pathJoin } from "path";
 
 import DirectoryListing from "../components/contents/directory-listing";
 
+import { Entry } from "../components/contents";
+
 // import Contents from "../original-client/contents";
 
 class ViewPage extends React.Component {
@@ -17,55 +19,53 @@ class ViewPage extends React.Component {
     // The best choice will be to rely only on client side for now
     // I'm sure
 
-    const contentPath = query.viewPath;
+    const viewPath = query.viewPath;
 
     let BASE_PATH;
 
     if (req) {
-      // Server side via `req`
-      // TODO: Use me
-      const viewPath = (req && req.params && req.params[0]) || "/";
-
       const port = process.env.COMMUTER_PORT || 4000;
       BASE_PATH = `http://127.0.0.1:${port}/`;
     } else {
       BASE_PATH = "/";
     }
 
-    const url = `${BASE_PATH}api/contents/${contentPath}`;
-    console.log("url", url);
+    const url = `${BASE_PATH}api/contents/${viewPath}`;
 
     const contents = await fetch(url).then(x => x.json());
 
     return {
-      contents
+      contents,
+      viewPath
     };
   }
 
   render() {
-    const href = {
-      pathname: "/view",
-      query: { viewPath: "README.md" }
-    };
-
-    const as = {
-      pathname: "/view/README.md"
-    };
-
-    if (this.props.contents.type !== "directory") {
-      return (
-        <pre>
-          {JSON.stringify(this.props.contents, null, 2)}
-        </pre>
-      );
-    }
-
     return (
-      <DirectoryListing
-        contents={this.props.contents.content}
-        basepath="/view"
+      <Entry
+        entry={this.props.contents}
+        pathname={this.props.viewPath}
+        basepath={"/view"}
       />
     );
+
+    switch (this.props.contents.type) {
+      case "directory":
+        return (
+          <DirectoryListing
+            contents={this.props.contents.content}
+            basepath="/view"
+          />
+        );
+      case "notebook":
+        return <NotebookPreview notebook={this.props.contents.content} />;
+      default:
+        return (
+          <pre>
+            {JSON.stringify(this.props.contents, null, 2)}
+          </pre>
+        );
+    }
   }
 }
 

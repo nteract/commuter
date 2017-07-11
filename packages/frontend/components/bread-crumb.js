@@ -2,7 +2,18 @@ import React, { PropTypes as T } from "react";
 import { Breadcrumb } from "semantic-ui-react";
 import { trim } from "lodash";
 
-import { Link } from "react-router-dom";
+import NextLink from "next/link";
+
+// Convert simple links to next style href + as
+const Link = ({ to, children, basepath }) =>
+  <NextLink
+    href={{ pathname: "/view", query: { viewPath: to } }}
+    as={basepath + "/" + to}
+  >
+    <a>
+      {children}
+    </a>
+  </NextLink>;
 
 const BreadCrumb = props => {
   const { path, basepath } = props;
