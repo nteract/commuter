@@ -26,15 +26,18 @@ function createServer() {
     // Last middleware
     const router = require("./routes");
 
-    router.get(["/view", "/view*"], (req: $Request, res: $Response) => {
+    const viewHandler = (req: $Request, res: $Response) => {
       const { pathname, query } = parse(req.url, true);
       const viewPath = req.params["0"] || "/";
+      console.log("viewPath", viewPath);
 
       const q = Object.assign({}, { viewPath }, query);
 
       console.log("baseUrl", req.baseUrl);
       return frontend.app.render(req, res, "/view", q);
-    });
+    };
+
+    router.get(["/view", "/view*"], viewHandler);
 
     // Hokey pokey passthrough for now
     router.get("*", (req: $Request, res: $Response) => {
@@ -45,7 +48,8 @@ function createServer() {
     const baseURI = "/";
     app.use(baseURI, router);
 
-    // Hokey pokey passthrough for now
+    // Hokey pokey passthrough for now -- all other request go through next
+    app.get(["/view", "/view*"], viewHandler);
     app.use((req: $Request, res: $Response) => {
       return frontend.handle(req, res);
     });
