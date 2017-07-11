@@ -20,9 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": [
-    "cli"
-  ],
+  "keywords": ["cli"],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
@@ -33,7 +31,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@nteract/commuter-client": "^1.0.0",
     "@nteract/commuter-server": "^0.1.12",
     "commander": "^2.9.0",
     "concurrently": "^3.1.0",
@@ -47,9 +44,6 @@
     "nodemon": "^1.11.0"
   },
   "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
+    "presets": ["es2015", "react"]
   }
 }
