@@ -4,7 +4,7 @@ import Link from "next/link";
 import NProgress from "nprogress";
 import Router from "next/router";
 
-import { Menu } from "semantic-ui-react";
+import { Menu, Image, Segment } from "semantic-ui-react";
 
 Router.onRouteChangeStart = url => {
   console.log(`Loading: ${url}`);
@@ -22,24 +22,25 @@ class CommuterMenu extends React.Component {
     const activeItem = "browse";
 
     return (
-      <Menu fixed="top">
-        <Menu.Item name="/view" onClick={this.handleItemClick}>
-          <img src="/static/logo.png" width="300" className="logo" />
-          commuter
-        </Menu.Item>
+      <Segment>
+        <Menu fixed="top">
+          <Menu.Item name="/view" onClick={this.handleItemClick}>
+            <Image src="/static/logo.png" size="tiny" />
+          </Menu.Item>
 
-        <Menu.Item name="/view" active={false} onClick={this.handleItemClick}>
-          browse
-        </Menu.Item>
+          <Menu.Item name="/view" active={false} onClick={this.handleItemClick}>
+            browse
+          </Menu.Item>
 
-        <Menu.Item
-          name="/discover"
-          active={false}
-          onClick={this.handleItemClick}
-        >
-          discover
-        </Menu.Item>
-      </Menu>
+          <Menu.Item
+            name="/discover"
+            active={false}
+            onClick={this.handleItemClick}
+          >
+            discover
+          </Menu.Item>
+        </Menu>
+      </Segment>
     );
   }
 }

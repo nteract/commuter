@@ -11,7 +11,9 @@ import { Entry } from "../components/contents";
 
 import Header from "../components/header";
 
-import { Container } from "semantic-ui-react";
+import { Container, Menu, Segment } from "semantic-ui-react";
+
+import Body from "../components/body";
 
 // import Contents from "../original-client/contents";
 
@@ -61,17 +63,12 @@ class ViewPage extends React.Component {
     return (
       <div>
         <Header />
-        <Container className="main">
+        <Body>
           <div className="breadCrumb">
             <Breadcrumb path={this.props.viewPath} basepath={"/view"} />
           </div>
-          <style jsx>{`
-            div {
-              padding-bottom: 20px;
-            }
-          `}</style>
           {/* Entry */}
-          <div>
+          <div className="entry">
             <Entry
               entry={this.props.contents}
               pathname={this.props.viewPath}
@@ -79,11 +76,16 @@ class ViewPage extends React.Component {
             />
           </div>
           <style jsx>{`
-            div {
+            .breadCrumb {
+              padding-bottom: 20px;
+              padding-left: 2rem;
+            }
+
+            .entry {
               padding-left: 2rem;
             }
           `}</style>
-        </Container>
+        </Body>
       </div>
     );
   }
