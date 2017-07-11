@@ -4,6 +4,8 @@ require("isomorphic-fetch");
 
 import { join as pathJoin } from "path";
 
+import DirectoryListing from "../components/contents/directory-listing";
+
 // import Contents from "../original-client/contents";
 
 class ViewPage extends React.Component {
@@ -50,29 +52,19 @@ class ViewPage extends React.Component {
       pathname: "/view/README.md"
     };
 
-    // console.log(this.props);
+    if (this.props.contents.type !== "directory") {
+      return (
+        <pre>
+          {JSON.stringify(this.props.contents, null, 2)}
+        </pre>
+      );
+    }
+
     return (
-      <div>
-        <p>view it</p>
-        <Link href={href} as={as}>
-          <a>view README</a>
-        </Link>
-        <Link
-          href={{ pathname: "/view", query: { viewPath: "package.json" } }}
-          as={{ pathname: "/view/package.json" }}
-        >
-          <a>view package.json</a>
-        </Link>
-        {this.props.server ? <pre>server</pre> : <pre>client</pre>}
-
-        <pre>
-          {JSON.stringify(this.props.contents)}
-        </pre>
-
-        <pre>
-          {JSON.stringify(this.props.url.query.viewPath)}
-        </pre>
-      </div>
+      <DirectoryListing
+        contents={this.props.contents.content}
+        basepath="/view"
+      />
     );
   }
 }

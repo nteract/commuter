@@ -1,10 +1,19 @@
 import React, { PropTypes as T } from "react";
 import { Table, Grid, Icon } from "semantic-ui-react";
 
-import { Link } from "react-router-dom";
+import NextLink from "next/link";
+
+// Convert simple links to next style href + as
+// TODO: Actually finish implementing this...
+const Link = ({ to, children }) =>
+  <NextLink href={to} as={to}>
+    <a>
+      {children}
+    </a>
+  </NextLink>;
 
 const DirectoryListing = props => {
-  const base = props.basepath;
+  const base = props.basepath || "/";
   return (
     <Grid>
       <Grid.Column>
