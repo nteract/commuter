@@ -26,7 +26,7 @@ class ViewPage extends React.Component {
     // The best choice will be to rely only on client side for now
     // I'm sure
 
-    const viewPath = query.viewPath;
+    const viewPath = query.viewPath || "/";
 
     let BASE_PATH;
 

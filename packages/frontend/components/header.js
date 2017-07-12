@@ -15,7 +15,7 @@ Router.onRouteChangeError = () => NProgress.done();
 
 class CommuterMenu extends React.Component {
   handleItemClick = (e, { name }) => {
-    Router.push(name, name, { shallow: true });
+    Router.push(name);
   };
 
   render() {
