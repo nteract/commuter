@@ -72,6 +72,8 @@ function instantiate() {
     discoveryBackend = "elasticsearch";
   }
 
+  console.log("CONFIGURED DISCOVERY", discoveryBackend);
+
   const config = {};
 
   switch (storageBackend) {
@@ -93,6 +95,7 @@ function instantiate() {
           log: "debug"
         }
       };
+      config.discoveryBackend = "elasticsearch";
       break;
     default:
       config.discoveryBackend = "none";
