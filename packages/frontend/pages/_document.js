@@ -13,7 +13,6 @@ export default class MyDocument extends Document {
     return (
       <html lang="en-US">
         <Head>
-          <style>{`body { margin: 0 } /* custom! */`}</style>
           <link
             rel="stylesheet"
             href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
@@ -52,6 +51,16 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             type="text/css"
           />
+          <style>{`
+            body {
+              margin: 0;
+            }
+
+            .ui.menu {
+              /* because borderless doesn't quite do the full thing */
+              border: none;
+            }
+            `}</style>
         </Head>
         <body>
           <Main />
