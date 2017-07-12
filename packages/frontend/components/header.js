@@ -24,11 +24,15 @@ class CommuterMenu extends React.Component {
     return (
       <Segment>
         <Menu fixed="top">
-          <Menu.Item name="/view" onClick={this.handleItemClick}>
+          <Menu.Item name="/view/" onClick={this.handleItemClick}>
             <Image src="/static/logo.png" size="tiny" />
           </Menu.Item>
 
-          <Menu.Item name="/view" active={false} onClick={this.handleItemClick}>
+          <Menu.Item
+            name="/view/"
+            active={false}
+            onClick={this.handleItemClick}
+          >
             browse
           </Menu.Item>
 
