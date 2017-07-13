@@ -4,10 +4,9 @@ import Link from "next/link";
 import NProgress from "nprogress";
 import Router from "next/router";
 
-import { Menu, Image, Segment } from "semantic-ui-react";
+import { Menu, Image, Segment, Input } from "semantic-ui-react";
 
 Router.onRouteChangeStart = url => {
-  console.log(`Loading: ${url}`);
   NProgress.start();
 };
 Router.onRouteChangeComplete = () => NProgress.done();
@@ -22,29 +21,36 @@ class CommuterMenu extends React.Component {
     const activeItem = "browse";
 
     return (
-      <Segment>
-        <Menu fixed="top" borderless>
-          <Menu.Item name="/view/" onClick={this.handleItemClick}>
-            <Image src="/static/logo.png" size="mini" />
-          </Menu.Item>
+      <Menu borderless>
+        <Menu.Item name="/view/" onClick={this.handleItemClick}>
+          <Image src="/static/logo.png" size="mini" />
+        </Menu.Item>
 
-          <Menu.Item
-            name="/view/"
-            active={false}
-            onClick={this.handleItemClick}
-          >
-            Browse
-          </Menu.Item>
+        <Menu.Item name="/view/" active={false} onClick={this.handleItemClick}>
+          Browse
+        </Menu.Item>
 
-          <Menu.Item
-            name="/discover"
-            active={false}
-            onClick={this.handleItemClick}
-          >
-            Discover
-          </Menu.Item>
-        </Menu>
-      </Segment>
+        <Menu.Item
+          name="/discover"
+          active={false}
+          onClick={this.handleItemClick}
+        >
+          Discover
+        </Menu.Item>
+
+        {/*
+            <Menu.Menu position="right">
+              <Menu.Item>
+                <Input icon="search" placeholder="Search..." />
+              </Menu.Item>
+              <Menu.Item
+                name="logout"
+                active={activeItem === "logout"}
+                onClick={this.handleItemClick}
+              />
+            </Menu.Menu>
+          */}
+      </Menu>
     );
   }
 }

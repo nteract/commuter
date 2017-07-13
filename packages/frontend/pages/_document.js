@@ -54,11 +54,19 @@ export default class MyDocument extends Document {
           <style>{`
             body {
               margin: 0;
+              font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Lato", Helvetica, Arial, sans-serif;
+              font-size: 1em;
             }
 
             .ui.menu {
               /* because borderless doesn't quite do the full thing */
               border: none;
+            }
+
+            .ui .item {
+              font-weight: 600;
+              line-height: 20px;
+              color: rgba(0, 0, 0, 0.75);
             }
             `}</style>
         </Head>

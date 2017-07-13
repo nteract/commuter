@@ -1,8 +1,10 @@
 import React, { PropTypes as T } from "react";
-import { Breadcrumb } from "semantic-ui-react";
+import { Breadcrumb, Menu, Icon } from "semantic-ui-react";
 import { trim } from "lodash";
 
 import NextLink from "next/link";
+
+import Router from "next/router";
 
 // Convert simple links to next style href + as
 const Link = ({ to, children, basepath }) =>
@@ -10,56 +12,99 @@ const Link = ({ to, children, basepath }) =>
     href={{ pathname: "/view", query: { viewPath: to } }}
     as={basepath + "/" + to}
   >
-    <a>
-      {children}
-    </a>
+    {children}
   </NextLink>;
 
-const BreadCrumb = props => {
-  const { path, basepath } = props;
-  const paths = trim(path, "/").split("/");
-  let breadCrumbs = [];
+export class BreadCrumbMenu extends React.Component {
+  handleItemClick = (e, { name }) => {
+    Router.push(name);
+  };
 
-  breadCrumbs.push(
-    <Breadcrumb.Section key="home">
-      <Link
-        to={``}
-        basepath={basepath}
-        style={{ display: "block", width: "2em", height: "2em" }}
-      >
-        /
-      </Link>
-    </Breadcrumb.Section>
-  );
-  paths.forEach((name, index) => {
-    const filePath = paths.slice(0, index + 1).join("/");
-    breadCrumbs.push(
-      <Breadcrumb.Divider key={`divider-${index}`} icon="right angle" />
+  render() {
+    const { path, basepath } = this.props;
+    const paths = trim(path, "/").split("/");
+    let breadCrumbs = [];
+
+    return (
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to={``} basepath={basepath}>
+                <a>
+                  <span>
+                    <Icon name="home" />
+                  </span>
+                </a>
+              </Link>
+            </li>
+            {paths.map((name, index) => {
+              const filePath = paths.slice(0, index + 1).join("/");
+              return (
+                <li key={`${filePath}`}>
+                  <Link to={`${filePath}`} basepath={basepath}>
+                    <a>
+                      <span>
+                        {name}
+                      </span>
+                    </a>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <style jsx>{`
+          nav {
+            font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+              sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+              "Segoe UI Symbol";
+          }
+
+          nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+          }
+          nav li {
+            display: inline-block;
+            margin: 0 5px;
+            transition: all 0.3s;
+          }
+          nav a {
+            display: block;
+            color: gray;
+            transition: all 0.3s;
+          }
+          nav a:hover {
+            color: gray;
+          }
+          nav span {
+            display: block;
+          }
+
+          @media all and (min-width: 690px) {
+            nav li {
+              margin: 0;
+              transform: skew(-10deg);
+            }
+            nav a {
+              padding: 10px 20px;
+              color: #000;
+              background-color: #e7e7e7;
+              margin-left: 5px;
+            }
+            nav a:hover {
+              color: #000;
+              background-color: #fff;
+            }
+            a span {
+              transform: skew(10deg);
+            }
+          }
+        `}</style>
+      </div>
     );
-    // last index
-    if (index === paths.length - 1)
-      breadCrumbs.push(
-        <Breadcrumb.Section key={`section-${index}`} active>
-          {name}
-        </Breadcrumb.Section>
-      );
-    else
-      breadCrumbs.push(
-        <Breadcrumb.Section key={`section-${index}`}>
-          <Link to={`${filePath}/`} basepath={basepath}>
-            {name}
-          </Link>
-        </Breadcrumb.Section>
-      );
-  });
-
-  return (
-    <Breadcrumb>
-      {breadCrumbs}
-    </Breadcrumb>
-  );
-};
-
-BreadCrumb.propTypes = { path: T.string.isRequired };
-
-export default BreadCrumb;
+  }
+}

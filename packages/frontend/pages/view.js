@@ -5,7 +5,7 @@ require("isomorphic-fetch");
 import { join as pathJoin } from "path";
 
 import DirectoryListing from "../components/contents/directory-listing";
-import Breadcrumb from "../components/bread-crumb";
+import { BreadCrumbMenu } from "../components/bread-crumb";
 
 import { Entry } from "../components/contents";
 
@@ -63,10 +63,20 @@ class ViewPage extends React.Component {
     return (
       <div>
         <Header />
+        <BreadCrumbMenu basepath={"/view"} path={this.props.viewPath} />
+        {/*
+              <Menu.Menu position="right">
+                <Menu.Item>
+                  <Input icon="search" placeholder="Search..." />
+                </Menu.Item>
+                <Menu.Item
+                  name="logout"
+                  active={activeItem === "logout"}
+                  onClick={this.handleItemClick}
+                />
+              </Menu.Menu>
+            */}
         <Body>
-          <div className="breadCrumb">
-            <Breadcrumb path={this.props.viewPath} basepath={"/view"} />
-          </div>
           {/* Entry */}
           <div className="entry">
             <Entry
@@ -75,17 +85,12 @@ class ViewPage extends React.Component {
               basepath={"/view"}
             />
           </div>
-          <style jsx>{`
-            .breadCrumb {
-              padding-bottom: 20px;
-              padding-left: 2rem;
-            }
-
-            .entry {
-              padding-left: 2rem;
-            }
-          `}</style>
         </Body>
+        <style jsx>{`
+          .entry {
+            padding-left: 2rem;
+          }
+        `}</style>
       </div>
     );
   }
