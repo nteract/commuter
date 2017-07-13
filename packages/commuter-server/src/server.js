@@ -12,6 +12,7 @@ function createServer() {
   const app = express();
   app.use(morgan("common"));
 
+  // Route config prefix needs to go here too...
   app.use(express.static("static"));
 
   log.info(`Node env: ${config.nodeEnv}`);

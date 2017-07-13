@@ -9,6 +9,7 @@
     "build": "npm run build:components && npm run build:client",
     "build:client": "lerna exec --scope @nteract/commuter-client -- npm run build",
     "build:components": "lerna exec --ignore @nteract/commuter-client -- npm run build",
+    "build:server": "lerna exec --scope @nteract/commuter-server -- npm run build",
     "client": "lerna exec --scope @nteract/commuter-cli -- npm run client",
     "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
     "clean:install": "lerna clean",

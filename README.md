@@ -63,6 +63,7 @@ COMMUTER_BUCKET=sweet-notebooks commuter server
 | `COMMUTER_PORT` | Port to run commuter on | 4000 |
 | `COMMUTER_LOCAL_STORAGE_BASEDIRECTORY` | directory to serve in local storage mode | `process.cwd()` |
 | `COMMUTER_ES_HOST` | ElasticSearch Host | `""` |
+| `COMMUTER_BASE_URI` | Base Path to serve commuter on | `/` |
 
 ### Environment Variables for S3 Storage
 

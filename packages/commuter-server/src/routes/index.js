@@ -2,7 +2,10 @@
 
 import type { $Request, $Response } from "express";
 
-const express = require("express"), path = require("path");
+const express = require("express"),
+  path = require("path");
+
+const fs = require("fs");
 
 const createAPIRouter = require("./api");
 
@@ -33,7 +36,13 @@ function createRouter(config): express.Router {
     discovery: discoveryProvider.createDiscoveryRouter(config.discovery)
   });
 
+  console.log(config);
+
   const router = express.Router();
+  router.use(
+    "/nteract/commuter",
+    express.static(path.resolve(__dirname, "..", "build"))
+  );
 
   router.use("/api", apiRouter);
   router.use("/files", contentsProvider.createFilesRouter(config.storage));
@@ -41,10 +50,29 @@ function createRouter(config): express.Router {
   router.use("/view", require("./view"));
 
   //commuter-client
+  const indexFilename = path.resolve(
+    __dirname,
+    "..",
+    "..",
+    "build",
+    "index.html"
+  );
+
+  const basePage = fs
+    .readFileSync(indexFilename)
+    .toString()
+    .replace(/%COMMUTER_BASE_URI%/g, config.baseURI);
+
+  console.log(basePage);
+
   router.get("*", (req: $Request, res: $Response) => {
-    res.sendFile(path.resolve(__dirname, "..", "..", "build", "index.html"));
+    res.send(basePage);
   });
-  return router;
+
+  const baseRouter = express.Router();
+  baseRouter.use(config.baseURI, router);
+
+  return baseRouter;
 }
 
 // Keeping the singleton on the export to make it work in-place right now
