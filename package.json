@@ -52,7 +52,7 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
-    "flow-bin": "^0.49.1",
+    "flow-bin": "^0.50.0",
     "lerna": "^2.0.0"
   },
   "devDependencies": {
