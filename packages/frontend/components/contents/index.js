@@ -6,6 +6,8 @@ import BreadCrumb from "../bread-crumb";
 
 import MarkdownTransform from "@nteract/transforms/lib/markdown";
 
+import PlotlyTransform from "@nteract/transform-plotly";
+
 import { Container } from "semantic-ui-react";
 
 import {
@@ -17,7 +19,8 @@ import {
 import DataResourceTransform from "@nteract/transform-dataresource";
 
 const { transforms, displayOrder } = [
-  DataResourceTransform
+  DataResourceTransform,
+  PlotlyTransform
 ].reduce(registerTransform, {
   transforms: standardTransforms,
   displayOrder: standardDisplayOrder
