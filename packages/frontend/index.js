@@ -1,5 +1,5 @@
 const next = require("next");
-const dev = process.env.NODE_ENV !== "production";
+const dev = process.env.NODE_ENV !== "production" && !process.env.NOW;
 
 function createNextApp() {
   const app = next({ dev, dir: __dirname });
