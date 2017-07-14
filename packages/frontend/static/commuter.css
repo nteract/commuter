@@ -5,18 +5,100 @@ body {
   font-size: 1em;
 }
 
-.ui .menu {
-  /* because borderless doesn't quite do the full thing */
-  border: none;
-  background-color: red;
+.main-container {
+  margin-top: 3rem;
 }
 
-.top-nav {
-  margin-bottom: 0;
-}
-
-.top-nav .item {
+.ui .item {
   font-weight: 600;
   line-height: 20px;
   color: rgba(0, 0, 0, 0.75);
+}
+
+.topNav {
+  margin-bottom: 0;
+}
+
+.topNav .item {
+  font-weight: 600;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.entry {
+  padding-left: 2rem;
+}
+
+.commuterBreadCrumb {
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.commuterBreadCrumb ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+.commuterBreadCrumb li {
+  display: inline-block;
+  margin: 0 5px;
+  transition: all 0.3s;
+}
+.commuterBreadCrumb a {
+  display: block;
+  color: gray;
+  transition: all 0.3s;
+}
+.commuterBreadCrumb a:hover {
+  color: gray;
+}
+.commuterBreadCrumb span {
+  display: block;
+}
+
+@media all and (min-width: 690px) {
+  .commuterBreadCrumb li {
+    margin: 0;
+    transform: skew(-10deg);
+  }
+
+  .commuterBreadCrumb li:first-child {
+    margin-left: 30px;
+  }
+
+  .commuterBreadCrumb a {
+    padding: 10px 20px;
+    color: #111;
+    background-color: #e7e7e7;
+    margin-left: 5px;
+  }
+  .commuterBreadCrumb a:hover {
+    color: #111;
+    background-color: #fff;
+  }
+
+  .commuterBreadCrumb a span {
+    transform: skew(10deg);
+  }
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.2em 0.9em;
+  margin: 0 0.5em 0.5em 0;
+  white-space: nowrap;
+  background-color: #f1f8ff;
+  border-radius: 3px;
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.tag:hover {
+  background-color: #ddeeff;
+}
+
+.item {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }

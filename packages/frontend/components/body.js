@@ -8,11 +8,6 @@ const Body = props => {
           {props.children}
         </Container>
       </div>
-      <style jsx>{`
-        .main-container {
-          margin-top: 3rem;
-        }
-      `}</style>
     </div>
   );
 };

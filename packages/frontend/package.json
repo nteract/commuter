@@ -34,7 +34,7 @@
     "react-timeago": "^3.3.0",
     "rx-jupyter": "^2.0.0",
     "semantic-ui-react": "^0.71.0",
-    "styled-jsx": "^1.0.8"
+    "styled-jsx": "^1.0.6"
   },
   "files": [
     ".next",

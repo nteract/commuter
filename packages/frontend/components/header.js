@@ -21,7 +21,7 @@ class CommuterMenu extends React.Component {
     const activeItem = "browse";
 
     return (
-      <Menu borderless className="top-nav">
+      <Menu borderless className="topNav">
         <Menu.Item name="/view/" onClick={this.handleItemClick}>
           <Image src="/static/logo.png" size="mini" />
         </Menu.Item>
@@ -37,19 +37,6 @@ class CommuterMenu extends React.Component {
         >
           Discover
         </Menu.Item>
-
-        {/*
-            <Menu.Menu position="right">
-              <Menu.Item>
-                <Input icon="search" placeholder="Search..." />
-              </Menu.Item>
-              <Menu.Item
-                name="logout"
-                active={activeItem === "logout"}
-                onClick={this.handleItemClick}
-              />
-            </Menu.Menu>
-          */}
       </Menu>
     );
   }
