@@ -23,13 +23,21 @@
     "test": "lerna run test"
   },
   "lint-staged": {
-    "*.js": ["prettier --write", "git add"]
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": ["nteract", "jupyter", "s3", "notebook"],
+  "keywords": [
+    "nteract",
+    "jupyter",
+    "s3",
+    "notebook"
+  ],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
