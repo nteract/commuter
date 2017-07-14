@@ -1,14 +1,14 @@
 {
-  "name": "@nteract/commuter-client",
+  "name": "@nteract/commuter-lerna-base",
   "version": "0.1.0",
   "description": "share, publish, and discover notebooks",
   "engines": {
     "node": "6.9.5"
   },
   "scripts": {
-    "dev": "lerna exec --scope @nteract/commuter-server -- npm run dev",
-    "build": "lerna exec --scope @nteract/commuter-server -- npm run build",
-    "start": "lerna exec --scope @nteract/commuter-server -- npm run start",
+    "dev": "lerna exec --scope @nteract/commuter -- npm run dev",
+    "build": "lerna exec --scope @nteract/commuter -- npm run build",
+    "start": "lerna exec --scope @nteract/commuter -- npm run start",
     "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
     "clean:install": "lerna clean",
     "clean:lib": "lerna exec -- rm -rf ./lib",
