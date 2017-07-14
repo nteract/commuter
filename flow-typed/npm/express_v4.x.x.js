@@ -1,5 +1,5 @@
-// flow-typed signature: 5800b9dee6b8969ab2b5fa338d02a89f
-// flow-typed version: 473c121609/express_v4.x.x/flow_>=v0.32.x
+// flow-typed signature: 78eec0fbe090057bc3c26451d513b4ce
+// flow-typed version: e7aa3314da/express_v4.x.x/flow_>=v0.32.x
 
 import type { Server } from "http";
 
@@ -16,7 +16,7 @@ declare class express$RequestResponseBase {
 
 declare class express$Request extends http$IncomingMessage {
   baseUrl: string,
-  body: mixed,
+  body: any,
   cookies: { [cookie: string]: string },
   fresh: boolean,
   hostname: string,
@@ -100,14 +100,14 @@ declare class express$Response extends http$ServerResponse {
   sendStatus(statusCode: number): this,
   header(field: string, value?: string): this,
   header(headers: { [name: string]: string }): this,
-  set(field: string, value?: string): this,
+  set(field: string, value?: string | string[]): this,
   set(headers: { [name: string]: string }): this,
   status(statusCode: number): this,
   type(type: string): this,
   vary(field: string): this
 }
 
-declare type express$NextFunction = (err?: ?Error) => mixed;
+declare type express$NextFunction = (err?: ?Error | "route") => mixed;
 declare type express$Middleware =
   | ((
       req: express$Request,
@@ -163,7 +163,7 @@ declare class express$Route {
 declare class express$Router extends express$Route {
   constructor(options?: express$RouterOptions): void,
   route(path: string): express$Route,
-  static (): express$Router,
+  static (options?: express$RouterOptions): express$Router,
   use(middleware: express$Middleware): this,
   use(...middleware: Array<express$Middleware>): this,
   use(
@@ -231,13 +231,13 @@ declare module "express" {
     options?: Object
   ): express$Middleware;
 
-  declare type RouterOptions = express$RouterOptions;
-  declare type CookieOptions = express$CookieOptions;
-  declare type Middleware = express$Middleware;
-  declare type NextFunction = express$NextFunction;
-  declare type $Response = express$Response;
-  declare type $Request = express$Request;
-  declare type $Application = express$Application;
+  declare export type RouterOptions = express$RouterOptions;
+  declare export type CookieOptions = express$CookieOptions;
+  declare export type Middleware = express$Middleware;
+  declare export type NextFunction = express$NextFunction;
+  declare export type $Response = express$Response;
+  declare export type $Request = express$Request;
+  declare export type $Application = express$Application;
 
   declare module.exports: {
     (): express$Application, // If you try to call like a function, it will use this signature

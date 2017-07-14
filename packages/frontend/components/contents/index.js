@@ -1,0 +1,115 @@
+import React, { PropTypes as T } from "react";
+
+import NotebookPreview from "@nteract/notebook-preview";
+import DirectoryListing from "./directory-listing";
+import BreadCrumb from "../bread-crumb";
+
+import MarkdownTransform from "@nteract/transforms/lib/markdown";
+
+import { Container } from "semantic-ui-react";
+
+import {
+  standardTransforms,
+  standardDisplayOrder,
+  registerTransform
+} from "@nteract/transforms";
+
+import DataResourceTransform from "@nteract/transform-dataresource";
+
+const { transforms, displayOrder } = [
+  DataResourceTransform
+].reduce(registerTransform, {
+  transforms: standardTransforms,
+  displayOrder: standardDisplayOrder
+});
+
+import HTMLView from "./html";
+import JSONView from "./json";
+import CSVView from "./csv";
+
+const suffixRegex = /(?:\.([^.]+))?$/;
+
+class File extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
+
+  render() {
+    const name = this.props.entry.name;
+    const suffix = (suffixRegex.exec(name)[1] || "").toLowerCase();
+
+    switch (suffix) {
+      case "html":
+        return <HTMLView entry={this.props.entry} />;
+      case "json":
+        return <JSONView entry={this.props.entry} />;
+      case "csv":
+        return (
+          <Container fluid>
+            <CSVView entry={this.props.entry} />
+          </Container>
+        );
+      case "md":
+      case "markdown":
+      case "rmd":
+        return (
+          <Container fluid>
+            <div>
+              <MarkdownTransform data={this.props.entry.content} />
+            </div>
+          </Container>
+        );
+      case "gif":
+      case "jpeg":
+      case "jpg":
+      case "png":
+        return (
+          <Container fluid>
+            <img
+              src={`/files/${this.props.pathname}`}
+              alt={this.props.pathname}
+            />
+          </Container>
+        );
+      default:
+        return (
+          <Container fluid>
+            <a href={`/files/${this.props.pathname}`}>Download raw file</a>
+          </Container>
+        );
+    }
+  }
+}
+
+export const Entry = props => {
+  switch (props.entry.type) {
+    case "directory":
+      return (
+        <Container fluid textAlign="center">
+          <DirectoryListing
+            path={props.pathname}
+            contents={props.entry.content}
+            basepath={"/view"}
+          />
+        </Container>
+      );
+    case "file":
+      // TODO: Case off various file types (by extension, mimetype)
+      return <File entry={props.entry} pathname={props.pathname} />;
+    case "notebook":
+      return (
+        <NotebookPreview
+          notebook={props.entry.content}
+          displayOrder={displayOrder}
+          transforms={transforms}
+        />
+      );
+    default:
+      console.log("Unknown contents ");
+      return (
+        <pre>
+          {JSON.stringify(props.entry.content)}
+        </pre>
+      );
+  }
+};

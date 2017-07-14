@@ -1,15 +1,14 @@
 {
-  "name": "@nteract/commuter-client",
+  "name": "@nteract/commuter-lerna-base",
   "version": "0.1.0",
   "description": "share, publish, and discover notebooks",
   "engines": {
     "node": "6.9.5"
   },
   "scripts": {
-    "build": "npm run build:components && npm run build:client",
-    "build:client": "lerna exec --scope @nteract/commuter-client -- npm run build",
-    "build:components": "lerna exec --ignore @nteract/commuter-client -- npm run build",
-    "client": "lerna exec --scope @nteract/commuter-cli -- npm run client",
+    "dev": "lerna exec --scope @nteract/commuter -- npm run dev",
+    "build": "lerna exec --scope @nteract/commuter -- npm run build",
+    "start": "lerna exec --scope @nteract/commuter -- npm run start",
     "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
     "clean:install": "lerna clean",
     "clean:lib": "lerna exec -- rm -rf ./lib",
@@ -17,17 +16,11 @@
     "format:code": "prettier --write 'packages/*/src/**/*.js' 'packages/*/test/**/*.js'",
     "flow": "lerna run flow",
     "install": "npm run lerna && npm run build",
-    "lerna": "lerna init && lerna bootstrap",
+    "lerna": "lerna bootstrap",
     "publish": "npm run clean && npm install && lerna publish",
     "precommit": "lint-staged",
     "prepush": "npm run flow && export CI=true&&npm test",
-    "start": "lerna exec --scope @nteract/commuter-cli -- npm run start",
-    "start:watch": "concurrently \"lerna exec --scope @nteract/commuter-cli -- npm run start\" \"npm run watch\"",
-    "start:production": "lerna exec --scope @nteract/commuter-cli -- npm run start:production",
-    "server": "lerna exec --scope @nteract/commuter-cli -- npm run server",
-    "server:watch": "lerna exec --scope @nteract/commuter-cli -- npm run server:watch",
-    "test": "lerna run test",
-    "watch": "lerna exec --ignore @nteract/commuter-client -- npm run watch"
+    "test": "lerna run test"
   },
   "lint-staged": {
     "*.js": [
@@ -53,6 +46,7 @@
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
     "flow-bin": "^0.50.0",
+    "flow-typed": "^2.1.2",
     "lerna": "^2.0.0"
   },
   "devDependencies": {
