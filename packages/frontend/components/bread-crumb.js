@@ -22,7 +22,11 @@ export class BreadCrumbMenu extends React.Component {
 
   render() {
     const { path, basepath } = this.props;
-    const paths = trim(path, "/").split("/");
+    let paths = trim(path, "/").split("/");
+    // Empty path to start off
+    if (paths.length === 1 && paths[0] === "") {
+      paths = [];
+    }
     let breadCrumbs = [];
 
     return (
@@ -89,16 +93,22 @@ export class BreadCrumbMenu extends React.Component {
               margin: 0;
               transform: skew(-10deg);
             }
+
+            nav li:first-child {
+              margin-left: 30px;
+            }
+
             nav a {
               padding: 10px 20px;
-              color: #000;
+              color: #111;
               background-color: #e7e7e7;
               margin-left: 5px;
             }
             nav a:hover {
-              color: #000;
+              color: #111;
               background-color: #fff;
             }
+
             a span {
               transform: skew(10deg);
             }

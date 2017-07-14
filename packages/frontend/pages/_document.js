@@ -51,10 +51,12 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             type="text/css"
           />
+          <link rel="stylesheet" type="text/css" href="/static/commuter.css" />
           <style>{`
             body {
               margin: 0;
-              font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Lato", Helvetica, Arial, sans-serif;
+              font-family: -apple-system, system-ui, BlinkMacSystemFont,
+                "Segoe UI", Roboto, "Lato", Helvetica, Arial, sans-serif;
               font-size: 1em;
             }
 
@@ -63,12 +65,17 @@ export default class MyDocument extends Document {
               border: none;
             }
 
+            .menu {
+              margin-bottom: none;
+              background-color: red;
+            }
+
             .ui .item {
               font-weight: 600;
               line-height: 20px;
               color: rgba(0, 0, 0, 0.75);
             }
-            `}</style>
+          `}</style>
         </Head>
         <body>
           <Main />

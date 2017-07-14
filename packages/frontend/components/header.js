@@ -21,7 +21,7 @@ class CommuterMenu extends React.Component {
     const activeItem = "browse";
 
     return (
-      <Menu borderless>
+      <Menu borderless className="top-nav">
         <Menu.Item name="/view/" onClick={this.handleItemClick}>
           <Image src="/static/logo.png" size="mini" />
         </Menu.Item>
