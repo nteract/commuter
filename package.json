@@ -10,7 +10,7 @@
     "build": "lerna exec --scope @nteract/commuter -- npm run build",
     "start": "lerna exec --scope @nteract/commuter -- npm run start",
     "build:frontend": "lerna exec --scope @nteract/commuter-frontend -- npm run build",
-    "start:production": "npm run build:frontend && NODE_ENV=production lerna exec --scope @nteract/commuter -- npm run start",
+    "start:heroku": "npm run build:frontend && NODE_ENV=production lerna exec --scope @nteract/commuter -- npm run start",
     "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
     "clean:install": "lerna clean",
     "clean:lib": "lerna exec -- rm -rf ./lib",
