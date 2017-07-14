@@ -32,26 +32,15 @@
     "react-dom": "^15.6.1",
     "react-timeago": "^3.3.0",
     "rx-jupyter": "^2.0.0",
-    "semantic-ui-react": "^0.71.0",
-    "styled-jsx": "^1.0.6"
+    "semantic-ui-react": "^0.71.0"
   },
-  "files": [
-    ".next",
-    "pages",
-    "static",
-    "components",
-    "index.js"
-  ],
+  "files": [".next", "pages", "static", "components", "index.js"],
   "devDependencies": {
     "flow-bin": "^0.49.1",
     "flow-remove-types": "^1.2.1"
   },
   "babel": {
-    "presets": [
-      "next/babel"
-    ],
-    "plugins": [
-      "transform-flow-strip-types"
-    ]
+    "presets": ["next/babel"],
+    "plugins": ["transform-flow-strip-types"]
   }
 }
