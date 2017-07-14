@@ -1,6 +1,7 @@
 // @flow
 
-const express = require("express"), s3Proxy = require("s3-proxy");
+const express = require("express"),
+  s3Proxy = require("s3-proxy");
 
 // TODO: Flow type config
 function createRouter(config: Object): express.Router {
