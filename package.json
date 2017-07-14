@@ -9,6 +9,8 @@
     "dev": "lerna exec --scope @nteract/commuter -- npm run dev",
     "build": "lerna exec --scope @nteract/commuter -- npm run build",
     "start": "lerna exec --scope @nteract/commuter -- npm run start",
+    "build:frontend": "lerna exec --scope @nteract/commuter-frontend -- npm run build",
+    "start:production": "npm run build:frontend && NODE_ENV=production lerna exec --scope @nteract/commuter -- npm run start",
     "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
     "clean:install": "lerna clean",
     "clean:lib": "lerna exec -- rm -rf ./lib",
@@ -23,21 +25,13 @@
     "test": "lerna run test"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.js": ["prettier --write", "git add"]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": [
-    "nteract",
-    "jupyter",
-    "s3",
-    "notebook"
-  ],
+  "keywords": ["nteract", "jupyter", "s3", "notebook"],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
