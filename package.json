@@ -16,7 +16,7 @@
     "format:code": "prettier --write 'packages/*/src/**/*.js' 'packages/*/test/**/*.js'",
     "flow": "lerna run flow",
     "install": "npm run lerna && npm run build",
-    "lerna": "lerna init && lerna bootstrap",
+    "lerna": "lerna bootstrap",
     "publish": "npm run clean && npm install && lerna publish",
     "precommit": "lint-staged",
     "prepush": "npm run flow && export CI=true&&npm test",
