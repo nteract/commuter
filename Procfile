@@ -1,2 +1,1 @@
-web: npm run start:production
-
+web: npm run start:heroku

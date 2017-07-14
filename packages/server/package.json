@@ -13,16 +13,14 @@
     "prepublish": "npm run build",
     "flow": "flow"
   },
+  "bin": {
+    "commuter": "lib/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": [
-    "nteract",
-    "jupyter",
-    "s3",
-    "notebook"
-  ],
+  "keywords": ["nteract", "jupyter", "s3", "notebook"],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
@@ -59,8 +57,6 @@
     "supertest": "^3.0.0"
   },
   "babel": {
-    "presets": [
-      "flow"
-    ]
+    "presets": ["flow"]
   }
 }
