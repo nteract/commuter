@@ -14,50 +14,11 @@ const Authors = props =>
     {props.authors.map(author => author.name).join(", ")}
   </span>;
 
-/*
-const discoveryStyles = StyleSheet.create({
-  item: {
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
-  },
-  tag: {
-    display: "inline-block",
-    padding: "0.2em 0.9em",
-    margin: "0 0.5em 0.5em 0",
-    whiteSpace: "nowrap",
-    backgroundColor: "#f1f8ff",
-    borderRadius: "3px",
-    color: "#0366d6",
-    textDecoration: "none",
-    ":hover": {
-      backgroundColor: "#ddeeff"
-    }
-  }
-});
-*/
-
 const Tag = props =>
   <span>
     <span className="tag">
       {props.children}
     </span>
-    <style jsx>{`
-    .tag {
-      display: "inline-block";
-      padding: "0.2em 0.9em";
-      margin: "0 0.5em 0.5em 0";
-      white-space: "nowrap";
-      background-color: "#f1f8ff";
-      border-radius: "3px";
-      color: "#0366d6";
-      text-decoration: "none";
-      /* Nesting not supported...
-       ":hover": {
-        backgroundColor: "#ddeeff";
-      }*/
-    }
-    }
-    `}</style>
   </span>;
 
 const DiscoveryItem = props =>
@@ -97,13 +58,6 @@ const DiscoveryItem = props =>
         </Item.Extra>
       </Item.Content>
     </Item>
-    <style jsx>{`
-      .item {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
-          Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-          "Segoe UI Symbol";
-      }
-    `}</style>
   </div>;
 
 class DiscoveryGrid extends React.Component {

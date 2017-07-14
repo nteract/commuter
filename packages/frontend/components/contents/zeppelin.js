@@ -8,41 +8,41 @@ import Editor from "@nteract/notebook-preview/lib/editor";
 
 const HokeyTable = props =>
   <div>
-    <style>
+    <style jsx>
       {`
-      table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        border-collapse: collapse;
-        border-spacing: 0;
-        empty-cells: show;
-        border: 1px solid #cbcbcb;
-        max-height: 200px;
-        overflow-y: scroll;
-      }
+        table {
+          border-collapse: collapse;
+          border-spacing: 0;
+          border-collapse: collapse;
+          border-spacing: 0;
+          empty-cells: show;
+          border: 1px solid #cbcbcb;
+          max-height: 200px;
+          overflow-y: scroll;
+        }
 
-      td,
-      th {
-        padding: 0;
-        border-left: 1px solid #cbcbcb;/*  inner column border */
-      border-width: 0 0 0 1px;
-      font-size: inherit;
-      margin: 0;
-      overflow: visible; /*to make ths where the title is really long work*/
-      padding: 0.5em 1em; /* cell padding */
-      }
+        td,
+        th {
+          padding: 0;
+          border-left: 1px solid #cbcbcb; /*  inner column border */
+          border-width: 0 0 0 1px;
+          font-size: inherit;
+          margin: 0;
+          overflow: visible; /*to make ths where the title is really long work*/
+          padding: 0.5em 1em; /* cell padding */
+        }
 
-      td:first-child,
-      th:first-child {
+        td:first-child,
+        th:first-child {
           border-left-width: 0;
-      }
+        }
 
-      thead {
+        thead {
           background-color: #e0e0e0;
           color: #000;
           text-align: left;
           vertical-align: bottom;
-      }
+        }
       `}
     </style>
     <table>

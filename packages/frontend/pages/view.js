@@ -86,11 +86,6 @@ class ViewPage extends React.Component {
             />
           </div>
         </Body>
-        <style jsx>{`
-          .entry {
-            padding-left: 2rem;
-          }
-        `}</style>
       </div>
     );
   }
