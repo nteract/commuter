@@ -4,7 +4,8 @@ import type { $Request, $Response } from "express";
 
 const express = require("express");
 
-const Log = require("log"), log = new Log("info");
+const Log = require("log"),
+  log = new Log("info");
 
 const path = require("path");
 

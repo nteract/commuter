@@ -26,15 +26,32 @@ function createServer() {
     // Last middleware
     const router = require("./routes");
 
+    const suffixRegex = /(?:\.([^.]+))?$/;
+
+    const renderSuffixes = new Set(["ipynb", "html", "json", "md", "rmd"]);
+    const renderAccepts = new Set(["text/html", "application/xhtml+xml"]);
+
     const viewHandler = (req: $Request, res: $Response) => {
-      const { pathname, query } = parse(req.url, true);
-      const viewPath = req.params["0"] || "/";
-      console.log("viewPath", viewPath);
+      const suffix = (suffixRegex.exec(req.path)[1] || "").toLowerCase();
+      const accepts = (req.headers.accept || "").split(",");
 
-      const q = Object.assign({}, { viewPath }, query);
+      if (
+        // If one of our suffixes is a renderable item
+        renderSuffixes.has(suffix) ||
+        // If the file is requested as `text/html` first and foremost, we'll also
+        // render our file viewer
+        renderAccepts.has(accepts[0]) ||
+        renderAccepts.has(accepts[1])
+      ) {
+        const { pathname, query } = parse(req.url, true);
+        const viewPath = req.params["0"] || "/";
+        const q = Object.assign({}, { viewPath }, query);
+        return frontend.app.render(req, res, "/view", q);
+      }
 
-      console.log("baseUrl", req.baseUrl);
-      return frontend.app.render(req, res, "/view", q);
+      const newPath = req.path.replace(/^\//, "/files/");
+      res.redirect(newPath);
+      return;
     };
 
     router.get(["/view", "/view*"], viewHandler);
