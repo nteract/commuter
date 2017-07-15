@@ -16,7 +16,7 @@
     "clean:lib": "lerna exec -- rm -rf ./lib",
     "clean:build": "lerna exec -- rm -rf ./build",
     "format:code": "prettier --write 'packages/*/src/**/*.js' 'packages/*/test/**/*.js'",
-    "flow": "lerna run flow",
+    "flow": "flow",
     "install": "npm run lerna && npm run build",
     "lerna": "lerna bootstrap",
     "publish": "npm run clean && npm install && lerna publish",
@@ -24,21 +24,13 @@
     "test": "lerna run test"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.js": ["prettier --write", "git add"]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": [
-    "nteract",
-    "jupyter",
-    "s3",
-    "notebook"
-  ],
+  "keywords": ["nteract", "jupyter", "s3", "notebook"],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {

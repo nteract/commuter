@@ -1,7 +1,8 @@
-// flow-typed signature: 78eec0fbe090057bc3c26451d513b4ce
-// flow-typed version: e7aa3314da/express_v4.x.x/flow_>=v0.32.x
+// flow-typed signature: 49fdcc00eb0cf9d3f0cc15f76f9a63fb
+// flow-typed version: 42a4202af0/express_v4.x.x/flow_>=v0.32.x
 
 import type { Server } from "http";
+import type { Socket } from "net";
 
 declare type express$RouterOptions = {
   caseSensitive?: boolean,
@@ -18,6 +19,7 @@ declare class express$Request extends http$IncomingMessage {
   baseUrl: string,
   body: any,
   cookies: { [cookie: string]: string },
+  connection: Socket,
   fresh: boolean,
   hostname: string,
   ip: string,

@@ -3,13 +3,17 @@ const express = require("express"),
   path = require("path"),
   bodyParser = require("body-parser");
 
-import type { $Request, $Response } from "express";
+import type { Middleware, $Request, $Response } from "express";
 
-function defaultContentTypeMiddleware(req: $Request, res: $Response, next) {
+const defaultContentTypeMiddleware: Middleware = (
+  req: $Request,
+  res: $Response,
+  next
+) => {
   req.headers["content-type"] =
     req.headers["content-type"] || "application/json";
   next();
-}
+};
 
 type APIRouters = {
   contents: express.Router,
