@@ -158,6 +158,7 @@ describe("Test S3 service", function() {
   });
 
   it("uploadObject writes a file to s3 bucket", function() {
+    // $FlowFixMe
     const proxyquire = require("proxyquire");
     const expectedData = {
       ETag: '"dc328edabd19af595d98364de8c78c40"',

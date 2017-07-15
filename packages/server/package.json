@@ -10,8 +10,7 @@
     "test": "mocha --compilers js:babel-core/register",
     "watch": "echo \"Info: skipping commuter-server watch \" && exit 0",
     "build": "babel src -d lib",
-    "prepublish": "npm run build",
-    "flow": "flow"
+    "prepublish": "npm run build"
   },
   "bin": {
     "commuter": "lib/index.js"
@@ -50,8 +49,6 @@
     "babel-cli": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "chai": "^3.5.0",
-    "flow-bin": "^0.49.1",
-    "flow-remove-types": "^1.2.0",
     "mocha": "^3.2.0",
     "proxyquire": "^1.7.10",
     "supertest": "^3.0.0"
