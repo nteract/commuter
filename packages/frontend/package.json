@@ -27,6 +27,7 @@
     "@nteract/transforms": "^2.1.0",
     "aphrodite": "^1.2.1",
     "d3-dsv": "^1.0.5",
+    "isomorphic-fetch": "^2.2.1",
     "next": "^2.4.7",
     "nprogress": "^0.2.0",
     "react": "^15.6.1",
@@ -35,9 +36,19 @@
     "rx-jupyter": "^2.0.0",
     "semantic-ui-react": "^0.71.0"
   },
-  "files": [".next", "pages", "static", "components", "index.js"],
+  "files": [
+    ".next",
+    "pages",
+    "static",
+    "components",
+    "index.js"
+  ],
   "babel": {
-    "presets": ["next/babel"],
-    "plugins": ["transform-flow-strip-types"]
+    "presets": [
+      "next/babel"
+    ],
+    "plugins": [
+      "transform-flow-strip-types"
+    ]
   }
 }
