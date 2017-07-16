@@ -1,3 +1,4 @@
+// @flow
 import React, { PropTypes as T } from "react";
 import { Breadcrumb, Menu, Icon } from "semantic-ui-react";
 import { trim } from "lodash";
@@ -16,7 +17,7 @@ const Link = ({ to, children, basepath }) =>
   </NextLink>;
 
 export class BreadCrumbMenu extends React.Component {
-  handleItemClick = (e, { name }) => {
+  handleItemClick = (e: SyntheticEvent, { name }: { name: string }) => {
     Router.push(name);
   };
 

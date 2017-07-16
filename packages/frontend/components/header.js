@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -13,7 +14,7 @@ Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
 class CommuterMenu extends React.Component {
-  handleItemClick = (e, { name }) => {
+  handleItemClick = (e: SyntheticEvent, { name }: { name: string }) => {
     Router.push(name);
   };
 
