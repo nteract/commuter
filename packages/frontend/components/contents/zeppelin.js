@@ -1,9 +1,14 @@
+// @flow
 import React from "react";
 
+// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import JSONTransform from "@nteract/transforms/lib/json";
+// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import HTML from "@nteract/transforms/lib/html";
+// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import Text from "@nteract/transforms/lib/text";
 
+// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import Editor from "@nteract/notebook-preview/lib/editor";
 
 const HokeyTable = props =>
@@ -198,7 +203,16 @@ const Paragraph = props => {
   );
 };
 
-const ZeppelinView = props => {
+type ZeppelinViewProps = {
+  notebook: {
+    name: string,
+    paragraphs: Array<ZParagraph>
+  }
+};
+
+type ZParagraph = any;
+
+const ZeppelinView = (props: ZeppelinViewProps) => {
   return (
     <div style={{ paddingLeft: "10px" }}>
       <h1>

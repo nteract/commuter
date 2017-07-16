@@ -1,4 +1,5 @@
-import React, { PropTypes as T } from "react";
+// @flow
+import React from "react";
 import { Table, Grid, Icon } from "semantic-ui-react";
 
 import NextLink from "next/link";
@@ -14,7 +15,14 @@ const Link = ({ to, children, basepath }) =>
     </a>
   </NextLink>;
 
-const DirectoryListing = props => {
+import type { Content } from "./types";
+
+export type DirectoryListingProps = {
+  contents: Array<Content>,
+  basepath: string
+};
+
+const DirectoryListing = (props: DirectoryListingProps) => {
   const base = props.basepath || "/";
   return (
     <Grid>
@@ -74,13 +82,6 @@ const DirectoryListing = props => {
       </Grid.Column>
     </Grid>
   );
-};
-
-DirectoryListing.propTypes = {
-  contents: T.arrayOf(
-    T.shape({ type: T.string, path: T.string, name: T.string })
-  ),
-  basepath: T.string
 };
 
 export default DirectoryListing;
