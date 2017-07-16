@@ -2,8 +2,6 @@ import React from "react";
 
 import { Container } from "semantic-ui-react";
 
-import { css } from "aphrodite";
-
 import ZeppelinView from "./zeppelin";
 
 import JSONTransform from "@nteract/transforms/lib/json";
