@@ -1,12 +1,14 @@
+// @flow
 import React, { PropTypes as T } from "react";
 
+// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import NotebookPreview from "@nteract/notebook-preview";
-import DirectoryListing from "./directory-listing";
-import BreadCrumb from "../bread-crumb";
-
+// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import MarkdownTransform from "@nteract/transforms/lib/markdown";
-
+// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import PlotlyTransform from "@nteract/transform-plotly";
+
+import DirectoryListing from "./directory-listing";
 
 import { Container } from "semantic-ui-react";
 
@@ -14,8 +16,12 @@ import {
   standardTransforms,
   standardDisplayOrder,
   registerTransform
+  // $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 } from "@nteract/transforms";
 
+import type { Content } from "./types";
+
+// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import DataResourceTransform from "@nteract/transform-dataresource";
 
 const { transforms, displayOrder } = [
@@ -84,18 +90,31 @@ class File extends React.Component {
   }
 }
 
-export const Entry = props => {
+type EntryProps = {
+  entry: Content,
+  pathname: string,
+  basepath: string
+};
+
+export const Entry = (props: EntryProps) => {
+  if (props.entry.content === null) {
+    return null;
+  }
+
   switch (props.entry.type) {
     case "directory":
-      return (
-        <Container fluid textAlign="center">
-          <DirectoryListing
-            path={props.pathname}
-            contents={props.entry.content}
-            basepath={"/view"}
-          />
-        </Container>
-      );
+      // Dynamic type check on content being an Array
+      if (Array.isArray(props.entry.content)) {
+        return (
+          <Container fluid textAlign="center">
+            <DirectoryListing
+              contents={props.entry.content}
+              basepath={"/view"}
+            />
+          </Container>
+        );
+      }
+      return null;
     case "file":
       // TODO: Case off various file types (by extension, mimetype)
       return <File entry={props.entry} pathname={props.pathname} />;
