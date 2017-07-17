@@ -13,35 +13,11 @@ Router.onRouteChangeStart = url => {
 Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
-type CommuterMenuProps = {
-  active: "browse" | "view"
-};
-
-class Item extends React.Component {
-  props: {
-    isActive: boolean,
-    children: any,
-    href: string
-  };
-
-  static defaultProps = {
-    isActive: false
-  };
-
-  render() {
-    return (
-      <li className={this.props.isActive ? "active" : ""}>
-        <Link href={this.props.href}>
-          {this.props.children}
-        </Link>
-      </li>
-    );
-  }
-}
+type ActiveType = "view" | "discover";
 
 class CommuterMenu extends React.Component {
   props: {
-    active: "view" | "discover"
+    active: ActiveType
   };
 
   static defaultProps = {
@@ -52,24 +28,56 @@ class CommuterMenu extends React.Component {
     Router.push(name);
   };
 
+  isActiveClass = (current: ActiveType): string =>
+    this.props.active === current ? "active" : "";
+
   render() {
     const activeItem = "browse";
 
     return (
       <nav className="main-header">
-        <ul>
-          <Item href="/view">
-            <img src="/static/logo.png" height="20" />
-          </Item>
-          <Item href="/view" isActive={this.props.active === "view"}>
-            <a>Browse</a>
-          </Item>
-          <Item href="/discover" isActive={this.props.active === "discover"}>
-            <a>Discover</a>
-          </Item>
+        <ul className="items">
+          <li className={this.isActiveClass("view")}>
+            <Link href={"/view"}>
+              <a>
+                <img src="/static/logo.png" height="20" />
+              </a>
+            </Link>
+          </li>
+          <li className={this.isActiveClass("view")}>
+            <Link href={"/view"}>
+              <a>Browse</a>
+            </Link>
+          </li>
+          <li className={this.isActiveClass("discover")}>
+            <Link href={"/discover"}>
+              <a>Discover</a>
+            </Link>
+          </li>
         </ul>
         <style jsx>{`
-          nav {
+          ul {
+            display: flex;
+            width: 100%;
+            position: relative;
+
+            margin: 0 0 1.5rem 0;
+            padding: 0;
+
+            list-style: none;
+          }
+
+          ul li {
+            flex-direction: row;
+            list-style-type: none;
+            padding-left: 1em;
+            display: block;
+            text-align: center;
+          }
+
+          ul li a {
+            display: block;
+            padding: 1rem 0;
           }
         `}</style>
       </nav>
