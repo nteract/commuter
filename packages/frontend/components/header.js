@@ -13,6 +13,8 @@ Router.onRouteChangeError = () => NProgress.done();
 
 type ActiveType = "view" | "discover";
 
+import { theme } from "../theme";
+
 class CommuterMenu extends React.Component {
   props: {
     active: ActiveType
@@ -53,11 +55,11 @@ class CommuterMenu extends React.Component {
         </ul>
         <style jsx>{`
           nav {
-            background: #edf1f7;
-            border: 1px solid #c8d4e7;
+            background: ${theme.background};
+            border: 1px solid ${theme.outline};
             font-family: "Source Sans Pro";
             font-size: 16px;
-            color: #a2b6d7;
+            color: ${theme.primary};
             padding-left: 1.5em;
           }
 
@@ -90,11 +92,11 @@ class CommuterMenu extends React.Component {
             vertical-align: middle;
             display: table;
             padding: 1em;
-            color: #a2b6d7;
+            color: ${theme.primary};
           }
 
           ul li.active a {
-            color: #324767;
+            color: ${theme.active};
             font-weight: 500;
             text-decoration: none;
             cursor: default;
@@ -105,7 +107,7 @@ class CommuterMenu extends React.Component {
           }
 
           img {
-            height: 3rem;
+            height: 2.5rem;
             vertical-align: middle;
           }
         `}</style>

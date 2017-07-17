@@ -7,6 +7,8 @@ import Router from "next/router";
 import NextLink from "next/link";
 import { trim } from "lodash";
 
+import { theme } from "../theme";
+
 // Convert simple links to next style href + as
 const Link = ({ to, children, basepath }) =>
   <NextLink
@@ -67,7 +69,7 @@ class BrowseHeader extends React.Component {
         </ul>
         <style jsx>{`
           nav {
-            border: 1px solid #c8d4e7;
+            border: 1px solid ${theme.outline};
             padding-left: 1rem;
           }
           ul {
@@ -82,7 +84,7 @@ class BrowseHeader extends React.Component {
             background: #ffffff;
             font-family: "Source Sans Pro";
             font-size: 16px;
-            color: #a2b6d7;
+            color: ${theme.primary};
           }
 
           ul li {
@@ -98,16 +100,16 @@ class BrowseHeader extends React.Component {
             vertical-align: middle;
             display: table;
             padding: 1em;
-            color: #a2b6d7;
+            color: ${theme.primary};
           }
 
           ul li:last-child a {
-            color: #324767;
+            color: ${theme.active};
           }
 
           li + li:before {
             content: '›';
-            color: #324767;
+            color: ${theme.active};
           }
         `}</style>
       </nav>
