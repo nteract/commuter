@@ -24,7 +24,7 @@
     "test": "lerna run test"
   },
   "lint-staged": {
-    "*.js": [
+    "packages/**/*.js": [
       "prettier --write",
       "git add"
     ]

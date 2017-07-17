@@ -13,7 +13,41 @@ Router.onRouteChangeStart = url => {
 Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
+type CommuterMenuProps = {
+  active: "browse" | "view"
+};
+
+class Item extends React.Component {
+  props: {
+    isActive: boolean,
+    children: any,
+    href: string
+  };
+
+  static defaultProps = {
+    isActive: false
+  };
+
+  render() {
+    return (
+      <li className={this.props.isActive ? "active" : ""}>
+        <Link href={this.props.href}>
+          {this.props.children}
+        </Link>
+      </li>
+    );
+  }
+}
+
 class CommuterMenu extends React.Component {
+  props: {
+    active: "view" | "discover"
+  };
+
+  static defaultProps = {
+    active: "view"
+  };
+
   handleItemClick = (e: SyntheticEvent, { name }: { name: string }) => {
     Router.push(name);
   };
@@ -22,23 +56,23 @@ class CommuterMenu extends React.Component {
     const activeItem = "browse";
 
     return (
-      <Menu borderless className="topNav">
-        <Menu.Item name="/view/" onClick={this.handleItemClick}>
-          <Image src="/static/logo.png" size="mini" />
-        </Menu.Item>
-
-        <Menu.Item name="/view/" active={false} onClick={this.handleItemClick}>
-          Browse
-        </Menu.Item>
-
-        <Menu.Item
-          name="/discover"
-          active={false}
-          onClick={this.handleItemClick}
-        >
-          Discover
-        </Menu.Item>
-      </Menu>
+      <nav className="main-header">
+        <ul>
+          <Item href="/view">
+            <img src="/static/logo.png" height="20" />
+          </Item>
+          <Item href="/view" isActive={this.props.active === "view"}>
+            <a>Browse</a>
+          </Item>
+          <Item href="/discover" isActive={this.props.active === "discover"}>
+            <a>Discover</a>
+          </Item>
+        </ul>
+        <style jsx>{`
+          nav {
+          }
+        `}</style>
+      </nav>
     );
   }
 }
