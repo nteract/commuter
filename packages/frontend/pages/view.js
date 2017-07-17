@@ -11,6 +11,7 @@ import { BreadCrumbMenu } from "../components/bread-crumb";
 import { Entry } from "../components/contents";
 
 import Header from "../components/header";
+import BrowseHeader from "../components/browse-header";
 
 import { Container, Menu, Segment } from "semantic-ui-react";
 
@@ -64,19 +65,7 @@ class ViewPage extends React.Component {
     return (
       <div>
         <Header />
-        <BreadCrumbMenu basepath={"/view"} path={this.props.viewPath} />
-        {/*
-              <Menu.Menu position="right">
-                <Menu.Item>
-                  <Input icon="search" placeholder="Search..." />
-                </Menu.Item>
-                <Menu.Item
-                  name="logout"
-                  active={activeItem === "logout"}
-                  onClick={this.handleItemClick}
-                />
-              </Menu.Menu>
-            */}
+        <BrowseHeader basepath={"/view"} path={this.props.viewPath} />
         <Body>
           {/* Entry */}
           <div className="entry">

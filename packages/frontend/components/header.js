@@ -5,8 +5,6 @@ import Link from "next/link";
 import NProgress from "nprogress";
 import Router from "next/router";
 
-import { Menu, Image, Segment, Input } from "semantic-ui-react";
-
 Router.onRouteChangeStart = url => {
   NProgress.start();
 };
@@ -37,11 +35,9 @@ class CommuterMenu extends React.Component {
     return (
       <nav className="main-header">
         <ul className="items">
-          <li className={this.isActiveClass("view")}>
+          <li>
             <Link href={"/view"}>
-              <a>
-                <img src="/static/logo.png" height="20" />
-              </a>
+              <img src="/static/logo.png" />
             </Link>
           </li>
           <li className={this.isActiveClass("view")}>
@@ -56,13 +52,27 @@ class CommuterMenu extends React.Component {
           </li>
         </ul>
         <style jsx>{`
+          nav {
+            background: #edf1f7;
+            border: 1px solid #c8d4e7;
+            font-family: "Source Sans Pro";
+            font-size: 16px;
+            color: #a2b6d7;
+            padding-left: 1.5em;
+          }
+
+          img {
+            padding-right: 1em;
+          }
+
           ul {
             display: flex;
             width: 100%;
             position: relative;
 
-            margin: 0 0 1.5rem 0;
+            margin: 0;
             padding: 0;
+            text-align: center;
 
             list-style: none;
           }
@@ -70,14 +80,33 @@ class CommuterMenu extends React.Component {
           ul li {
             flex-direction: row;
             list-style-type: none;
-            padding-left: 1em;
-            display: block;
+            display: inline;
             text-align: center;
+            display: flex;
+            align-items: center;
           }
 
           ul li a {
-            display: block;
-            padding: 1rem 0;
+            vertical-align: middle;
+            display: table;
+            padding: 1em;
+            color: #a2b6d7;
+          }
+
+          ul li.active a {
+            color: #324767;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: default;
+          }
+
+          a:hover {
+            text-decoration: underline;
+          }
+
+          img {
+            height: 3rem;
+            vertical-align: middle;
           }
         `}</style>
       </nav>
