@@ -5,19 +5,12 @@ require("isomorphic-fetch");
 
 import { join as pathJoin } from "path";
 
-import DirectoryListing from "../components/contents/directory-listing";
-import { BreadCrumbMenu } from "../components/bread-crumb";
-
-import { Entry } from "../components/contents";
-
 import Header from "../components/header";
 import BrowseHeader from "../components/browse-header";
-
-import { Container, Menu, Segment } from "semantic-ui-react";
-
 import Body from "../components/body";
 
-// import Contents from "../original-client/contents";
+import DirectoryListing from "../components/contents/directory-listing";
+import { Entry } from "../components/contents";
 
 class ViewPage extends React.Component {
   static async getInitialProps({ req, pathname, asPath, query }) {

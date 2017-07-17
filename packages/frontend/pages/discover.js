@@ -3,7 +3,7 @@ import React from "react";
 require("isomorphic-fetch");
 import TimeAgo from "react-timeago";
 
-import { Container, Menu, Segment, Item } from "semantic-ui-react";
+import { Item } from "semantic-ui-react";
 
 import Header from "../components/header";
 import Body from "../components/body";
