@@ -30,6 +30,12 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 
           <link
+            ref="stylesheet"
+            type="text/css"
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          />
+
+          <link
             href="https://static-tfoouzpgyq.now.sh/codemirror.css"
             rel="stylesheet"
             type="text/css"
