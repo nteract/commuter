@@ -4,16 +4,12 @@ import flush from "styled-jsx/server";
 
 import PropTypes from "prop-types";
 
-export default class MyDocument extends Document {
+class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
     const { html, head, errorHtml, chunks } = renderPage();
     const styles = flush();
     return { html, head, errorHtml, chunks, styles };
   }
-
-  childContextTypes = {
-    _documentProps: PropTypes.any
-  };
 
   getChildContext() {
     return { _documentProps: this.props };
@@ -77,3 +73,9 @@ export default class MyDocument extends Document {
     );
   }
 }
+
+MyDocument.childContextTypes = {
+  _documentProps: PropTypes.any
+};
+
+export default MyDocument;
