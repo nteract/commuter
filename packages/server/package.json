@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "share, publish, and discover notebooks",
   "main": "lib/index.js",
   "scripts": {
@@ -18,7 +18,12 @@
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": ["nteract", "jupyter", "s3", "notebook"],
+  "keywords": [
+    "nteract",
+    "jupyter",
+    "s3",
+    "notebook"
+  ],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
@@ -29,6 +34,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@nteract/commuter-frontend": "^1.0.1",
     "aws-sdk": "^2.41.0",
     "body-parser": "^1.15.2",
     "bodybuilder": "^2.0.0",
@@ -41,8 +47,7 @@
     "nbschema": "^0.1.0",
     "node-fetch": "^1.6.3",
     "s3-proxy": "^1.1.0",
-    "winston": "^2.3.0",
-    "@nteract/commuter-frontend": "^1.0.0"
+    "winston": "^2.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -53,6 +58,8 @@
     "supertest": "^3.0.0"
   },
   "babel": {
-    "presets": ["flow"]
+    "presets": [
+      "flow"
+    ]
   }
 }
