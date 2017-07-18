@@ -12,7 +12,7 @@
     "prepublish": "npm run build"
   },
   "bin": {
-    "commuter": "lib/index.js"
+    "commuter": "bin.js"
   },
   "repository": {
     "type": "git",

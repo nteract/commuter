@@ -5,8 +5,6 @@ import React, { PropTypes as T } from "react";
 import NotebookPreview from "@nteract/notebook-preview";
 // $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import MarkdownTransform from "@nteract/transforms/lib/markdown";
-// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
-import PlotlyTransform from "@nteract/transform-plotly";
 
 import DirectoryListing from "./directory-listing";
 
@@ -25,8 +23,7 @@ import type { Content } from "./types";
 import DataResourceTransform from "@nteract/transform-dataresource";
 
 const { transforms, displayOrder } = [
-  DataResourceTransform,
-  PlotlyTransform
+  DataResourceTransform
 ].reduce(registerTransform, {
   transforms: standardTransforms,
   displayOrder: standardDisplayOrder
