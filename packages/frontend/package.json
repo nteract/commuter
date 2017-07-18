@@ -19,6 +19,9 @@
   "bugs": {
     "url": "https://github.com/nteract/commuter/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
     "@nteract/notebook-preview": "^2.1.0",
@@ -36,19 +39,9 @@
     "semantic-ui-react": "^0.71.0",
     "styled-jsx": "^1.0.6"
   },
-  "files": [
-    ".next",
-    "pages",
-    "static",
-    "components",
-    "index.js"
-  ],
+  "files": [".next", "pages", "static", "components", "index.js"],
   "babel": {
-    "presets": [
-      "next/babel"
-    ],
-    "plugins": [
-      "transform-flow-strip-types"
-    ]
+    "presets": ["next/babel"],
+    "plugins": ["transform-flow-strip-types"]
   }
 }
