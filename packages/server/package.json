@@ -9,7 +9,7 @@
     "start": "node lib/index.js",
     "test": "mocha --compilers js:babel-core/register",
     "build": "babel src -d lib",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "bin": {
     "commuter": "bin.js"
