@@ -193,7 +193,9 @@ function getDirectory(
 
         Promise.all(contentPromises)
           // $FlowFixMe
-          .then(contents => contents.filter(x => x === null || x === undefined))
+          .then(contents =>
+            contents.filter(x => !(x === null || x === undefined))
+          )
           .then(contents => {
             resolve(Object.assign({}, directory, { content: contents }));
           });
