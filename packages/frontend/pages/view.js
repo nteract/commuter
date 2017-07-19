@@ -21,14 +21,17 @@ class ViewPage extends React.Component {
     // The best choice will be to rely only on client side for now
     // I'm sure
 
-    const viewPath = query.viewPath || "/";
+    const viewPath: string = query.viewPath || "/";
 
-    if (!shouldFetch(viewPath)) {
+    if (!viewPath.endsWith("/") && !shouldFetch(viewPath)) {
       // We assume the path gets used directly rather than the raw contents,
       // rendering <img src={viewPath} /> or a "Download Raw File" link
       // Speeds up rendering time when we're not actually rendering anything. :)
       return {
-        contents: {},
+        contents: {
+          name: viewPath,
+          type: "file" // Or is it...
+        },
         statusCode: 200,
         viewPath
       };
