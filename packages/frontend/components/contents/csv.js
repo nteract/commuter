@@ -5,7 +5,7 @@ import React from "react";
 // $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import DataTransform from "@nteract/transform-dataresource";
 
-import FacetsDive from "./facets";
+import { FacetsDive, FacetsOverview } from "./facets";
 
 export default class CSVView extends React.Component {
   shouldComponentUpdate() {
@@ -17,6 +17,7 @@ export default class CSVView extends React.Component {
     return (
       <div>
         <FacetsDive data={data} />
+        {/* <FacetsOverview data={data} /> */}
         {/* <DataTransform data={{ data }} theme="light" /> */}
       </div>
     );
