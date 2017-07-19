@@ -89,7 +89,7 @@ Requires Node.js 6+ and npm 3+.
 1. `git clone git@github.com:nteract/commuter.git`
 1. `cd commuter`
 1. `npm i`
-1. `npm start`
+1. `npm run dev`
 1. open `http://localhost:3000`
 
 #### Watch mode
