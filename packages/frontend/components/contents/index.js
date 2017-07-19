@@ -21,9 +21,13 @@ import type { Content } from "./types";
 
 // $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import DataResourceTransform from "@nteract/transform-dataresource";
+import { PlotlyNullTransform, PlotlyTransform } from "../../transforms";
 
+// Order is important here. The last transform in the array will have order `0`.
 const { transforms, displayOrder } = [
-  DataResourceTransform
+  DataResourceTransform,
+  PlotlyNullTransform,
+  PlotlyTransform
 ].reduce(registerTransform, {
   transforms: standardTransforms,
   displayOrder: standardDisplayOrder
