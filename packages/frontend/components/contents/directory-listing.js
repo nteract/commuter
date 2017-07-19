@@ -24,6 +24,10 @@ export type DirectoryListingProps = {
 
 const DirectoryListing = (props: DirectoryListingProps) => {
   const base = props.basepath || "/";
+
+  // filter out dotfiles
+  const contents = props.contents.filter(row => !row.name.startsWith("."));
+
   return (
     <Grid>
       <Grid.Column>
@@ -32,7 +36,7 @@ const DirectoryListing = (props: DirectoryListingProps) => {
             <Table.Row />
           </Table.Header>
           <Table.Body>
-            {props.contents.map((row, index) => {
+            {contents.map((row, index) => {
               if (!row.type) {
                 return null;
               }
