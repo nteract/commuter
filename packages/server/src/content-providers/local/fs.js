@@ -188,12 +188,13 @@ function getDirectory(
               // TODO: Verify how jupyter handles error cases on stat calls to files
               //       in the directory
               console.error(err);
+              return null;
             })
         );
 
         Promise.all(contentPromises)
-          // $FlowFixMe
           .then(contents =>
+            // $FlowFixMe
             contents.filter(x => !(x === null || x === undefined))
           )
           .then(contents => {
