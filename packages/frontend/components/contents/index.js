@@ -33,7 +33,25 @@ import HTMLView from "./html";
 import JSONView from "./json";
 import CSVView from "./csv";
 
-const suffixRegex = /(?:\.([^.]+))?$/;
+function suffix(name: string) {
+  const suffixRegex = /(?:\.([^.]+))?$/;
+  return (suffixRegex.exec(name)[1] || "").toLowerCase();
+}
+
+export function shouldFetch(name: string) {
+  const suffix_ = suffix(name);
+  const fetchables = new Set([
+    // Noticeably absent are images since they're done by reference
+    "json",
+    "md",
+    "markdown",
+    "rmd",
+    "csv",
+    "ipynb"
+  ]);
+
+  return fetchables.has(suffix(name));
+}
 
 class File extends React.Component {
   shouldComponentUpdate() {
@@ -42,9 +60,8 @@ class File extends React.Component {
 
   render() {
     const name = this.props.entry.name;
-    const suffix = (suffixRegex.exec(name)[1] || "").toLowerCase();
 
-    switch (suffix) {
+    switch (suffix(name)) {
       case "html":
         return <HTMLView entry={this.props.entry} />;
       case "json":

@@ -10,7 +10,7 @@ import BrowseHeader from "../components/browse-header";
 import Body from "../components/body";
 
 import DirectoryListing from "../components/contents/directory-listing";
-import { Entry } from "../components/contents";
+import { Entry, shouldFetch } from "../components/contents";
 
 class ViewPage extends React.Component {
   static async getInitialProps({ req, pathname, asPath, query }) {
@@ -22,6 +22,17 @@ class ViewPage extends React.Component {
     // I'm sure
 
     const viewPath = query.viewPath || "/";
+
+    if (!shouldFetch(viewPath)) {
+      // We assume the path gets used directly rather than the raw contents,
+      // rendering <img src={viewPath} /> or a "Download Raw File" link
+      // Speeds up rendering time when we're not actually rendering anything. :)
+      return {
+        contents: {},
+        statusCode: 200,
+        viewPath
+      };
+    }
 
     let BASE_PATH;
 
