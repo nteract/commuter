@@ -64,6 +64,8 @@ class MyDocument extends Document {
             type="text/css"
           />
           <link rel="stylesheet" type="text/css" href="/static/commuter.css" />
+
+          <script src="https://cdn.plot.ly/plotly-latest.min.js" />
         </Head>
         <body>
           <Main />
