@@ -5,11 +5,23 @@ import React from "react";
 import JSONTransform from "@nteract/transforms/lib/json";
 // $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import HTML from "@nteract/transforms/lib/html";
-// $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
-import Text from "@nteract/transforms/lib/text";
 
 // $FlowFixMe: our flow config isn't picking up modules that package separate .js.flow files
 import Editor from "@nteract/notebook-preview/lib/editor";
+
+const d3 = Object.assign({}, require("d3-dsv"));
+
+const Text = (props: { data: string }) =>
+  <div>
+    <code>
+      {props.data}
+    </code>
+    <style jsx>{`
+      code {
+        white-space: pre;
+      }
+    `}</style>
+  </div>;
 
 const HokeyTable = props =>
   <div>
@@ -74,6 +86,79 @@ const HokeyTable = props =>
     </table>
   </div>;
 
+const DSVTable = (props: { data: Array<Object> }) => {
+  if (!Array.isArray(props.data) || props.data.length <= 0) {
+    return null;
+  }
+
+  const columnNames = Object.keys(props.data[0]);
+  const rows = props.data;
+
+  return (
+    <div>
+      <style jsx>
+        {`
+          table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-collapse: collapse;
+            border-spacing: 0;
+            empty-cells: show;
+            border: 1px solid #cbcbcb;
+            max-height: 200px;
+            overflow-y: scroll;
+          }
+
+          td,
+          th {
+            padding: 0;
+            border-left: 1px solid #cbcbcb; /*  inner column border */
+            border-width: 0 0 0 1px;
+            font-size: inherit;
+            margin: 0;
+            overflow: visible; /*to make ths where the title is really long work*/
+            padding: 0.5em 1em; /* cell padding */
+          }
+
+          td:first-child,
+          th:first-child {
+            border-left-width: 0;
+          }
+
+          thead {
+            background-color: #e0e0e0;
+            color: #000;
+            text-align: left;
+            vertical-align: bottom;
+          }
+        `}
+      </style>
+      <table>
+        <thead>
+          <tr>
+            {columnNames.map((column, idx) =>
+              <th key={idx}>
+                {column}
+              </th>
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, idx) =>
+            <tr key={idx}>
+              {columnNames.map((k, colIdx) =>
+                <td key={colIdx}>
+                  {row[k]}
+                </td>
+              )}
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 const UnsupportedResult = props =>
   <div>
     <h1>UNSUPPORTED ZEPPELIN RESULT</h1>
@@ -87,12 +172,21 @@ const UnsupportedResult = props =>
     <JSONTransform data={props.result} />
   </div>;
 
+// Old style Zeppelin
+const Message = props => {
+  switch (props.type) {
+    case "HTML":
+      return <HTML data={props.data} />;
+    case "TEXT":
+      return <Text data={props.data} />;
+    default:
+      return null;
+  }
+};
+
 const Result = props => {
   if (!props.result || props.result.msg === "") {
     return null;
-  }
-  if (!props.result.msg) {
-    return <UnsupportedResult result={props.result} />;
   }
 
   switch (props.result.type) {
@@ -102,7 +196,10 @@ const Result = props => {
       return <Text data={props.result.msg} />;
     case "TABLE":
       if (!props.result.columnNames || !props.result.rows) {
-        return <UnsupportedResult result={props.result} />;
+        const data = d3.tsvParse(props.result.msg);
+        const columnNames = Object.keys(data[0]);
+
+        return <DSVTable data={data} />;
       }
       return (
         <HokeyTable
@@ -111,7 +208,7 @@ const Result = props => {
         />
       );
     default:
-      return <UnsupportedResult result={props.result} />;
+      return null;
   }
 };
 
@@ -157,6 +254,18 @@ const whichLanguage = source => {
 
 const Paragraph = props => {
   const lang = whichLanguage(props.text);
+
+  let resultView = null;
+  if (props.result) {
+    resultView = <Result result={props.result} />;
+  } else if (props.results && Array.isArray(props.results.msg)) {
+    resultView = (
+      <div>
+        {props.results.msg.map((item, idx) => <Message {...item} key={idx} />)}
+      </div>
+    );
+  }
+
   if (lang === "markdown") {
     return (
       <div
@@ -165,7 +274,7 @@ const Paragraph = props => {
           paddingTop: "10px"
         }}
       >
-        <Result result={props.result} />
+        {resultView}
       </div>
     );
   }
@@ -197,7 +306,7 @@ const Paragraph = props => {
           paddingTop: "10px"
         }}
       >
-        <Result result={props.result} />
+        {resultView}
       </div>
     </div>
   );
