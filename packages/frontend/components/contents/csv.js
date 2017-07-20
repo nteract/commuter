@@ -17,7 +17,7 @@ export default class CSVView extends React.Component {
     return (
       <div>
         <FacetsDive data={data} />
-        {/* <FacetsOverview data={data} /> */}
+        <FacetsOverview data={data} />
         {/* <DataTransform data={{ data }} theme="light" /> */}
       </div>
     );
