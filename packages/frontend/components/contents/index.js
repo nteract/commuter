@@ -10,6 +10,11 @@ import DirectoryListing from "./directory-listing";
 
 import { Container } from "semantic-ui-react";
 
+// HACK: Temporarily provide jquery for others to use...
+const jquery = require("jquery");
+global.jquery = jquery;
+global.$ = jquery;
+
 import {
   standardTransforms,
   standardDisplayOrder,
