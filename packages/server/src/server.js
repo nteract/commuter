@@ -54,7 +54,7 @@ function createServer() {
         return frontend.app.render(req, res, "/view", q);
       }
 
-      const newPath = req.path.replace(/^\//, "/files/");
+      const newPath = req.path.replace(/^\/view/, "/files");
       res.redirect(newPath);
       return;
     };
