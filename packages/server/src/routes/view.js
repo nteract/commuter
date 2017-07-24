@@ -33,7 +33,7 @@ router.get("*", (req: $Request, res: $Response) => {
   }
 
   // TODO: Include the config.basePath
-  const newPath = req.path.replace(/^\//, "/files/");
+  const newPath = req.path.replace(/^\/view/, "/files");
   res.redirect(newPath);
   return;
 });
