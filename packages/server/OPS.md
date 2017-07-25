@@ -1,4 +1,4 @@
-## ES Operations
+## ElasticSearch Operations Manual
 
 ### Create a New Index
 

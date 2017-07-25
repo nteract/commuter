@@ -33,7 +33,7 @@ Try **commuter** today and take your notebooks wherever you need them.
 ## Installation
 
 ```
-npm install @nteract/commuter-cli -g
+npm install @nteract/commuter -g
 ```
 
 ## Usage
@@ -43,13 +43,13 @@ Configure and run commuter with environment variables and `commuter server`.
 Example local run (using a network file share!):
 
 ```sh
-COMMUTER_LOCAL_STORAGE_BASEDIRECTORY=/efs/users/ commuter server
+COMMUTER_LOCAL_STORAGE_BASEDIRECTORY=/efs/users/ commuter
 ```
 
 Example S3 run:
 
 ```sh
-COMMUTER_BUCKET=sweet-notebooks commuter server
+COMMUTER_BUCKET=sweet-notebooks commuter
 ```
 
 ## Environment Variables
@@ -90,62 +90,17 @@ Requires Node.js 6+ and npm 3+.
 1. `cd commuter`
 1. `npm i`
 1. `npm run dev`
-1. open `http://localhost:3000`
-
-#### Watch mode
-For more granular control and automatic reloads run the following in separate terminals:
-
-1. `npm run client` - browser refresh
-1. `npm run server:watch` - reload express on file changes
-1. `npm run watch` - build lerna components
-
-*Notes*
-
-In watch mode, the API server (express) runs on `port 4000` and the client (webpack dev server) runs on `port 3000`.
-For ease of development the webpack dev server proxies requests made on `port 3000` to `port 4000` (also avoids CORS issues).
-On production, the server directly renders `index.html` with bundled static assets.
-
-1. Directory explorer - `http://localhost:3000`
-1. API server - `http://localhost:4000/api/contents/<PATH>`
-
-Project uses [prettier](https://github.com/jlongster/prettier) for code formatting (`npm run format:code` and [package.json](https://github.com/nteract/commuter/blob/master/package.json) has more options).
+1. open `http://localhost:4000`
 
 ## Tests
 
-1. `npm test`
+1. `npm t`
 
 ## Deployment
 
-There are few different ways to get commuter deployed on your severs:
-
-#### From master branch
-
-1. Enter in the terminal:
-
-        git clone git@github.com:nteract/commuter.git
-        npm i
-        npm start
-        open http://localhost:3000
-
-
-1. Currently, the [Demo](https://nteract-commuter.herokuapp.com/) app is deployed on [Heroku](https://www.heroku.com/).
-Heroku provides [a guide for getting started with the heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction) which will get you
-all set up. After all **required env variables** are set, run:
-
-        git push heroku master
-
-#### From published packages (**recommended**)
-  1. Install commuter cli `npm install @nteract/commuter-cli -g`
-  1. `exec commuter server` - the service is typically wrapped inside [daemontools](https://cr.yp.to/daemontools.html)
+  1. Install commuter cli `npm install @nteract/commuter`
+  1. `exec commuter` - the service is typically wrapped inside [daemontools](https://cr.yp.to/daemontools.html)
 
 ## Release
 
-1. `npm publish`
-1. `git push --tags`
-
-#### commuter packages
-* [@nteract/commuter-client](https://www.npmjs.com/package/@nteract/commuter-client)
-* [@nteract/commuter-server](https://www.npmjs.com/package/@nteract/commuter-server)
-* [@nteract/commuter-cli](https://www.npmjs.com/package/@nteract/commuter-cli)
-* [@nteract/commuter-breadcrumb](https://www.npmjs.com/package/@nteract/commuter-breadcrumb)
-* [@nteract/commuter-directory-listing](https://www.npmjs.com/package/@nteract/commuter-directory-listing)
+1. `lerna publish`
