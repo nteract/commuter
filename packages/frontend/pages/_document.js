@@ -1,6 +1,6 @@
 // @flow
 import Document, { Head, Main, NextScript } from "next/document";
-import flush from "styled-jsx/server";
+import flush from "next/node_modules/styled-jsx/server";
 
 import PropTypes from "prop-types";
 
