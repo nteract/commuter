@@ -1,8 +1,7 @@
 // @flow
 import Document, { Head, Main, NextScript } from "next/document";
 
-// $FlowFixMe: This hacks around the issue when styled-jsx differs in version from next.js (which causes flickering)
-import flush from "next/node_modules/styled-jsx/server";
+import flush from "styled-jsx/server";
 
 import PropTypes from "prop-types";
 
