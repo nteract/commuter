@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-frontend",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Frontend for commuter",
   "main": "index.js",
   "scripts": {
