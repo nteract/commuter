@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter-frontend",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Frontend for commuter",
   "main": "index.js",
   "scripts": {
@@ -48,12 +48,22 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-timeago": "^3.3.0",
-    "styled-jsx": "1.0.6",
-    "semantic-ui-react": "^0.71.0"
+    "semantic-ui-react": "^0.71.0",
+    "styled-jsx": "1.0.6"
   },
-  "files": [".next", "pages", "static", "components", "index.js"],
+  "files": [
+    ".next",
+    "pages",
+    "static",
+    "components",
+    "index.js"
+  ],
   "babel": {
-    "presets": ["next/babel"],
-    "plugins": ["transform-flow-strip-types"]
+    "presets": [
+      "next/babel"
+    ],
+    "plugins": [
+      "transform-flow-strip-types"
+    ]
   }
 }
