@@ -23,31 +23,29 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
           />
+
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 
           <link
             ref="stylesheet"
             type="text/css"
-            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            href="/static/font-awesome/font-awesome.min.css"
           />
 
           <link
-            href="https://static-tfoouzpgyq.now.sh/codemirror.css"
+            href="/static/codemirror/codemirror.css"
             rel="stylesheet"
             type="text/css"
           />
+
           <link
-            href="https://static-tfoouzpgyq.now.sh/main.css"
+            href="/static/notebook-preview/main.css"
             rel="stylesheet"
             type="text/css"
           />
+
           <link
-            href="https://static-tfoouzpgyq.now.sh/nbp.css"
-            rel="stylesheet"
-            type="text/css"
-          />
-          <link
-            href="https://static-tfoouzpgyq.now.sh/theme-light.css"
+            href="/static/notebook-preview/theme-light.css"
             rel="stylesheet"
             type="text/css"
           />
