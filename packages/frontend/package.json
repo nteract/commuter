@@ -24,10 +24,10 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
-    "@nteract/notebook-preview": "^2.1.0",
+    "@nteract/notebook-preview": "^2.1.1",
     "@nteract/transform-dataresource": "^1.1.0",
     "@nteract/transform-vega": "^2.0.1",
-    "@nteract/transforms": "^2.1.0",
+    "@nteract/transforms": "^2.1.1",
     "babel-preset-flow": "^6.23.0",
     "d3-dsv": "^1.0.5",
     "isomorphic-fetch": "^2.2.1",
