@@ -15,7 +15,7 @@
     "precopy-codemirror": "mkdirp static/codemirror",
     "copy-codemirror": "cp node_modules/codemirror/lib/codemirror.css static/codemirror/",
     "copy-static": "npm run copy-nbp && npm run copy-codemirror && npm run copy-fontawesome",
-    "postinstall": "npm run copy-static",
+    "prepare": "npm run copy-static",
     "comment": "echo 'we copy assets over to a non-version controlled folder in static for next to serve'",
     "prepublishOnly": "npm run build"
   },
@@ -50,19 +50,9 @@
     "react-timeago": "^3.3.0",
     "semantic-ui-react": "^0.71.0"
   },
-  "files": [
-    ".next",
-    "pages",
-    "static",
-    "components",
-    "index.js"
-  ],
+  "files": [".next", "pages", "static", "components", "index.js"],
   "babel": {
-    "presets": [
-      "next/babel"
-    ],
-    "plugins": [
-      "transform-flow-strip-types"
-    ]
+    "presets": ["next/babel"],
+    "plugins": ["transform-flow-strip-types"]
   }
 }
