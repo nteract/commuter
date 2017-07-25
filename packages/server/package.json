@@ -9,7 +9,8 @@
     "start": "node lib/index.js",
     "test": "mocha --compilers js:babel-core/register",
     "build": "babel src -d lib",
-    "prepublishOnly": "npm run build"
+    "copy-readme": "cp ../../README.md .",
+    "prepublishOnly": "npm run copy-readme && npm run build"
   },
   "bin": {
     "commuter": "bin.js"
@@ -18,12 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/nteract/commuter.git"
   },
-  "keywords": [
-    "nteract",
-    "jupyter",
-    "s3",
-    "notebook"
-  ],
+  "keywords": ["nteract", "jupyter", "s3", "notebook"],
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
@@ -58,8 +54,6 @@
     "supertest": "^3.0.0"
   },
   "babel": {
-    "presets": [
-      "flow"
-    ]
+    "presets": ["flow"]
   }
 }
