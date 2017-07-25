@@ -42,7 +42,7 @@
     "font-awesome": "^4.7.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.2.1",
-    "next": "^2.4.7",
+    "next": "2.4.7",
     "nprogress": "^0.2.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
