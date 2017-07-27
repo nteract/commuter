@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
-    "@nteract/notebook-preview": "^2.1.4",
+    "@nteract/notebook-preview": "^2.1.5",
     "@nteract/transform-dataresource": "^1.1.1",
     "@nteract/transform-vega": "^2.0.2",
     "@nteract/transforms": "^2.1.3",
