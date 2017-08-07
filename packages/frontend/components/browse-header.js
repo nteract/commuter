@@ -43,12 +43,8 @@ class BrowseHeader extends React.Component {
     }
     let breadCrumbs = [];
 
-    console.log(path);
-    console.log(basepath);
-
-    // TODO: Ensure this works under subpath
-    // TODO: Don't download when a directory
-    const filePath = basepath.replace("view", "files/") + path;
+    // TODO: Ensure this works under an app subpath (which is not implemented yet)
+    const filePath = basepath.replace(/view\/?/, "files/") + path;
 
     return (
       <nav>
