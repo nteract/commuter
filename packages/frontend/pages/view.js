@@ -58,7 +58,11 @@ class ViewPage extends React.Component {
     return (
       <div>
         <Header />
-        <BrowseHeader basepath={"/view"} path={this.props.viewPath} />
+        <BrowseHeader
+          basepath={"/view"}
+          path={this.props.viewPath}
+          type={this.props.contents.type}
+        />
         <Body>
           {/* Entry */}
           <div className="entry">

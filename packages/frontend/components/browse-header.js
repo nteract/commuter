@@ -21,7 +21,8 @@ const Link = ({ to, children, basepath }) =>
 class BrowseHeader extends React.Component {
   props: {
     path: string,
-    basepath: string
+    basepath: string,
+    type: string
   };
 
   static defaultProps = {
@@ -42,9 +43,16 @@ class BrowseHeader extends React.Component {
     }
     let breadCrumbs = [];
 
+    console.log(path);
+    console.log(basepath);
+
+    // TODO: Ensure this works under subpath
+    // TODO: Don't download when a directory
+    const filePath = basepath.replace("view", "files/") + path;
+
     return (
       <nav>
-        <ul>
+        <ul className="breadcrumbs">
           <li>
             <Link to={``} basepath={basepath}>
               <a>
@@ -67,14 +75,21 @@ class BrowseHeader extends React.Component {
             );
           })}
         </ul>
+        {this.props.type === "directory"
+          ? null
+          : <a href={filePath} download className="ops">
+              Download
+            </a>}
         <style jsx>{`
           nav {
-            border: 1px solid ${theme.outline};
-            padding-left: 1rem;
-          }
-          ul {
             display: flex;
-            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid ${theme.outline};
+            padding: 0 1rem;
+          }
+          ul.breadcrumbs {
+            display: flex;
             position: relative;
 
             margin: 0 0 0 0;
@@ -87,7 +102,7 @@ class BrowseHeader extends React.Component {
             color: ${theme.primary};
           }
 
-          ul li {
+          ul.breadcrumbs li {
             flex-direction: row;
             list-style-type: none;
             display: inline;
@@ -96,20 +111,38 @@ class BrowseHeader extends React.Component {
             align-items: center;
           }
 
-          ul li a {
+          ul.breadcrumbs li a {
             vertical-align: middle;
             display: table;
             padding: 1em;
             color: ${theme.primary};
           }
 
-          ul li:last-child a {
+          ul.breadcrumbs li:last-child a {
             color: ${theme.active};
           }
 
-          li + li:before {
+          ul.breadcrumbs li + li:before {
             content: '›';
             color: ${theme.active};
+          }
+
+          .ops {
+            display: inline-block;
+            line-height: 2em;
+            padding: 0 8px;
+            border-radius: 2px;
+            background-color: ${theme.secondary};
+            border: 1px solid ${theme.outline};
+            color: #000;
+          }
+
+          .ops:hover {
+            background-color: ${theme.outline};
+          }
+
+          .ops:active {
+            background-color: ${theme.primary};
           }
         `}</style>
       </nav>
