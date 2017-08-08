@@ -135,10 +135,13 @@ class BrowseHeader extends React.Component {
 
           .ops:hover {
             background-color: ${theme.outline};
+            transition: background-color .25s ease-out;
           }
 
           .ops:active {
             background-color: ${theme.primary};
+            color: ${theme.active};
+            transition: background-color .5s ease-out, color 6s ease-out;
           }
         `}</style>
       </nav>
