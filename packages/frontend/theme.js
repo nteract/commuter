@@ -1,5 +1,9 @@
 // styled-jsx can only take constants inside of template literals
-export const theme = {
+
+/*
+ * Blue theme
+ */
+export const blueTheme = {
   active: "#324767",
   background: "#edf1f7",
   primary: "#a2b6d7",
@@ -8,11 +12,14 @@ export const theme = {
 
 /*
  * Gray theme
-
-export const theme = {
+ */
+export const grayTheme = {
   active: "#111",
   background: "#eee",
   primary: "#ccc",
   outline: "#ddd"
 };
-*/
+
+export const theme = blueTheme;
+
+// export const theme = grayTheme;
