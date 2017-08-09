@@ -27,6 +27,35 @@ class MyDocument extends Document {
 
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 
+          <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
+
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="192x192"
+            href="/static/android-chrome-192x192.png"
+          />
+
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/static/favicon-32x32.png"
+          />
+
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/static/favicon-16x16.png"
+          />
+
+          <meta
+            name="msapplication-TileImage"
+            content="/static/mstile-150x150.png"
+          />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
+
           <link
             ref="stylesheet"
             type="text/css"
