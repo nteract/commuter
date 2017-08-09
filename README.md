@@ -1,4 +1,4 @@
-[![▲ Now Deployed](https://img.shields.io/badge/%E2%96%B2%20now-deployed-777777.svg)](https://commuter-now-osdzsyvvxy.now.sh/view/)
+[![▲ Now Deployed](https://img.shields.io/badge/%E2%96%B2%20now-deployed-777777.svg)](https://commuter-now-otvkncbefl.now.sh/view/)
 [![Build Status](https://travis-ci.org/nteract/commuter.svg?branch=master)](https://travis-ci.org/nteract/commuter)
 [![Greenkeeper badge](https://badges.greenkeeper.io/nteract/commuter.svg)](https://greenkeeper.io/)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
@@ -28,7 +28,7 @@ and convenience.
 
 Try **commuter** today and take your notebooks wherever you need them.
 
-[Demo](https://commuter-now-osdzsyvvxy.now.sh/view/)
+[Demo](https://commuter-now-otvkncbefl.now.sh/view/)
 
 ## Installation
 
