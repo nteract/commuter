@@ -47,17 +47,16 @@ type FacetsOverviewProps = {
   data: any
 };
 
-// TODO: figure out how to convert csv -> protobuf in JS
 export class FacetsOverview extends React.Component {
   f: FacetsOverviewElement;
 
   componentDidMount() {
-    this.f.protoInput = this.f.getStatsProto(this.props.data);
+    this.f.protoInput = this.f.getStatsProto([this.props.data]);
   }
 
   componentDidUpdate(prevProps: FacetsOverviewProps) {
     if (this.props.data !== prevProps.data) {
-      this.f.protoInput = this.f.getStatsProto(this.props.data);
+      this.f.protoInput = this.f.getStatsProto([this.props.data]);
     }
   }
 
