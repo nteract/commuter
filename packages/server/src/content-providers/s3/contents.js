@@ -27,7 +27,17 @@ function createRouter(config: Object): express.Router {
       else res.json(data);
     };
     if (isDir(path)) s3Service.listObjects(path, cb);
-    else s3Service.getObject(path, cb);
+    else
+      s3Service.getObject(path, (err, data) => {
+        console.error(err, path);
+        if (err && err.code === "NoSuchKey") {
+          s3Service.listObjects(path.replace(/\/?$/, "/"), cb);
+          return;
+        }
+
+        if (err) res.status(500).json(errObject(err, path));
+        else res.json(data);
+      });
   });
 
   router.delete("/*", (req: $Request, res: $Response) => {
