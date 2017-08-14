@@ -29,7 +29,6 @@ function createRouter(config: Object): express.Router {
     if (isDir(path)) s3Service.listObjects(path, cb);
     else
       s3Service.getObject(path, (err, data) => {
-        console.error(err, path);
         if (err && err.code === "NoSuchKey") {
           s3Service.listObjects(path.replace(/\/?$/, "/"), cb);
           return;
