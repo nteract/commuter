@@ -27,7 +27,7 @@ function createRouter(config: Object): express.Router {
       else res.json(data);
     };
     if (isDir(path)) s3Service.listObjects(path, cb);
-    else
+    else {
       s3Service.getObject(path, (err, data) => {
         if (err && err.code === "NoSuchKey") {
           s3Service.listObjects(path.replace(/\/?$/, "/"), cb);
@@ -37,6 +37,7 @@ function createRouter(config: Object): express.Router {
         if (err) res.status(500).json(errObject(err, path));
         else res.json(data);
       });
+    }
   });
 
   router.delete("/*", (req: $Request, res: $Response) => {
