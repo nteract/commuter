@@ -19,6 +19,7 @@
     "flow": "flow",
     "install": "npm run lerna && npm run build",
     "lerna": "lerna bootstrap",
+    "prepublishOnly": "npm run build:frontend && npm run build",
     "publish": "npm run clean && npm install && lerna publish",
     "precommit": "lint-staged",
     "test": "lerna run test"
