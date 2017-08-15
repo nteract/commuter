@@ -35,7 +35,7 @@
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
     "@nteract/notebook-preview": "^2.2.1",
-    "@nteract/transform-dataresource": "^1.1.1",
+    "@nteract/transform-dataresource": "^1.1.2",
     "@nteract/transform-vega": "^2.1.0",
     "@nteract/transforms": "^2.2.1",
     "babel-preset-flow": "^6.23.0",
