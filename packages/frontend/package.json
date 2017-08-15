@@ -34,10 +34,10 @@
   },
   "homepage": "https://github.com/nteract/commuter#readme",
   "dependencies": {
-    "@nteract/notebook-preview": "^2.1.5",
+    "@nteract/notebook-preview": "^2.2.1",
     "@nteract/transform-dataresource": "^1.1.1",
-    "@nteract/transform-vega": "^2.0.2",
-    "@nteract/transforms": "^2.1.3",
+    "@nteract/transform-vega": "^2.1.0",
+    "@nteract/transforms": "^2.2.1",
     "babel-preset-flow": "^6.23.0",
     "d3-dsv": "^1.0.5",
     "font-awesome": "^4.7.0",
