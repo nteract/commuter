@@ -12,12 +12,13 @@ import { FacetsDive, FacetsOverview } from "./facets";
 
 import Tabs from "./tabs";
 
-const DATA_RESOURCE = "Data Resource";
-const FACETS_OVERVIEW = "Facets Overview";
-const FACETS_DIVE = "Facets Dive";
-const TAB_ITEMS = [DATA_RESOURCE, FACETS_OVERVIEW, FACETS_DIVE];
+type DATA_RESOURCE = "Table";
+type FACETS_OVERVIEW = "Overview";
+type FACETS_DIVE = "Dive";
 
-type CSVViewName = "Data Resource" | "Facets Overview" | "Facets Dive";
+type CSVViewName = DATA_RESOURCE | FACETS_OVERVIEW | FACETS_DIVE;
+
+const TAB_ITEMS: Array<CSVViewName> = ["Table", "Overview", "Dive"];
 
 interface CSVViewProps {
   data: any
@@ -30,7 +31,7 @@ interface CSVViewState {
 
 export default class CSVView extends React.Component {
   state: CSVViewState = {
-    currentView: DATA_RESOURCE,
+    currentView: "Table",
     height: 800
   };
 
@@ -44,12 +45,20 @@ export default class CSVView extends React.Component {
   }
 
   render() {
+    // TODO: Only parse on initial mount and when the props change (likely never going to happen)
     const data = d3.csvParse(this.props.entry.content);
-    let view = (
-      <DataTransform data={{ data }} theme="light" height={this.state.height} />
-    );
+    let view = null;
     switch (this.state.currentView) {
-      case FACETS_OVERVIEW:
+      case "Table":
+        view = (
+          <DataTransform
+            data={{ data }}
+            theme="light"
+            height={this.state.height}
+          />
+        );
+        break;
+      case "Overview":
         view = (
           <FacetsOverview
             data={{ data, name: this.props.entry.name }}
@@ -57,7 +66,7 @@ export default class CSVView extends React.Component {
           />
         );
         break;
-      case FACETS_DIVE:
+      case "Dive":
         view = <FacetsDive data={data} height={this.state.height} />;
         break;
     }
