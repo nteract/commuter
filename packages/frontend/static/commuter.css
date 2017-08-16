@@ -28,7 +28,7 @@ body {
 }
 
 .entry {
-  padding-left: 2rem;
+  padding: 0 2rem;
 }
 
 .commuterBreadCrumb {

@@ -28,6 +28,7 @@ class MyDocument extends Document {
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 
           <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
+          <link rel="import" href="/static/facets-jupyter.html" />
 
           <link
             rel="icon"
