@@ -24,27 +24,41 @@ interface CSVViewProps {
 }
 
 interface CSVViewState {
-  currentView: CSVViewName
+  currentView: CSVViewName,
+  height: number
 }
 
 export default class CSVView extends React.Component {
   state: CSVViewState = {
-    currentView: DATA_RESOURCE
+    currentView: DATA_RESOURCE,
+    height: 800
   };
 
+  componentDidMount() {
+    const height = document.body ? document.body.offsetHeight - 200 : 600;
+    this.setState({ height });
+  }
+
   shouldComponentUpdate(nextProps: CSVViewProps, nextState: CSVViewState) {
-    return nextState.currentView !== this.state.currentView;
+    return nextState !== this.state;
   }
 
   render() {
     const data = d3.csvParse(this.props.entry.content);
-    let view = <DataTransform data={{ data }} theme="light" />;
+    let view = (
+      <DataTransform data={{ data }} theme="light" height={this.state.height} />
+    );
     switch (this.state.currentView) {
       case FACETS_OVERVIEW:
-        view = <FacetsOverview data={{ data, name: this.props.entry.name }} />;
+        view = (
+          <FacetsOverview
+            data={{ data, name: this.props.entry.name }}
+            height={this.state.height}
+          />
+        );
         break;
       case FACETS_DIVE:
-        view = <FacetsDive data={data} />;
+        view = <FacetsDive data={data} height={this.state.height} />;
         break;
     }
     return (

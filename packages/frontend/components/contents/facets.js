@@ -19,21 +19,17 @@ export class FacetsDive extends React.Component {
   }
 
   componentDidUpdate(prevProps: FacetsDiveProps) {
-    if (this.props.data !== prevProps.data) {
-      this.f.data = this.props.data;
-    }
+    if (this.props.data !== prevProps.data) this.f.data = this.props.data;
   }
 
   render() {
     return (
-      <div>
-        <facets-dive
-          ref={f => {
-            this.f = f;
-          }}
-          height="1000"
-        />
-      </div>
+      <facets-dive
+        ref={f => {
+          this.f = f;
+        }}
+        height={this.props.height}
+      />
     );
   }
 }
@@ -55,21 +51,23 @@ export class FacetsOverview extends React.Component {
   }
 
   componentDidUpdate(prevProps: FacetsOverviewProps) {
-    if (this.props.data !== prevProps.data) {
+    if (this.props.data !== prevProps.data)
       this.f.protoInput = this.f.getStatsProto([this.props.data]);
-    }
   }
 
   render() {
     return (
-      <div>
-        <facets-overview
-          ref={f => {
-            this.f = f;
-          }}
-          height="1000"
-        />
-      </div>
+      <facets-overview
+        ref={f => {
+          this.f = f;
+        }}
+        height="1000"
+        style={{
+          height: `${this.props.height}px`,
+          overflow: "hidden",
+          display: "block"
+        }}
+      />
     );
   }
 }
