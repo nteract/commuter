@@ -66,5 +66,8 @@
     "plugins": [
       "transform-flow-strip-types"
     ]
+  },
+  "devDependencies": {
+    "flow-bin": "^0.54.0"
   }
 }

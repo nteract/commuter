@@ -54,6 +54,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
     "chai": "^4.1.2",
+    "flow-bin": "^0.54.0",
     "mocha": "^3.5.0",
     "proxyquire": "^1.7.10",
     "supertest": "^3.0.0"
