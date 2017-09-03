@@ -10,15 +10,16 @@ import { trim } from "lodash";
 import { theme } from "../theme";
 
 // Convert simple links to next style href + as
-const Link = ({ to, children, basepath }) =>
+const Link = ({ to, children, basepath }) => (
   <NextLink
     href={{ pathname: "/view", query: { viewPath: to } }}
     as={basepath + "/" + to}
   >
     {children}
-  </NextLink>;
+  </NextLink>
+);
 
-class BrowseHeader extends React.Component {
+class BrowseHeader extends React.Component<*> {
   props: {
     path: string,
     basepath: string,
@@ -29,7 +30,7 @@ class BrowseHeader extends React.Component {
     active: "view"
   };
 
-  handleItemClick = (e: SyntheticEvent, { name }: { name: string }) => {
+  handleItemClick = (e: SyntheticEvent<*>, { name }: { name: string }) => {
     Router.push(name);
   };
 
@@ -62,20 +63,18 @@ class BrowseHeader extends React.Component {
               <li key={`${filePath}`}>
                 <Link to={`${filePath}`} basepath={basepath}>
                   <a>
-                    <span>
-                      {name}
-                    </span>
+                    <span>{name}</span>
                   </a>
                 </Link>
               </li>
             );
           })}
         </ul>
-        {this.props.type === "directory"
-          ? null
-          : <a href={filePath} download className="ops">
-              Download
-            </a>}
+        {this.props.type === "directory" ? null : (
+          <a href={filePath} download className="ops">
+            Download
+          </a>
+        )}
         <style jsx>{`
           nav {
             display: flex;
@@ -119,7 +118,7 @@ class BrowseHeader extends React.Component {
           }
 
           ul.breadcrumbs li + li:before {
-            content: '›';
+            content: "›";
             color: ${theme.active};
           }
 
@@ -135,13 +134,13 @@ class BrowseHeader extends React.Component {
 
           .ops:hover {
             background-color: ${theme.outline};
-            transition: background-color .25s ease-out;
+            transition: background-color 0.25s ease-out;
           }
 
           .ops:active {
             background-color: ${theme.primary};
             color: ${theme.active};
-            transition: background-color .5s ease-out, color 6s ease-out;
+            transition: background-color 0.5s ease-out, color 6s ease-out;
           }
         `}</style>
       </nav>

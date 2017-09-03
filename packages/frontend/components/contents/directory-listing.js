@@ -5,15 +5,14 @@ import { Table, Grid, Icon } from "semantic-ui-react";
 import NextLink from "next/link";
 
 // Convert simple links to next style href + as
-const Link = ({ to, children, basepath }) =>
+const Link = ({ to, children, basepath }) => (
   <NextLink
     href={{ pathname: "/view", query: { viewPath: to } }}
     as={basepath + "/" + to}
   >
-    <a>
-      {children}
-    </a>
-  </NextLink>;
+    <a>{children}</a>
+  </NextLink>
+);
 
 import type { Content } from "./types";
 

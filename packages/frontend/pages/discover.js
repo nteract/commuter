@@ -8,19 +8,19 @@ import { Item } from "semantic-ui-react";
 import Header from "../components/header";
 import Body from "../components/body";
 
-const Authors = props =>
+const Authors = props => (
   <span className="authors">
     {props.authors.map(author => author.name).join(", ")}
-  </span>;
+  </span>
+);
 
-const Tag = props =>
+const Tag = props => (
   <span>
-    <span className="tag">
-      {props.children}
-    </span>
-  </span>;
+    <span className="tag">{props.children}</span>
+  </span>
+);
 
-const DiscoveryItem = props =>
+const DiscoveryItem = props => (
   <div>
     <Item key={props.path}>
       <Item.Image
@@ -37,29 +37,24 @@ const DiscoveryItem = props =>
           <span>
             Last modified <TimeAgo date={props.last_modified} />
           </span>
-          {props.metadata.authors
-            ? <span>
-                by <Authors authors={props.metadata.authors} />
-              </span>
-            : null}
+          {props.metadata.authors ? (
+            <span>
+              by <Authors authors={props.metadata.authors} />
+            </span>
+          ) : null}
         </Item.Meta>
         <Item.Description>
-          <p>
-            {props.metadata.nteract.description}
-          </p>
+          <p>{props.metadata.nteract.description}</p>
         </Item.Description>
         <Item.Extra>
-          {props.metadata.nteract.tags.map(tag =>
-            <Tag key={tag}>
-              {tag}
-            </Tag>
-          )}
+          {props.metadata.nteract.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
         </Item.Extra>
       </Item.Content>
     </Item>
-  </div>;
+  </div>
+);
 
-class DiscoveryGrid extends React.Component {
+class DiscoveryGrid extends React.Component<*> {
   static async getInitialProps({ req, pathname, asPath, query }) {
     let BASE_PATH;
 
@@ -100,9 +95,9 @@ class DiscoveryGrid extends React.Component {
         <Header />
         <Body>
           <Item.Group divided>
-            {this.props.discovered
-              ? this.props.discovered.map(DiscoveryItem)
-              : null}
+            {this.props.discovered ? (
+              this.props.discovered.map(DiscoveryItem)
+            ) : null}
           </Item.Group>
         </Body>
       </div>

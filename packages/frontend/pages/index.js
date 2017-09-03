@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 
-class IndexPage extends React.Component {
+class IndexPage extends React.Component<*> {
   static async getInitialProps(ctx) {
     if (ctx.res) {
       ctx.res.writeHead(302, { Location: "/view/" });
