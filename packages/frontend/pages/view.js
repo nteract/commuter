@@ -12,7 +12,7 @@ import Body from "../components/body";
 import DirectoryListing from "../components/contents/directory-listing";
 import { Entry } from "../components/contents";
 
-class ViewPage extends React.Component {
+class ViewPage extends React.Component<*> {
   static async getInitialProps({ req, pathname, asPath, query }) {
     // Later, we'll use this to fill in the notebook
     // file data from the server side (or fallback to /api/contents)
@@ -48,11 +48,7 @@ class ViewPage extends React.Component {
 
   render() {
     if (this.props.statusCode) {
-      return (
-        <div>
-          {`Nothing found for ${this.props.viewPath}`}
-        </div>
-      );
+      return <div>{`Nothing found for ${this.props.viewPath}`}</div>;
     }
 
     return (

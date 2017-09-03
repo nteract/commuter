@@ -2,8 +2,8 @@
 
 import React from "react";
 
-export default class HTMLView extends React.Component {
-  ifr: HTMLIFrameElement;
+export default class HTMLView extends React.Component<*> {
+  ifr: ?HTMLIFrameElement;
 
   shouldComponentUpdate() {
     return false;

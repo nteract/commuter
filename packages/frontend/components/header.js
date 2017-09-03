@@ -15,7 +15,7 @@ type ActiveType = "view" | "discover";
 
 import { theme } from "../theme";
 
-class CommuterMenu extends React.Component {
+class CommuterMenu extends React.Component<*> {
   props: {
     active: ActiveType
   };
@@ -24,7 +24,7 @@ class CommuterMenu extends React.Component {
     active: "view"
   };
 
-  handleItemClick = (e: SyntheticEvent, { name }: { name: string }) => {
+  handleItemClick = (e: SyntheticEvent<*>, { name }: { name: string }) => {
     Router.push(name);
   };
 

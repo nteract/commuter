@@ -50,7 +50,7 @@ import CSVView from "./csv";
 
 const suffixRegex = /(?:\.([^.]+))?$/;
 
-class File extends React.Component {
+class File extends React.Component<*> {
   shouldComponentUpdate() {
     return false;
   }
@@ -140,10 +140,6 @@ export const Entry = (props: EntryProps) => {
       );
     default:
       console.log("Unknown contents ");
-      return (
-        <pre>
-          {JSON.stringify(props.entry.content)}
-        </pre>
-      );
+      return <pre>{JSON.stringify(props.entry.content)}</pre>;
   }
 };
