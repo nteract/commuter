@@ -1,8 +1,10 @@
 // @flow
 import React from "react";
-import { Table, Grid, Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 
 import NextLink from "next/link";
+
+import { theme } from "../../theme";
 
 // Convert simple links to next style href + as
 const Link = ({ to, children, basepath }) => (
@@ -28,62 +30,70 @@ const DirectoryListing = (props: DirectoryListingProps) => {
   const contents = props.contents.filter(row => !row.name.startsWith("."));
 
   return (
-    <Grid>
-      <Grid.Column>
-        <Table basic="very" padded>
-          <Table.Header>
-            <Table.Row />
-          </Table.Header>
-          <Table.Body>
+    <div>
+      <div className="directory-listing">
+        <table>
+          <tbody>
             {contents.map((row, index) => {
-              if (!row.type) {
+              if (
+                !row.type ||
+                (row.type !== "notebook" &&
+                  row.type !== "directory" &&
+                  row.type !== "file")
+              ) {
                 return null;
               }
-              switch (row.type) {
-                case "notebook":
-                  return (
-                    <Table.Row key={index}>
-                      <Table.Cell>
-                        <Link to={row.path} basepath={base}>
-                          <Icon name="book" color="grey" />
-                          {row.name}
-                        </Link>
-                      </Table.Cell>
-                      <Table.Cell collapsing textAlign="right" />
-                    </Table.Row>
-                  );
-                case "directory":
-                  return (
-                    <Table.Row key={index}>
-                      <Table.Cell collapsing>
-                        <Link to={row.path} basepath={base}>
-                          <Icon name="folder" color="blue" />
-                          {row.name}
-                        </Link>
-                      </Table.Cell>
-                      <Table.Cell collapsing textAlign="right" />
-                    </Table.Row>
-                  );
-                case "file":
-                  return (
-                    <Table.Row key={index}>
-                      <Table.Cell collapsing>
-                        <Link to={row.path} basepath={base}>
-                          <Icon name="file" color="grey" />
-                          {row.name}
-                        </Link>
-                      </Table.Cell>
-                      <Table.Cell collapsing textAlign="right" />
-                    </Table.Row>
-                  );
-                default:
-                  return null;
-              }
+
+              const icon =
+                row.type === "notebook"
+                  ? "📘"
+                  : row.type === "directory" ? "📁" : "📃";
+
+              return (
+                <tr>
+                  <td>{icon}</td>
+                  <td>
+                    <Link to={row.path} basepath={base}>
+                      {row.name}
+                    </Link>
+                  </td>
+                </tr>
+              );
             })}
-          </Table.Body>
-        </Table>
-      </Grid.Column>
-    </Grid>
+          </tbody>
+        </table>
+      </div>
+      <style jsx>
+        {`
+          tr {
+          }
+          td {
+            padding: 6px 3px;
+            text-align: left;
+            line-height: 20px;
+            color: ${theme.link};
+            border-top: 1px solid #eaecef;
+            vertical-align: top;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 2px;
+            border-spacing: 0;
+          }
+
+          .directory-listing {
+            margin-bottom: 10px;
+            border: 1px solid #dfe2e5;
+            border-top: 0;
+            border-radius: 3px;
+          }
+        `}
+      </style>
+    </div>
   );
 };
 
