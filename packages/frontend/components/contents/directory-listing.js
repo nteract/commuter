@@ -2,21 +2,12 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
 
-import NextLink from "next/link";
+import Link from "next/link";
 
 import { theme } from "../../theme";
 
-// Convert simple links to next style href + as
-const Link = ({ to, children, basepath }) => (
-  <NextLink
-    href={{ pathname: "/view", query: { viewPath: to } }}
-    as={basepath + "/" + to}
-  >
-    <a>{children}</a>
-  </NextLink>
-);
-
 import type { Content } from "./types";
+import TimeAgo from "react-timeago";
 
 export type DirectoryListingProps = {
   contents: Array<Content>,
@@ -25,6 +16,7 @@ export type DirectoryListingProps = {
 
 const DirectoryListing = (props: DirectoryListingProps) => {
   const base = props.basepath || "/";
+  console.log(props);
 
   // filter out dotfiles
   const contents = props.contents.filter(row => !row.name.startsWith("."));
@@ -50,12 +42,21 @@ const DirectoryListing = (props: DirectoryListingProps) => {
                   : row.type === "directory" ? "📁" : "📃";
 
               return (
-                <tr>
-                  <td>{icon}</td>
-                  <td>
-                    <Link to={row.path} basepath={base}>
-                      {row.name}
+                <tr key={index}>
+                  <td className="icon">{icon}</td>
+                  <td className="name">
+                    <Link
+                      href={{
+                        pathname: "/view",
+                        query: { viewPath: row.path }
+                      }}
+                      as={base + "/" + row.path}
+                    >
+                      <a>{row.name}</a>
                     </Link>
+                  </td>
+                  <td className="timeago">
+                    <TimeAgo date={row.last_modified} />
                   </td>
                 </tr>
               );
@@ -65,13 +66,19 @@ const DirectoryListing = (props: DirectoryListingProps) => {
       </div>
       <style jsx>
         {`
-          tr {
+          .icon {
+            padding-right: 2px;
+            padding-left: 10px;
+            width: 17px;
           }
+          .name {
+            color: ${theme.link};
+          }
+
           td {
             padding: 6px 3px;
             text-align: left;
             line-height: 20px;
-            color: ${theme.link};
             border-top: 1px solid #eaecef;
             vertical-align: top;
             text-overflow: ellipsis;
@@ -90,6 +97,16 @@ const DirectoryListing = (props: DirectoryListingProps) => {
             border: 1px solid #dfe2e5;
             border-top: 0;
             border-radius: 3px;
+          }
+
+          .timeago {
+            text-align: right;
+            color: #6a737d;
+          }
+
+          td a:hover {
+            outline-width: 0;
+            text-decoration: underline;
           }
         `}
       </style>

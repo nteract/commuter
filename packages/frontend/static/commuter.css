@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: "Source Sans Pro", -apple-system, system-ui, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Lato", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1em;
 }
 
@@ -106,7 +106,7 @@ body {
 }
 
 .initialTextAreaForCodeMirror {
-  font-family: 'Source Code Pro';
+  font-family: "Source Code Pro";
   font-size: 14px;
   line-height: 20px;
 
