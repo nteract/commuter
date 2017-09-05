@@ -158,9 +158,7 @@ class DiscoveryGrid extends React.Component<*> {
             <div className="discoveries">
               {this.props.discovered ? (
                 this.props.discovered.map(item => (
-                  <div>
-                    <DiscoveryItem key={item.path} {...item} />
-                  </div>
+                  <DiscoveryItem key={item.path} {...item} />
                 ))
               ) : null}
             </div>
