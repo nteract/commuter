@@ -8,8 +8,6 @@ import MarkdownTransform from "@nteract/transforms/lib/markdown";
 
 import DirectoryListing from "./directory-listing";
 
-import { Container } from "semantic-ui-react";
-
 // HACK: Temporarily provide jquery for others to use...
 const jquery = require("jquery");
 global.jquery = jquery;
@@ -65,39 +63,27 @@ class File extends React.Component<*> {
       case "json":
         return <JSONView entry={this.props.entry} />;
       case "csv":
-        return (
-          <Container fluid>
-            <CSVView entry={this.props.entry} />
-          </Container>
-        );
+        return <CSVView entry={this.props.entry} />;
       case "md":
       case "markdown":
       case "rmd":
         return (
-          <Container fluid>
-            <div>
-              <MarkdownTransform data={this.props.entry.content} />
-            </div>
-          </Container>
+          <div>
+            <MarkdownTransform data={this.props.entry.content} />
+          </div>
         );
       case "gif":
       case "jpeg":
       case "jpg":
       case "png":
         return (
-          <Container fluid>
-            <img
-              src={`/files/${this.props.pathname}`}
-              alt={this.props.pathname}
-            />
-          </Container>
+          <img
+            src={`/files/${this.props.pathname}`}
+            alt={this.props.pathname}
+          />
         );
       default:
-        return (
-          <Container fluid>
-            <a href={`/files/${this.props.pathname}`}>Download raw file</a>
-          </Container>
-        );
+        return <a href={`/files/${this.props.pathname}`}>Download raw file</a>;
     }
   }
 }
@@ -118,12 +104,7 @@ export const Entry = (props: EntryProps) => {
       // Dynamic type check on content being an Array
       if (Array.isArray(props.entry.content)) {
         return (
-          <Container fluid textAlign="center">
-            <DirectoryListing
-              contents={props.entry.content}
-              basepath={"/view"}
-            />
-          </Container>
+          <DirectoryListing contents={props.entry.content} basepath={"/view"} />
         );
       }
       return null;

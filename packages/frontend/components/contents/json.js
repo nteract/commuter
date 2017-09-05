@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Container } from "semantic-ui-react";
-
 import ZeppelinView from "./zeppelin";
 
 import JSONTransform from "@nteract/transforms/lib/json";
@@ -17,25 +15,19 @@ export default props => {
     }
 
     return (
-      <Container fluid>
-        <JSONTransform
-          data={content}
-          metadata={Immutable.Map({
-            expanded: true
-          })}
-        />
-      </Container>
+      <JSONTransform
+        data={content}
+        metadata={Immutable.Map({
+          expanded: true
+        })}
+      />
     );
   } catch (e) {
     return (
       <div>
         <h1>Failed to parse Zeppelin Notebook</h1>
-        <pre>
-          {e.toString()}
-        </pre>
-        <code>
-          {this.props.entry.content}
-        </code>
+        <pre>{e.toString()}</pre>
+        <code>{this.props.entry.content}</code>
       </div>
     );
   }

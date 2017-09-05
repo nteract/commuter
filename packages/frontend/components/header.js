@@ -93,6 +93,7 @@ class CommuterMenu extends React.Component<*> {
             display: table;
             padding: 1em;
             color: ${theme.primary};
+            text-decoration: none;
           }
 
           ul li.active a {
