@@ -165,6 +165,8 @@ class DiscoveryGrid extends React.Component<*> {
             <style jsx>{`
               .discoveries {
                 margin-top: 1rem;
+                margin-left: 1rem;
+                margin-right: 1rem;
               }
 
               .discoveries > * {
