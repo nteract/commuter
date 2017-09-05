@@ -21,6 +21,7 @@ class MyDocument extends Document {
     return (
       <html lang="en-US">
         <Head>
+          <link rel="stylesheet" type="text/css" href="/static/normalize.css" />
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 
           <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
