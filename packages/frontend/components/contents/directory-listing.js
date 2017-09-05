@@ -130,6 +130,7 @@ const DirectoryListing = (props: DirectoryListingProps) => {
           .timeago {
             text-align: right;
             color: #6a737d;
+            padding-right: 10px;
           }
 
           td a:hover {
