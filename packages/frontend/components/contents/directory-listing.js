@@ -17,7 +17,6 @@ export type DirectoryListingProps = {
 
 const DirectoryListing = (props: DirectoryListingProps) => {
   const base = props.basepath || "/";
-  console.log(props);
 
   // filter out dotfiles
   const contents = props.contents.filter(row => !row.name.startsWith("."));
