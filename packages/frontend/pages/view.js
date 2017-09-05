@@ -9,7 +9,6 @@ import Header from "../components/header";
 import BrowseHeader from "../components/browse-header";
 import Body from "../components/body";
 
-import DirectoryListing from "../components/contents/directory-listing";
 import { Entry } from "../components/contents";
 
 class ViewPage extends React.Component<*> {

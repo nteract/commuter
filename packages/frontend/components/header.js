@@ -32,8 +32,6 @@ class CommuterMenu extends React.Component<*> {
     this.props.active === current ? "active" : "";
 
   render() {
-    const activeItem = "browse";
-
     return (
       <nav className="main-header">
         <ul className="items">
