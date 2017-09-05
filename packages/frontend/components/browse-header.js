@@ -111,6 +111,11 @@ class BrowseHeader extends React.Component<*> {
             display: table;
             padding: 1em;
             color: ${theme.primary};
+            text-decoration: none;
+          }
+
+          ul.breadcrumbs li a:hover {
+            text-decoration: underline;
           }
 
           ul.breadcrumbs li:last-child a {
@@ -127,9 +132,10 @@ class BrowseHeader extends React.Component<*> {
             line-height: 2em;
             padding: 0 8px;
             border-radius: 2px;
-            background-color: ${theme.secondary};
+            background-color: ${theme.background};
             border: 1px solid ${theme.outline};
             color: #000;
+            text-decoration: none;
           }
 
           .ops:hover {

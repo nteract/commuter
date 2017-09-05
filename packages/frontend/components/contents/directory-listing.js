@@ -77,7 +77,7 @@ const DirectoryListing = (props: DirectoryListingProps) => {
             width: 17px;
             vertical-align: middle;
             text-align: center;
-            color: rgba(3, 47, 98, 0.55);
+            color: rgba(3,47,98,0.5);
           }
 
           .name {
@@ -86,6 +86,7 @@ const DirectoryListing = (props: DirectoryListingProps) => {
           }
 
           td {
+            color: ${theme.link}
             padding: 6px 3px;
             text-align: left;
             line-height: 20px;
@@ -95,6 +96,24 @@ const DirectoryListing = (props: DirectoryListingProps) => {
             white-space: nowrap;
             max-width: 100%;
           }
+
+          td a {
+            text-decoration: none;
+            color: ${theme.link};
+          }
+
+          td a:hover {
+            text-decoration: underline;
+            outline-width: 0;
+            color: ${theme.link};
+          }
+
+          tr:hover {
+            background-color: #f6f8fa;
+            transition: background-color 0.1s ease-out;
+          }
+
+
           table {
             width: 100%;
             border-collapse: collapse;
