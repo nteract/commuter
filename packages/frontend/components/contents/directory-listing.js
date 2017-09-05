@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
-import { Icon } from "semantic-ui-react";
+
+import octicons from "../../icons/octicons";
 
 import Link from "next/link";
 
@@ -37,9 +38,13 @@ const DirectoryListing = (props: DirectoryListingProps) => {
               }
 
               const icon =
-                row.type === "notebook"
-                  ? "📘"
-                  : row.type === "directory" ? "📁" : "📃";
+                row.type === "notebook" ? (
+                  <octicons.Book />
+                ) : row.type === "directory" ? (
+                  <octicons.FileDirectory />
+                ) : (
+                  <octicons.FileText />
+                );
 
               return (
                 <tr key={index}>
@@ -70,9 +75,14 @@ const DirectoryListing = (props: DirectoryListingProps) => {
             padding-right: 2px;
             padding-left: 10px;
             width: 17px;
+            vertical-align: middle;
+            text-align: center;
+            color: rgba(3, 47, 98, 0.55);
           }
+
           .name {
             color: ${theme.link};
+            vertical-align: middle;
           }
 
           td {
