@@ -120,6 +120,8 @@ class BrowseHeader extends React.Component<*> {
 
           ul.breadcrumbs li:last-child a {
             color: ${theme.active};
+            text-decoration: none;
+            cursor: pointer;
           }
 
           ul.breadcrumbs li + li:before {

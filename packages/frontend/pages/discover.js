@@ -152,7 +152,7 @@ class DiscoveryGrid extends React.Component<*> {
 
     return (
       <div>
-        <Header />
+        <Header active="discover" />
         <Body>
           <div>
             <div className="discoveries">
