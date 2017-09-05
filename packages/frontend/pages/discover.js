@@ -3,10 +3,12 @@ import React from "react";
 require("isomorphic-fetch");
 import TimeAgo from "react-timeago";
 
-import { Item } from "semantic-ui-react";
+import NextLink from "next/link";
 
 import Header from "../components/header";
 import Body from "../components/body";
+
+import { theme } from "../theme";
 
 const Authors = props => (
   <span className="authors">
@@ -17,40 +19,98 @@ const Authors = props => (
 const Tag = props => (
   <span>
     <span className="tag">{props.children}</span>
+    <style jsx>{`
+      .tag {
+        display: inline-block;
+        padding: 0.2em 0.9em;
+        margin: 0 0.5em 0.5em 0;
+        white-space: nowrap;
+        background-color: #f1f8ff;
+        border-radius: 3px;
+        color: #0366d6;
+        text-decoration: none;
+      }
+      tag:hover {
+        background-color: #ddeeff;
+      }
+    `}</style>
   </span>
 );
 
 const DiscoveryItem = props => (
-  <div>
-    <Item key={props.path}>
-      <Item.Image
-        size="small"
+  <div className="post">
+    <div className="post-thumb">
+      <img
         src={
-          props.image ? props.image : "https://icon.now.sh/library_books/ccc"
+          props.image ? props.image : "https://icon.now.sh/library_books/ccc/64"
         }
+        height="64"
       />
-      <Item.Content>
-        <Item.Header as="a" href={`/view/${props.path}`}>
-          {props.metadata.title ? props.metadata.title : props.name}
-        </Item.Header>
-        <Item.Meta>
+    </div>
+    <div className="post-summary">
+      <h3 className="post-title">
+        <NextLink
+          href={{ pathname: "/view", query: { viewPath: props.path } }}
+          as={"/view/" + props.path}
+        >
+          <a>{props.metadata.title ? props.metadata.title : props.name}</a>
+        </NextLink>
+      </h3>
+      <div className="post-metadata">
+        <span>
+          Last modified <TimeAgo date={props.last_modified} />
+        </span>
+        {` `}
+        {props.metadata.authors ? (
           <span>
-            Last modified <TimeAgo date={props.last_modified} />
+            by <Authors authors={props.metadata.authors} />
           </span>
-          {props.metadata.authors ? (
-            <span>
-              by <Authors authors={props.metadata.authors} />
-            </span>
-          ) : null}
-        </Item.Meta>
-        <Item.Description>
-          <p>{props.metadata.nteract.description}</p>
-        </Item.Description>
-        <Item.Extra>
-          {props.metadata.nteract.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
-        </Item.Extra>
-      </Item.Content>
-    </Item>
+        ) : null}
+      </div>
+      <div className="post-description">
+        <p>{props.metadata.nteract.description}</p>
+      </div>
+      <div className="post-tags">
+        {props.metadata.nteract.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
+      </div>
+    </div>
+    <style jsx>{`
+      .post {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px #e1e4e8 solid !important;
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+      }
+
+      h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 0;
+        margin-bottom: 4px;
+      }
+
+      a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+
+      .post-metadata {
+        font-style: italic;
+      }
+      .post-metadata,
+      .post-description {
+        color: #586069 !important;
+      }
+
+      .post-summary {
+        margin-left: 2rem;
+      }
+
+      .post-tags {
+        margin-top: 0.5rem;
+      }
+    `}</style>
   </div>
 );
 
@@ -94,11 +154,26 @@ class DiscoveryGrid extends React.Component<*> {
       <div>
         <Header />
         <Body>
-          <Item.Group divided>
-            {this.props.discovered ? (
-              this.props.discovered.map(DiscoveryItem)
-            ) : null}
-          </Item.Group>
+          <div>
+            <div className="discoveries">
+              {this.props.discovered ? (
+                this.props.discovered.map(item => (
+                  <div>
+                    <DiscoveryItem key={item.path} {...item} />
+                  </div>
+                ))
+              ) : null}
+            </div>
+            <style jsx>{`
+              .discoveries {
+                margin-top: 1rem;
+              }
+
+              .discoveries > * {
+                display: block;
+              }
+            `}</style>
+          </div>
         </Body>
       </div>
     );
