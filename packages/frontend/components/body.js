@@ -1,9 +1,11 @@
 // @flow
 import React from "react";
 
+import type { ChildrenArray } from "react";
+
 type BodyProps = {
   // children: any // literally what's in the flow libdef, we expect a React Element
-  children: React$Element<*>
+  children?: ChildrenArray<*>
 };
 
 const Body = (props: BodyProps) => {
