@@ -9,15 +9,20 @@
     "start": "echo \"This must be run with the commuter server\"",
     "test": "echo \"no test for now\"",
     "precopy-fontawesome": "mkdirp static/font-awesome/",
-    "copy-fontawesome": "cp node_modules/font-awesome/css/font-awesome.min.css static/font-awesome",
+    "copy-fontawesome":
+      "cp node_modules/font-awesome/css/font-awesome.min.css static/font-awesome",
     "precopy-nbp": "mkdirp static/notebook-preview/",
-    "copy-nbp": "cp node_modules/@nteract/notebook-preview/styles/* static/notebook-preview",
+    "copy-nbp":
+      "cp node_modules/@nteract/notebook-preview/styles/* static/notebook-preview",
     "precopy-codemirror": "mkdirp static/codemirror",
-    "copy-codemirror": "cp node_modules/codemirror/lib/codemirror.css static/codemirror/",
-    "copy-static": "npm run copy-nbp && npm run copy-codemirror && npm run copy-fontawesome",
+    "copy-codemirror":
+      "cp node_modules/codemirror/lib/codemirror.css static/codemirror/",
+    "copy-static":
+      "npm run copy-nbp && npm run copy-codemirror && npm run copy-fontawesome",
     "prepare": "npm run copy-static",
     "prepublish": "npm run copy-static",
-    "comment": "echo 'we copy assets over to a non-version controlled folder in static for next to serve'",
+    "comment":
+      "echo 'we copy assets over to a non-version controlled folder in static for next to serve'",
     "prepublishOnly": "npm run build"
   },
   "publishConfig": {
@@ -50,23 +55,12 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-timeago": "^3.4.3",
-    "semantic-ui-react": "^0.72.0",
     "styled-jsx": "^1.0.10"
   },
-  "files": [
-    ".next",
-    "pages",
-    "static",
-    "components",
-    "index.js"
-  ],
+  "files": [".next", "pages", "static", "components", "index.js"],
   "babel": {
-    "presets": [
-      "next/babel"
-    ],
-    "plugins": [
-      "transform-flow-strip-types"
-    ]
+    "presets": ["next/babel"],
+    "plugins": ["transform-flow-strip-types"]
   },
   "devDependencies": {
     "flow-bin": "^0.54.0"
