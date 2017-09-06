@@ -58,6 +58,7 @@ const GroupedDirectoryListings = (props: DirectoryListingProps) => {
         a {
           text-decoration: none;
           padding-right: 1em;
+          color: ${theme.active};
         }
         .letters {
           padding-bottom: 1em;
