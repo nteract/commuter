@@ -7,12 +7,65 @@ import Link from "next/link";
 
 import { theme } from "../../theme";
 
+import { groupBy } from "lodash";
+
 import type { Content } from "./types";
 import TimeAgo from "react-timeago";
 
 export type DirectoryListingProps = {
   contents: Array<Content>,
   basepath: string
+};
+
+const GroupedDirectoryListings = (props: DirectoryListingProps) => {
+  const contents = props.contents.filter(row => !row.name.startsWith("."));
+
+  if (contents.length <= 20) {
+    return <DirectoryListing contents={contents} basepath={props.basepath} />;
+  }
+
+  const groups = groupBy(contents, item => item.name[0].toUpperCase());
+
+  const listings = Object.keys(groups).map(key => (
+    <div key={key}>
+      <div id={`group-${key}`} className="letterHeader">
+        {key}
+      </div>
+      <DirectoryListing contents={groups[key]} basepath={props.basepath} />
+      <style jsx>{`
+        .letterHeader {
+          padding-top: 1em;
+          padding-bottom: 0.5em;
+          padding-left: 6px;
+        }
+      `}</style>
+    </div>
+  ));
+
+  // Filter out dotfiles
+  delete groups["."];
+  return (
+    <div>
+      <div className="letters">
+        {Object.keys(groups).map(x => (
+          <a href={`#group-${x}`} key={x}>
+            {x.toUpperCase()}
+          </a>
+        ))}
+      </div>
+      {listings}
+      <style jsx>{`
+        a {
+          text-decoration: none;
+          padding-right: 1em;
+        }
+        .letters {
+          padding-bottom: 1em;
+          padding-left: 6px;
+        }
+      `}</style>
+    </div>
+  );
 };
 
 const DirectoryListing = (props: DirectoryListingProps) => {
@@ -84,12 +137,15 @@ const DirectoryListing = (props: DirectoryListingProps) => {
             vertical-align: middle;
           }
 
+          tr {
+            border-top: 1px solid #eaecef;
+          }
+
           td {
             color: ${theme.link}
             padding: 6px 3px;
             text-align: left;
             line-height: 20px;
-            border-top: 1px solid #eaecef;
             vertical-align: top;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -112,6 +168,14 @@ const DirectoryListing = (props: DirectoryListingProps) => {
             transition: background-color 0.1s ease-out;
           }
 
+          tr:first-child {
+            border-top: none;
+          }
+
+          tr:last-child {
+            border-bottom: none;
+          }
+
 
           table {
             width: 100%;
@@ -122,7 +186,6 @@ const DirectoryListing = (props: DirectoryListingProps) => {
 
           .directory-listing {
             margin-bottom: 10px;
-            border: 1px solid #dfe2e5;
             border-top: 0;
             border-radius: 3px;
           }
@@ -143,4 +206,6 @@ const DirectoryListing = (props: DirectoryListingProps) => {
   );
 };
 
-export default DirectoryListing;
+export default GroupedDirectoryListings;
+
+// export default DirectoryListing;
