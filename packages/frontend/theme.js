@@ -10,7 +10,8 @@ export const blueTheme = {
   background: "#edf1f7",
   primary: "#a2b6d7",
   outline: "#c8d4e7",
-  link: "#0366d6"
+  link: "#0366d6",
+  bright: "#039be5"
 };
 
 /*

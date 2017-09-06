@@ -58,7 +58,7 @@ const GroupedDirectoryListings = (props: DirectoryListingProps) => {
         a {
           text-decoration: none;
           padding-right: 1em;
-          color: ${theme.active};
+          color: ${theme.link};
         }
         .letters {
           padding-bottom: 1em;
@@ -130,7 +130,8 @@ const DirectoryListing = (props: DirectoryListingProps) => {
             width: 17px;
             vertical-align: middle;
             text-align: center;
-            color: rgba(3,47,98,0.5);
+            color: ${theme.link};
+            opacity: 0.95;
           }
 
           .name {
@@ -143,7 +144,6 @@ const DirectoryListing = (props: DirectoryListingProps) => {
           }
 
           td {
-            color: ${theme.link}
             padding: 6px 3px;
             text-align: left;
             line-height: 20px;
@@ -176,7 +176,6 @@ const DirectoryListing = (props: DirectoryListingProps) => {
           tr:last-child {
             border-bottom: none;
           }
-
 
           table {
             width: 100%;
