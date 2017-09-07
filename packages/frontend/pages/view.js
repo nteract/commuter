@@ -66,6 +66,11 @@ class ViewPage extends React.Component<*> {
               pathname={this.props.viewPath}
               basepath={"/view"}
             />
+            <style jsx>{`
+              margin-top: 2rem;
+              padding-left: 2rem;
+              padding-right: 2rem;
+            `}</style>
           </div>
         </Body>
       </div>
