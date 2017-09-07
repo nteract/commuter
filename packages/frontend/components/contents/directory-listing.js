@@ -20,30 +20,36 @@ export type DirectoryListingProps = {
 const GroupedDirectoryListings = (props: DirectoryListingProps) => {
   const contents = props.contents.filter(row => !row.name.startsWith("."));
 
-  if (contents.length <= 20) {
+  if (contents.length <= 25) {
     return <DirectoryListing contents={contents} basepath={props.basepath} />;
   }
 
   const groups = groupBy(contents, item => item.name[0].toUpperCase());
-
-  const listings = Object.keys(groups).map(key => (
-    <div key={key}>
-      <div id={`group-${key}`} className="letterHeader">
-        {key}
-      </div>
-      <DirectoryListing contents={groups[key]} basepath={props.basepath} />
-      <style jsx>{`
-        .letterHeader {
-          padding-top: 1em;
-          padding-bottom: 0.5em;
-          padding-left: 6px;
-        }
-      `}</style>
-    </div>
-  ));
-
   // Filter out dotfiles
   delete groups["."];
+
+  if (Object.keys(groups).length <= 1) {
+    return <DirectoryListing contents={contents} basepath={props.basepath} />;
+  }
+
+  const listings = Object.keys(groups)
+    .sort()
+    .map(key => (
+      <div key={key}>
+        <div id={`group-${key}`} className="letterHeader">
+          {key}
+        </div>
+        <DirectoryListing contents={groups[key]} basepath={props.basepath} />
+        <style jsx>{`
+          .letterHeader {
+            padding-top: 1em;
+            padding-bottom: 0.5em;
+            padding-left: 6px;
+          }
+        `}</style>
+      </div>
+    ));
+
   return (
     <div>
       <div className="letters">
