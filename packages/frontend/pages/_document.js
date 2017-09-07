@@ -91,6 +91,11 @@ class MyDocument extends Document {
           <link rel="stylesheet" type="text/css" href="/static/commuter.css" />
 
           <script src="https://cdn.plot.ly/plotly-latest.min.js" />
+
+          <script
+            type="text/javascript"
+            src="/static/mathjax-electron/resources/MathJax/MathJax.js?config=electron"
+          />
         </Head>
         <body>
           <Main />
