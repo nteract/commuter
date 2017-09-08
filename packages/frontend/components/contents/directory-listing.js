@@ -32,28 +32,28 @@ const GroupedDirectoryListings = (props: DirectoryListingProps) => {
     return <DirectoryListing contents={contents} basepath={props.basepath} />;
   }
 
-  const listings = Object.keys(groups)
-    .sort()
-    .map(key => (
-      <div key={key}>
-        <div id={`group-${key}`} className="letterHeader">
-          {key}
-        </div>
-        <DirectoryListing contents={groups[key]} basepath={props.basepath} />
-        <style jsx>{`
-          .letterHeader {
-            padding-top: 1em;
-            padding-bottom: 0.5em;
-            padding-left: 6px;
-          }
-        `}</style>
+  const groupNames = Object.keys(groups).sort();
+
+  const listings = groupNames.map(key => (
+    <div key={key}>
+      <div id={`group-${key}`} className="letterHeader">
+        {key}
       </div>
-    ));
+      <DirectoryListing contents={groups[key]} basepath={props.basepath} />
+      <style jsx>{`
+        .letterHeader {
+          padding-top: 1em;
+          padding-bottom: 0.5em;
+          padding-left: 6px;
+        }
+      `}</style>
+    </div>
+  ));
 
   return (
     <div>
       <div className="letters">
-        {Object.keys(groups).map(x => (
+        {groupNames.map(x => (
           <a href={`#group-${x}`} key={x}>
             {x.toUpperCase()}
           </a>
