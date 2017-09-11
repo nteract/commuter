@@ -17,11 +17,13 @@ import { theme } from "../theme";
 
 class CommuterMenu extends React.Component<*> {
   props: {
-    active: ActiveType
+    active: ActiveType,
+    discoveryEnabled: boolean
   };
 
   static defaultProps = {
-    active: "view"
+    active: "view",
+    discoveryEnabled: true
   };
 
   handleItemClick = (e: SyntheticEvent<*>, { name }: { name: string }) => {
@@ -45,11 +47,13 @@ class CommuterMenu extends React.Component<*> {
               <a>Browse</a>
             </Link>
           </li>
-          <li className={this.isActiveClass("discover")}>
-            <Link href={"/discover"}>
-              <a>Discover</a>
-            </Link>
-          </li>
+          {this.props.discoveryEnabled ? (
+            <li className={this.isActiveClass("discover")}>
+              <Link href={"/discover"}>
+                <a>Discover</a>
+              </Link>
+            </li>
+          ) : null}
         </ul>
         <style jsx>{`
           nav {
