@@ -12,7 +12,7 @@ import Body from "../components/body";
 import { Entry } from "../components/contents";
 
 class ViewPage extends React.Component<*> {
-  static async getInitialProps({ req, pathname, asPath, query }) {
+  static async getInitialProps({ req, query }) {
     // Later, we'll use this to fill in the notebook
     // file data from the server side (or fallback to /api/contents)
     // For now, leaving "server": boolean to assist in debugging
@@ -25,6 +25,7 @@ class ViewPage extends React.Component<*> {
     let BASE_PATH;
 
     if (req) {
+      // Server side, communicate with our local API
       const port = process.env.COMMUTER_PORT || 4000;
       BASE_PATH = `http://127.0.0.1:${port}/`;
     } else {
@@ -46,6 +47,7 @@ class ViewPage extends React.Component<*> {
   }
 
   render() {
+    console.log(this.props.services);
     if (this.props.statusCode) {
       return <div>{`Nothing found for ${this.props.viewPath}`}</div>;
     }
