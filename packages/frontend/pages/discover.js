@@ -115,10 +115,11 @@ const DiscoveryItem = props => (
 );
 
 class DiscoveryGrid extends React.Component<*> {
-  static async getInitialProps({ req, pathname, asPath, query }) {
+  static async getInitialProps({ req }) {
     let BASE_PATH;
 
     if (req) {
+      // Server side, communicate with our local API
       const port = process.env.COMMUTER_PORT || 4000;
       BASE_PATH = `http://127.0.0.1:${port}/`;
     } else {
