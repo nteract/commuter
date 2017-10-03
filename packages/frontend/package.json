@@ -46,14 +46,14 @@
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.2.1",
     "mathjax-electron": "^2.0.1",
-    "next": "^3.2.1",
+    "next": "^4.0.0-beta.2",
     "nprogress": "^0.2.0",
     "octicons": "^6.0.1",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-timeago": "^3.4.3",
-    "styled-jsx": "^1.0.10"
+    "styled-jsx": "^1.0.11"
   },
   "files": [
     ".next",
