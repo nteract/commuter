@@ -35,26 +35,31 @@ type WrapperProps<T> = {
   viewBox: string
 };
 
-export const SVGWrapper = (props: WrapperProps<*>) => (
-  <span>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={props.width}
-      height={props.height}
-      viewBox={props.viewBox}
-      {...props.outerProps}
-    >
-      {props.children}
-    </svg>
-    <style jsx>{`
-      svg {
-        fill: currentColor;
-        display: inline-block;
-        vertical-align: text-bottom;
-      }
-    `}</style>
-  </span>
-);
+export const SVGWrapper = (props: WrapperProps<*>) => {
+  // TODO: revert back to {...props.outerProps} when transpilation works again.
+  // See: https://github.com/zeit/styled-jsx/issues/329
+  const outerProps = props.outerProps;
+  return (
+    <span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={props.width}
+        height={props.height}
+        viewBox={props.viewBox}
+        {...outerProps}
+      >
+        {props.children}
+      </svg>
+      <style jsx>{`
+        svg {
+          fill: currentColor;
+          display: inline-block;
+          vertical-align: text-bottom;
+        }
+      `}</style>
+    </span>
+  );
+};
 
 export const FileText = (props: any) => (
   <SVGWrapper width={12} height={16} viewBox="0 0 12 16" outerProps={props}>
