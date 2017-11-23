@@ -42,6 +42,18 @@ function createRouter(options: DiskProviderOptions) {
         res.status(500).json(errorResponse);
       });
   });
+  router.post("/*", (req: $Request, res: $Response) => {
+    const path = req.params["0"];
+    fs
+      .post(options, path, req.body)
+      .then(() => res.status(201).send())
+      .catch((err: ErrnoError) => {
+        const errorResponse: ErrorResponse = {
+          message: `${err.message}: ${path}`
+        };
+        res.status(500).json(errorResponse);
+      });
+  });
   return router;
 }
 module.exports = {
