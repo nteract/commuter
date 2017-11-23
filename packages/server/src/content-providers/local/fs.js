@@ -4,7 +4,7 @@
  * Local storage provider for commuter
  */
 
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
 
 import type {
@@ -160,6 +160,18 @@ function get(
   });
 }
 
+function post(
+  options: DiskProviderOptions,
+  unsafeFilePath: string,
+  content: mixed
+) {
+  const filePath = path.join(
+    options.local.baseDirectory,
+    sanitizeFilePath(unsafeFilePath)
+  );
+  return fs.outputFile(filePath, JSON.stringify(content));
+}
+
 function getDirectory(
   options: DiskProviderOptions,
   directory: DirectoryContent
@@ -249,5 +261,6 @@ function getNotebook(
 
 module.exports = {
   get,
+  post,
   sanitizeFilePath
 };
