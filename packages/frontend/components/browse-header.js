@@ -23,6 +23,7 @@ class BrowseHeader extends React.Component<*> {
   props: {
     path: string,
     basepath: string,
+    executeprefix: string,
     type: string
   };
 
@@ -71,9 +72,20 @@ class BrowseHeader extends React.Component<*> {
           })}
         </ul>
         {this.props.type === "directory" ? null : (
-          <a href={filePath} download className="ops">
-            Download
-          </a>
+          <span>
+            {this.props.executeprefix === "" ? null : (
+              <a
+                href={`${this.props.executeprefix}/${filePath}`}
+                run
+                className="ops"
+              >
+                Run
+              </a>
+            )}
+            <a href={filePath} download className="ops">
+              Download
+            </a>
+          </span>
         )}
         <style jsx>{`
           nav {

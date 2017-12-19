@@ -34,6 +34,8 @@ class ViewPage extends React.Component<*> {
 
     const url = `${BASE_PATH}api/contents/${viewPath}`;
 
+    const executeprefix = process.env.COMMUTER_EXECUTEPREFIX || "";
+
     const res = await fetch(url);
 
     const statusCode = res.status > 200 ? res.status : false;
@@ -42,7 +44,8 @@ class ViewPage extends React.Component<*> {
     return {
       contents: json,
       statusCode,
-      viewPath
+      viewPath,
+      executeprefix
     };
   }
 
@@ -59,6 +62,7 @@ class ViewPage extends React.Component<*> {
           basepath={"/view"}
           path={this.props.viewPath}
           type={this.props.contents.type}
+          executeprefix={this.props.executeprefix}
         />
         <Body>
           {/* Entry */}
