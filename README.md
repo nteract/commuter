@@ -5,6 +5,8 @@
 
 # com·mut·er
 
+:warning: :warning: Moved to the [nteract/nteract monorepo](https://github.com/nteract/nteract/tree/master/applications/commuter) :warning: :warning:
+
 > /kəˈmyo͞odər/
 > a person who travels some distance to work on a regular basis.
 
