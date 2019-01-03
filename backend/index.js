@@ -6,6 +6,7 @@ const createServer = require("./server");
 createServer()
   .then(server => {
     const port = server.address().port;
+    console.log(log);
     log.info("Commuter server listening on port " + port);
   })
   .catch((e: Error) => {
