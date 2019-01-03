@@ -7,13 +7,11 @@ const http = require("http");
 
 const express = require("express");
 const morgan = require("morgan");
-const Log = require("log");
+const log = require("log");
 
 const front = require("../frontend");
 
 const config = require("./config");
-
-const log = new Log("info");
 
 function createServer() {
   const frontend = front.createNextApp();

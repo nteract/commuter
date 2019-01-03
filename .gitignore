@@ -51,3 +51,5 @@ lib
 
 # xmark files
 .xmark.*
+
+.next

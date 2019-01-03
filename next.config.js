@@ -1,8 +1,7 @@
-const configurator = require("@nteract/webpack-configurator");
 const webpack = require("webpack");
 
 function webpackConfig(_config, options) {
-  const config = configurator.nextWebpack(_config, options);
+	const config = _config;
 
   // No external CSS should get side-loaded by js
   // I'm looking at you vega-tooltip
