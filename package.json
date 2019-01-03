@@ -1,39 +1,23 @@
 {
-  "name": "@nteract/commuter-lerna-base",
-  "version": "0.1.0",
+  "name": "@nteract/commuter",
+  "version": "5.7.0",
   "description": "share, publish, and discover notebooks",
-  "engines": {
-    "node": "6.9.5"
-  },
+  "main": "lib/index.js",
   "scripts": {
-    "dev": "lerna exec --scope @nteract/commuter -- npm run dev",
-    "build": "lerna exec --scope @nteract/commuter -- npm run build",
-    "start": "lerna exec --scope @nteract/commuter -- npm run start",
-    "build:frontend": "lerna exec --scope @nteract/commuter-frontend -- npm run build",
-    "start:heroku": "lerna init && lerna boostrap && npm run build:frontend && NODE_ENV=production lerna exec --scope @nteract/commuter -- npm run start",
-    "clean": "npm run clean:install && npm run clean:lib && npm run clean:build",
-    "clean:install": "lerna clean",
-    "clean:lib": "lerna exec -- rm -rf ./lib",
-    "clean:build": "lerna exec -- rm -rf ./build",
-    "format:code": "prettier --write 'packages/*/src/**/*.js' 'packages/*/test/**/*.js'",
-    "flow": "flow",
-    "install": "npm run lerna && npm run build",
-    "lerna": "lerna bootstrap",
-    "prepublishOnly": "npm run build:frontend && npm run build",
-    "publish": "npm run clean && npm install && lerna publish",
-    "precommit": "lint-staged",
-    "test": "lerna run test"
+    "predev": "npm run build:server",
+    "dev": "NODE_ENV=development node lib/index.js",
+    "prestart": "npm run build:all",
+    "start": "NODE_ENV=production node lib/index.js",
+    "build": "npm run build:all",
+    "build:frontend-for-production": "next build",
+    "build:server": "babel backend -d lib",
+    "build:all": "npm run build:server && npm run build:frontend-for-production",
+    "prepublishOnly": "npm run build:all"
   },
-  "lint-staged": {
-    "packages/**/*.js": [
-      "prettier --write",
-      "git add"
-    ]
+  "bin": {
+    "commuter": "bin.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nteract/commuter.git"
-  },
+  "repository": "nteract/nteract",
   "keywords": [
     "nteract",
     "jupyter",
@@ -43,18 +27,59 @@
   "author": "nteract contributors",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/nteract/commuter/issues"
+    "url": "https://github.com/nteract/nteract/issues"
   },
-  "homepage": "https://github.com/nteract/commuter#readme",
+  "homepage": "https://github.com/nteract/nteract/tree/master/applications/commuter#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "flow-bin": "^0.54.0",
-    "flow-typed": "^2.1.2",
-    "lerna": "^2.1.2"
-  },
-  "devDependencies": {
-    "concurrently": "^3.5.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.0.4",
-    "prettier": "^1.6.1"
+    "@babel/cli": "7.0.0",
+    "@babel/core": "7.0.0",
+    "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "7.0.0",
+    "@babel/plugin-transform-react-jsx-source": "7.0.0",
+    "@babel/plugin-transform-runtime": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "@babel/preset-flow": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "@babel/runtime": "7.0.0",
+    "@babel/runtime-corejs2": "^7.0.0",
+    "@babel/template": "7.0.0",
+    "@nteract/directory-listing": "^1.0.0-alpha.0",
+    "@nteract/markdown": "^3.0.1",
+    "@nteract/notebook-preview": "^11.0.0-alpha.0",
+    "@nteract/octicons": "^1.0.0-alpha.0",
+    "@nteract/presentational-components": "^2.0.0-alpha.0",
+    "@nteract/transform-vega": "^4.0.0-alpha.0",
+    "@nteract/transforms": "^5.0.0-alpha.0",
+    "@nteract/webpack-configurator": "^2.0.0-alpha.0",
+    "aws-sdk": "^2.108.0",
+    "body-parser": "^1.15.2",
+    "bodybuilder": "^2.2.1",
+    "d3-dsv": "^1.0.7",
+    "elasticsearch": "^15.0.0",
+    "express": "^4.15.4",
+    "fs-extra": "^7.0.0",
+    "jquery": "^3.2.1",
+    "jsonfile": "^5.0.0",
+    "lodash": "^4.17.4",
+    "log": "^3.0.0",
+    "morgan": "^1.7.0",
+    "nbschema": "^0.1.0",
+    "next": "7.0.2",
+    "node-fetch": "^2.0.0",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-hot-loader": "^4.1.2",
+    "react-timeago": "^4.1.9",
+    "s3-proxy": "^1.1.0",
+    "util": "^0.11.0",
+    "winston": "^3.0.0",
+    "xhr2": "*",
+    "xmlhttprequest": "^1.8.0"
   }
 }
