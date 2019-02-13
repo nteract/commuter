@@ -9,6 +9,7 @@ import {
   Name,
   LastSaved
 } from "@nteract/directory-listing";
+import {createGlobalStyle} from "styled-components"
 
 import { theme } from "../../theme";
 
@@ -16,6 +17,25 @@ export type DirectoryListingProps = {
   contents: Array<JupyterApi$Content>,
   basepath: string
 };
+
+const HeaderStyle = createGlobalStyle`
+  .letterHeader {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    padding-left: 6px;
+  }
+`
+const ListingStyle = createGlobalStyle`
+  a {
+    text-decoration: none;
+    padding-right: 1em;
+    color: ${theme.link};
+  }
+  .letters {
+    padding-bottom: 1em;
+    padding-left: 6px;
+  }
+`
 
 const GroupedDirectoryListings = (props: DirectoryListingProps) => {
   const contents = props.contents.filter(row => !row.name.startsWith("."));
@@ -36,22 +56,17 @@ const GroupedDirectoryListings = (props: DirectoryListingProps) => {
 
   const listings = groupNames.map(key => (
     <div key={key}>
+      <HeaderStyle/>
       <div id={`group-${key}`} className="letterHeader">
         {key}
       </div>
       <DirectoryListing contents={groups[key]} basepath={props.basepath} />
-      <style jsx>{`
-        .letterHeader {
-          padding-top: 1em;
-          padding-bottom: 0.5em;
-          padding-left: 6px;
-        }
-      `}</style>
     </div>
   ));
 
   return (
     <React.Fragment>
+      <ListingStyle/>
       <div className="letters">
         {groupNames.map(x => (
           <a href={`#group-${x}`} key={x}>
@@ -60,17 +75,6 @@ const GroupedDirectoryListings = (props: DirectoryListingProps) => {
         ))}
       </div>
       {listings}
-      <style jsx>{`
-        a {
-          text-decoration: none;
-          padding-right: 1em;
-          color: ${theme.link};
-        }
-        .letters {
-          padding-bottom: 1em;
-          padding-left: 6px;
-        }
-      `}</style>
     </React.Fragment>
   );
 };
