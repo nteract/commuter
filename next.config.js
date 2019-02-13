@@ -22,6 +22,7 @@ function webpackConfig(_config, options) {
   return config;
 }
 
-module.exports = {
+const withTypescript = require('@zeit/next-typescript')
+module.exports = withTypescript({
   webpack: webpackConfig
-};
+})

@@ -4,7 +4,12 @@ module.exports = function(api) {
   }
 
   const config = {
-    presets: ["@babel/preset-env", "@babel/preset-react"],
+    presets: [
+      "@babel/preset-env",
+      "@babel/preset-react",
+      "next/babel",
+      "@zeit/next-typescript/babel"
+    ],
     plugins: [
       "styled-jsx/babel",
       "@babel/plugin-syntax-dynamic-import",
