@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { createGlobalStyle, styled } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 import { getJSON } from "../shims/ajax";
 import Header from "../components/header";
