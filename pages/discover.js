@@ -6,6 +6,7 @@ import NextLink from "next/link";
 import Header from "../components/header";
 import Body from "../components/body";
 import { getJSON } from "../shims/ajax";
+import {createGlobalStyle} from "styled-components"
 
 const Authors = props => (
   <span className="authors">
@@ -13,24 +14,76 @@ const Authors = props => (
   </span>
 );
 
+const TagStyle = createGlobalStyle`
+  .tag {
+    display: inline-block;
+    padding: 0.2em 0.9em;
+    margin: 0 0.5em 0.5em 0;
+    white-space: nowrap;
+    background-color: #f1f8ff;
+    border-radius: 3px;
+    color: #0366d6;
+    text-decoration: none;
+  }
+  tag:hover {
+    background-color: #ddeeff;
+  }
+`
+
+const DiscoveryItemStyle = createGlobalStyle`
+  .post {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px #e1e4e8 solid !important;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 4px;
+  }
+
+  a {
+    color: #0366d6;
+    text-decoration: none;
+  }
+
+  .post-metadata {
+    font-style: italic;
+  }
+  .post-metadata,
+  .post-description {
+    color: #586069 !important;
+  }
+
+  .post-summary {
+    margin-left: 2rem;
+  }
+
+  .post-tags {
+    margin-top: 0.5rem;
+  }
+`
+
+const DiscoveriesStyle = createGlobalStyle`
+  .discoveries {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .discoveries > * {
+    display: block;
+  }
+`
+
 const Tag = props => (
   <span>
+    <TagStyle/>
     <span className="tag">{props.children}</span>
-    <style jsx>{`
-      .tag {
-        display: inline-block;
-        padding: 0.2em 0.9em;
-        margin: 0 0.5em 0.5em 0;
-        white-space: nowrap;
-        background-color: #f1f8ff;
-        border-radius: 3px;
-        color: #0366d6;
-        text-decoration: none;
-      }
-      tag:hover {
-        background-color: #ddeeff;
-      }
-    `}</style>
   </span>
 );
 
@@ -44,6 +97,7 @@ type DiscoveryItemProps = {
 
 const DiscoveryItem = (props: DiscoveryItemProps) => (
   <div className="post">
+    <DiscoveryItemStyle/>
     <div className="post-thumb">
       <img
         alt={`preview for ${props.path}`}
@@ -82,43 +136,6 @@ const DiscoveryItem = (props: DiscoveryItemProps) => (
         ))}
       </div>
     </div>
-    <style jsx>{`
-      .post {
-        display: flex;
-        flex-direction: row;
-        border-bottom: 1px #e1e4e8 solid !important;
-        padding-top: 24px !important;
-        padding-bottom: 24px !important;
-      }
-
-      h3 {
-        font-size: 20px;
-        font-weight: 600;
-        margin-top: 0;
-        margin-bottom: 4px;
-      }
-
-      a {
-        color: #0366d6;
-        text-decoration: none;
-      }
-
-      .post-metadata {
-        font-style: italic;
-      }
-      .post-metadata,
-      .post-description {
-        color: #586069 !important;
-      }
-
-      .post-summary {
-        margin-left: 2rem;
-      }
-
-      .post-tags {
-        margin-top: 0.5rem;
-      }
-    `}</style>
   </div>
 );
 
@@ -161,6 +178,7 @@ class DiscoveryGrid extends React.Component<*> {
       <React.Fragment>
         <Header active="discover" />
         <Body>
+          <DiscoveriesStyle/>
           <div className="discoveries">
             {this.props.discovered
               ? this.props.discovered.map(item => (
@@ -168,17 +186,6 @@ class DiscoveryGrid extends React.Component<*> {
                 ))
               : null}
           </div>
-          <style jsx>{`
-            .discoveries {
-              margin-top: 1rem;
-              margin-left: 1rem;
-              margin-right: 1rem;
-            }
-
-            .discoveries > * {
-              display: block;
-            }
-          `}</style>
         </Body>
       </React.Fragment>
     );
