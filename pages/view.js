@@ -1,5 +1,6 @@
 // @flow
 import * as React from "react";
+import { createGlobalStyle, styled } from "styled-components";
 
 import { getJSON } from "../shims/ajax";
 import Header from "../components/header";
@@ -21,6 +22,12 @@ type ViewPageProps = {
 type ViewPageState = {
   config: ServerConfig
 };
+
+const EntryStyle = styled(Entry)`
+  margin-top: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+`;
 
 class ViewPage extends React.Component<ViewPageProps, ViewPageState> {
   static async getInitialProps(context: Object) {
@@ -96,11 +103,6 @@ class ViewPage extends React.Component<ViewPageProps, ViewPageState> {
               pathname={this.props.viewPath}
               basepath={"/view"}
             />
-            <style jsx>{`
-              margin-top: 2rem;
-              padding-left: 2rem;
-              padding-right: 2rem;
-            `}</style>
           </div>
         </Body>
       </React.Fragment>
