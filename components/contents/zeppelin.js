@@ -2,57 +2,62 @@
 import * as React from "react";
 import { HTMLTransform } from "@nteract/transforms";
 import { Source } from "@nteract/presentational-components";
+import { createGlobalStyle } from "styled-components";
 
 const d3 = Object.assign({}, require("d3-dsv"));
 
+const TextStyle = createGlobalStyle`
+  code {
+    white-space: pre;
+  }
+`;
+
+const HokeyTableStyle = createGlobalStyle`
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+
+  td,
+  th {
+    padding: 0;
+    border-left: 1px solid #cbcbcb; /*  inner column border */
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible; /*to make ths where the title is really long work*/
+    padding: 0.5em 1em; /* cell padding */
+  }
+
+  td:first-child,
+  th:first-child {
+    border-left-width: 0;
+  }
+
+  thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+  }
+`;
+
 const Text = (props: { data: string }) => (
   <React.Fragment>
+    <TextStyle />
     <code>{props.data}</code>
-    <style jsx>{`
-      code {
-        white-space: pre;
-      }
-    `}</style>
   </React.Fragment>
 );
 
 const HokeyTable = props => (
   <React.Fragment>
-    <style jsx>{`
-      table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        border-collapse: collapse;
-        border-spacing: 0;
-        empty-cells: show;
-        border: 1px solid #cbcbcb;
-        max-height: 200px;
-        overflow-y: scroll;
-      }
-
-      td,
-      th {
-        padding: 0;
-        border-left: 1px solid #cbcbcb; /*  inner column border */
-        border-width: 0 0 0 1px;
-        font-size: inherit;
-        margin: 0;
-        overflow: visible; /*to make ths where the title is really long work*/
-        padding: 0.5em 1em; /* cell padding */
-      }
-
-      td:first-child,
-      th:first-child {
-        border-left-width: 0;
-      }
-
-      thead {
-        background-color: #e0e0e0;
-        color: #000;
-        text-align: left;
-        vertical-align: bottom;
-      }
-    `}</style>
+    <HokeyTableStyle />
     <table>
       <thead>
         <tr>
@@ -84,41 +89,7 @@ const DSVTable = (props: { data: Array<Object> }) => {
 
   return (
     <React.Fragment>
-      <style jsx>{`
-        table {
-          border-collapse: collapse;
-          border-spacing: 0;
-          border-collapse: collapse;
-          border-spacing: 0;
-          empty-cells: show;
-          border: 1px solid #cbcbcb;
-          max-height: 200px;
-          overflow-y: scroll;
-        }
-
-        td,
-        th {
-          padding: 0;
-          border-left: 1px solid #cbcbcb; /*  inner column border */
-          border-width: 0 0 0 1px;
-          font-size: inherit;
-          margin: 0;
-          overflow: visible; /*to make ths where the title is really long work*/
-          padding: 0.5em 1em; /* cell padding */
-        }
-
-        td:first-child,
-        th:first-child {
-          border-left-width: 0;
-        }
-
-        thead {
-          background-color: #e0e0e0;
-          color: #000;
-          text-align: left;
-          vertical-align: bottom;
-        }
-      `}</style>
+      <HokeyTableStyle />
       <table>
         <thead>
           <tr>
