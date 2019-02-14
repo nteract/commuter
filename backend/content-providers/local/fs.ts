@@ -6,7 +6,8 @@
 
 const path = require("path");
 
-const fs = require("fs-extra");
+// const fs = require("fs-extra");
+import * as fs from "fs-extra"
 
 export type DiskProviderOptions = {
   local: {
