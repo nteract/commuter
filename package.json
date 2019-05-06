@@ -12,7 +12,8 @@
     "build:frontend-for-production": "next build",
     "build:server": "babel backend -d lib",
     "build:all": "npm run build:server && npm run build:frontend-for-production",
-    "prepublishOnly": "npm run build:all"
+    "prepublishOnly": "npm run build:all",
+    "test": "jest"
   },
   "bin": {
     "commuter": "bin.js"
@@ -83,5 +84,8 @@
     "winston": "^3.0.0",
     "xhr2": "*",
     "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
   }
 }
