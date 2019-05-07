@@ -86,10 +86,10 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 
 #### Quick Start
 
-1. `git clone git@github.com:nteract/nteract.git`
-1. `cd nteract`
+1. `git clone git@github.com:nteract/commuter.git`
+1. `cd commuter`
 1. `yarn`
-1. `yarn app:commuter`
+1. `yarn dev`
 1. open `http://localhost:4000`
 
 ## Tests
