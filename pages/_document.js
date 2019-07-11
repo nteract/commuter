@@ -1,24 +1,18 @@
 // @flow
 import * as React from "react";
-import Document, { Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 import flush from "styled-jsx/server";
 import PropTypes from "prop-types";
 
 class MyDocument extends Document {
-  static getInitialProps(context: Object) {
-    const renderPage = context.renderPage;
-    const { html, head, errorHtml, chunks } = renderPage();
-    const styles = flush();
-    return { html, head, errorHtml, chunks, styles };
-  }
-
-  getChildContext() {
-    return { _documentProps: this.props };
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
   }
 
   render() {
     return (
-      <html lang="en-US">
+      <Html>
         <Head>
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 
@@ -83,13 +77,9 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
-
-MyDocument.childContextTypes = {
-  _documentProps: PropTypes.any
-};
 
 export default MyDocument;
