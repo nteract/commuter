@@ -25,14 +25,12 @@ PlotlyNullTransform.MIMETYPE = NULL_MIMETYPE;
 
 class PlotlyTransform extends React.Component<*> {
   props: Props;
-  getFigure: () => Object;
-  plotDivRef: (plotDiv: PlotlyHTMLElement | null) => void;
   plotDiv: PlotlyHTMLElement;
 
   static MIMETYPE = MIMETYPE;
 
-  constructor(): void {
-    super();
+  constructor(props, context): void {
+    super(props, context);
     this.getFigure = this.getFigure.bind(this);
     this.plotDivRef = this.plotDivRef.bind(this);
   }
