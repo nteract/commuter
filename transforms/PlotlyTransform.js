@@ -29,8 +29,8 @@ class PlotlyTransform extends React.Component<*> {
 
   static MIMETYPE = MIMETYPE;
 
-  constructor(props, context): void {
-    super(props, context);
+  constructor(): void {
+    super();
     this.getFigure = this.getFigure.bind(this);
     this.plotDivRef = this.plotDivRef.bind(this);
   }
