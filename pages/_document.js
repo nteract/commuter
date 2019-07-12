@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Head, Main, NextScript } from "next/document";
 import flush from "styled-jsx/server";
 import PropTypes from "prop-types";
 
@@ -12,7 +12,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <html lang="en-US">
         <Head>
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 
@@ -77,7 +77,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </Html>
+      </html>
     );
   }
 }
