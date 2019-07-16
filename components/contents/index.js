@@ -2,7 +2,7 @@
 import * as React from "react";
 import NotebookPreview from "@nteract/notebook-preview";
 import Markdown from "@nteract/markdown";
-import { Styles, Source } from "@nteract/presentational-components";
+import { Source } from "@nteract/presentational-components";
 import {
   standardTransforms,
   standardDisplayOrder,
@@ -119,13 +119,11 @@ export const Entry = (props: EntryProps) => {
       return <File entry={props.entry} pathname={props.pathname} />;
     case "notebook":
       return (
-        <Styles>
-          <NotebookPreview
-            notebook={props.entry.content}
-            displayOrder={displayOrder}
-            transforms={transforms}
-          />
-        </Styles>
+        <NotebookPreview
+          notebook={props.entry.content}
+          displayOrder={displayOrder}
+          transforms={transforms}
+        />
       );
     default:
       return <pre>{JSON.stringify(props.entry.content)}</pre>;
