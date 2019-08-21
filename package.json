@@ -54,7 +54,7 @@
     "@nteract/notebook-preview": "^11.0.4-alpha.0",
     "@nteract/octicons": "^2.0.0",
     "@nteract/presentational-components": "^3.0.5",
-    "@nteract/transform-vega": "^5.0.2",
+    "@nteract/transform-vega": "^6.0.1",
     "@nteract/transforms": "^5.0.4-alpha.0",
     "@nteract/webpack-configurator": "^3.0.0",
     "aws-sdk": "^2.491.0",
