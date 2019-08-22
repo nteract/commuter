@@ -16,8 +16,9 @@ function webpackConfig(_config, options) {
         "window.XMLHttpRequest": ["xmlhttprequest", "XMLHttpRequest"]
       })
     );
-  } else {
   }
+
+  config.node = { fs: 'empty' };
 
   return config;
 }
