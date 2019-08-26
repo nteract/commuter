@@ -41,6 +41,9 @@ function populateS3Options(env): Object {
     // trim off trailing slashes
     .replace(/\/+$/, "");
 
+  const s3Endpoint =
+    env.COMMUTER_S3_ENDPOINT || "";
+
   const config = {
     s3: {
       params: {
@@ -50,7 +53,8 @@ function populateS3Options(env): Object {
       // required key
       accessKeyId: env.COMMUTER_S3_KEY,
       // required secret
-      secretAccessKey: env.COMMUTER_S3_SECRET
+      secretAccessKey: env.COMMUTER_S3_SECRET,
+      endpoint: s3Endpoint
     },
     s3PathDelimiter,
     s3BasePrefix

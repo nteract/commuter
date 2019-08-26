@@ -14,6 +14,7 @@ export function createRouter(config: Object): express.Router {
       prefix: config.s3BasePrefix,
       accessKeyId: config.s3.accessKeyId,
       secretAccessKey: config.s3.secretAccessKey,
+      endpoint: config.s3.endpoint,
       overrideCacheControl: "max-age=100000"
     })
   );
