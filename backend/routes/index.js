@@ -12,6 +12,9 @@ function createRouter(config): express.Router {
     case "s3":
       contentsProvider = require("../content-providers/s3");
       break;
+    case "gcs":
+      contentsProvider = require("../content-providers/gcs");
+      break;
     case "local":
     default:
       contentsProvider = require("../content-providers/local");

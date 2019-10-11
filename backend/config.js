@@ -38,7 +38,7 @@ function populateS3Options(env): Object {
     env.COMMUTER_BASEPATH || // deprecated
     ""
   )
-    // trim off trailing slashes
+  // trim off trailing slashes
     .replace(/\/+$/, "");
 
   const s3Endpoint =
@@ -63,12 +63,30 @@ function populateS3Options(env): Object {
   return config;
 }
 
+function populateGoogleStorageOptions(env): Object {
+  if (!env.COMMUTER_BUCKET) {
+    throw "Bucket Name Missing";
+  }
+  const bucket = env.COMMUTER_BUCKET;
+  const pathDelimiter =
+    env.COMMUTER_GCS_PATH_DELIMITER || "/";
+  const basePrefix = (
+    env.COMMUTER_GCS_BASE_PREFIX || "")
+  // trim off trailing slashes
+    .replace(/\/+$/, "");
+  return {
+    bucket,
+    pathDelimiter,
+    basePrefix,
+  };
+}
+
 function instantiate() {
   const storageBackend = (
     process.env.COMMUTER_STORAGE_BACKEND || "local"
   ).toLowerCase();
 
-  if (storageBackend !== "local" && storageBackend !== "s3") {
+  if (storageBackend !== "local" && storageBackend !== "s3" && storageBackend !== "gcs") {
     throw new Error(`Unknown storageBackend ${storageBackend}`);
   }
 
@@ -87,6 +105,9 @@ function instantiate() {
   switch (storageBackend) {
     case "s3":
       config.storage = populateS3Options(process.env);
+      break;
+    case "gcs":
+      config.storage = populateGoogleStorageOptions(process.env);
       break;
     case "local":
     default:
