@@ -62,7 +62,7 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 
 | Environment Variable                   | Description                              | Default         |
 | -------------------------------------- | :--------------------------------------- | :-------------- |
-| `COMMUTER_STORAGE_BACKEND`             | `local` or `s3`                          | `local`         |
+| `COMMUTER_STORAGE_BACKEND`             | `local`, `s3`, or `gcs`                  | `local`         |
 | `COMMUTER_DISCOVERY_BACKEND`           | either elasticsearch or none             | `"none"`        |
 | `COMMUTER_PORT`                        | Port to run commuter on                  | 4000            |
 | `COMMUTER_LOCAL_STORAGE_BASEDIRECTORY` | directory to serve in local storage mode | `process.cwd()` |
