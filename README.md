@@ -79,6 +79,12 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 | `COMMUTER_S3_SECRET`         | AWS Secret                                      | Optional, uses IAM roles or `~/.aws/credentials` otherwise |
 | `COMMUTER_S3_ENDPOINT`       | S3 endpoint                                     | Optional, selected automatically                           |
 
+### Environment Variables for Google Storage
+
+| Environment Variable             | Description                                                       | Default |
+| ---------------------------------| :---------------------------------------------------------------- | :------ |
+| `GOOGLE_APPLICATION_CREDENTIALS` | file path of the JSON file that contains your service account key | `""`    |
+
 ## Roadmap
 
 [ROADMAP Document](./ROADMAP.md)
