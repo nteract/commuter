@@ -79,7 +79,7 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 | `COMMUTER_S3_SECRET`         | AWS Secret                                      | Optional, uses IAM roles or `~/.aws/credentials` otherwise |
 | `COMMUTER_S3_ENDPOINT`       | S3 endpoint                                     | Optional, selected automatically                           |
 
-### Environment Variables for S3 Storage
+### Environment Variables for Google Storage
 
 | Environment Variable             | Description                                                       | Default |
 | ---------------------------------| :---------------------------------------------------------------- | :------ |
