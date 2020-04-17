@@ -43,6 +43,10 @@ function populateS3Options(env): Object {
 
   const s3Endpoint =
     env.COMMUTER_S3_ENDPOINT || "";
+  
+  // only interpret "true" as true otherwise false
+  const s3ForcePathStyle = /^true$/i.test(
+    env.COMMUTER_S3_FORCE_PATH_STYLE || "");
 
   const config = {
     s3: {
@@ -54,7 +58,8 @@ function populateS3Options(env): Object {
       accessKeyId: env.COMMUTER_S3_KEY,
       // required secret
       secretAccessKey: env.COMMUTER_S3_SECRET,
-      endpoint: s3Endpoint
+      endpoint: s3Endpoint,
+      s3ForcePathStyle: s3ForcePathStyle
     },
     s3PathDelimiter,
     s3BasePrefix
