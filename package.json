@@ -1,6 +1,6 @@
 {
   "name": "@nteract/commuter",
-  "version": "5.9.1",
+  "version": "5.10.0",
   "description": "share, publish, and discover notebooks",
   "main": "lib/index.js",
   "scripts": {
