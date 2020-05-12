@@ -102,7 +102,11 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 
 ## Tests
 
-1. `yarn test`
+There are three ways you can run tests:
+
+- If you have your environment set up, you can run tests locally via `yarn test`.
+- This repository is also set up with [GitHub Actions](https://github.com/features/actions), a builtin CI system, which will automatically trigger test builds for multiple Node versions upon every push into this repository. You can then check out the results in the [Actions tab](https://github.com/nteract/commuter/actions).
+- These GitHub Actions can be triggered locally using [act](https://github.com/nektos/act), this way you don't have to have your JavaScript environment set up and you don't have to commit and push in order to run the tests remotely through GitHub.
 
 ## Deployment
 
