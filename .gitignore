@@ -53,3 +53,5 @@ lib
 .xmark.*
 
 .next
+
+__snapshots__
