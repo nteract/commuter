@@ -74,9 +74,5 @@ COPY --from=build /opt/build/lib /opt/app/lib
 COPY --from=build /opt/build/public /opt/app/public
 COPY --from=dependencies /opt/build/node_modules /opt/app/node_modules
 
-ENV PORT=4000
-
-EXPOSE 4000
-
 ENTRYPOINT ["/tini", "-g", "--"]
 CMD [ "node", "lib/index.js" ]
