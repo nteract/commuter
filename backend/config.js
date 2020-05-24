@@ -136,7 +136,7 @@ function instantiate() {
   }
 
   config.nodeEnv = process.env.NODE_ENV || "test";
-  config.port = process.env.PORT || process.env.COMMUTER_PORT || 4000;
+  config.port = process.env.COMMUTER_PORT || 4000;
 
   return config;
 }
