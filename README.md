@@ -103,7 +103,7 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 #### Dev Docker
 A Dockerfile for a local dev server can be use as follows:
 
-1. `docker build -t commuter:dev -f Dockerfile.dev .`
+1. `docker build --tag commuter:dev --file Dockerfile.dev .`
 1. Run this:
 <pre>
 docker run \
