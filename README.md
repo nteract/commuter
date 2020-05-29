@@ -100,6 +100,23 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 1. `yarn dev`
 1. open `http://localhost:4000`
 
+#### Dev Docker
+A Dockerfile for a local dev server can be use as follows:
+
+1. `docker build --tag commuter:dev --file Dockerfile.dev .`
+1. Run this:
+<pre>
+docker run \
+    --init \
+    --interactive \
+    --tty \
+    --rm \
+    --publish 4000:4000 \
+    --mount type=bind,source=(pwd),target=/app \
+    --env COMMUTER_LOCAL_STORAGE_BASEDIRECTORY=/app/examples \
+    commuter:dev
+</pre>
+
 ## Tests
 
 There are three ways you can run tests:
@@ -112,3 +129,21 @@ There are three ways you can run tests:
 
 1. Install commuter cli `yarn add @nteract/commuter`
 1. `exec commuter` - the service is typically wrapped inside [daemontools](https://cr.yp.to/daemontools.html)
+
+## Deployment (Docker / Kubernetes)
+
+A `Dockerfile` intended for Production use (suitable for Kubernetes or other container runtime) has 
+been contributed. Instructions are below. 
+
+Note: there is no officially published Docker image at this time, you should publish it to your own
+image registry.
+
+1. Build and tag image `docker build --tag commuter:latest .`
+1. Image can be executed as follows:
+<pre>
+docker run \
+--publish 4000:4000 \
+--mount type=bind,source=/home/username/work/commuter/examples,target=/examples \
+--env COMMUTER_LOCAL_STORAGE_BASEDIRECTORY=/examples \
+commuter:latest
+</pre>
