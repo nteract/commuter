@@ -5,7 +5,7 @@ const next = require("next");
 const dev = process.env.NODE_ENV !== "production" && !process.env.NOW;
 
 function createNextApp() {
-  const app = next({ dev, dir: __dirname });
+  const app = next({ dev, dir: `${__dirname}/../` });
   const handle = app.getRequestHandler();
 
   return {

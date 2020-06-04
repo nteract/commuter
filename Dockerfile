@@ -3,29 +3,21 @@
 ##################################
 FROM node:14 as build
 
-RUN mkdir -p /opt/build;
+RUN mkdir -p /opt/build
 
 WORKDIR /opt/build
 
-# Would be a bit simpler if the code was inside a top-level src folder
-COPY ./backend ./backend
-COPY ./components ./components
-COPY ./pages ./pages
-COPY ./public ./public
-COPY ./shims ./shims
-COPY ./transforms ./transforms
+COPY ./src ./src
 COPY [ \
   "babel.config.js", \
-  "frontend.js", \
   "next.config.js", \
   "package.json", \
-  "theme.js", \
   "yarn.lock", \
   "./" \
 ]
 
-RUN yarn install \
-  && yarn build
+RUN yarn install && \
+  yarn build
 
 ##################################
 # Dependencies
@@ -40,15 +32,21 @@ RUN DEBIAN_FRONTEND=noninteractive \
   libpango1.0-dev \
   libjpeg-dev \
   libgif-dev \
-  librsvg2-dev
+  librsvg2-dev && \
+  \
+  rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV='production'
 
-RUN mkdir -p /opt/build;
+RUN mkdir -p /opt/build
 
 WORKDIR /opt/build
 
-COPY --from=build [ "/opt/build/package.json", "/opt/build/yarn.lock", "./" ]
+COPY --from=build [ \
+  "/opt/build/package.json", \
+  "/opt/build/yarn.lock", \
+  "./" \
+]
 
 RUN yarn install --production=true
 
@@ -64,12 +62,11 @@ RUN chmod +x /tini
 
 ENV NODE_ENV='production'
 
-RUN mkdir -p /opt/app;
+RUN mkdir -p /opt/app
 
 WORKDIR /opt/app
 
 COPY --from=build /opt/build/.next /opt/app/.next
-COPY --from=build /opt/build/frontend.js /opt/app/
 COPY --from=build /opt/build/lib /opt/app/lib
 COPY --from=build /opt/build/public /opt/app/public
 COPY --from=dependencies /opt/build/node_modules /opt/app/node_modules

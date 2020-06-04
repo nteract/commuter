@@ -1,7 +1,7 @@
 // @flow
 const log = require("log");
 
-const createServer = require("./server");
+const createServer = require("./backend/server");
 
 createServer()
   .then(server => {
