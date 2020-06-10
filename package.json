@@ -10,13 +10,16 @@
     "start": "NODE_ENV=production node lib/index.js",
     "build": "npm run build:all",
     "build:frontend-for-production": "next build",
-    "build:server": "babel backend -d lib",
+    "build:server": "babel src -d lib",
     "build:all": "npm run build:server && npm run build:frontend-for-production",
     "prepublishOnly": "npm run build:all",
     "test": "jest"
   },
   "bin": {
-    "commuter": "bin.js"
+    "commuter": "lib/bin.js"
+  },
+  "jest": {
+    "testRegex": "tests"
   },
   "repository": "nteract/nteract",
   "keywords": [
