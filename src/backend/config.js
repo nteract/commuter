@@ -42,7 +42,7 @@ function populateS3Options(env): Object {
     .replace(/\/+$/, "");
 
   const s3Endpoint =
-    env.COMMUTER_S3_ENDPOINT || "";
+    env.COMMUTER_S3_ENDPOINT || null;
   
   // only interpret "true" as true otherwise false
   const s3ForcePathStyle = /^true$/i.test(
