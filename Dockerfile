@@ -68,8 +68,8 @@ WORKDIR /opt/app
 
 COPY --from=build /opt/build/.next /opt/app/.next
 COPY --from=build /opt/build/lib /opt/app/lib
-COPY --from=build /opt/build/public /opt/app/public
 COPY --from=dependencies /opt/build/node_modules /opt/app/node_modules
+COPY ./public /opt/app/public
 
 ENTRYPOINT ["/tini", "-g", "--"]
 CMD [ "node", "lib/index.js" ]
