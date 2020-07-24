@@ -1,4 +1,5 @@
 // @flow
+import { CredentialProviderChain } from 'aws-sdk';
 
 function deprecate(env: Object, oldVar: string, newVar: string) {
   if (env[oldVar]) {
@@ -22,9 +23,19 @@ function populateLocalStorageOptions(env): Object {
   };
 }
 
+function getS3Credentials(env): Object {
+  if (env.COMMUTER_S3_KEY && env.COMMUTER_S3_SECRET) {
+    return { accessKeyId: env.COMMUTER_S3_KEY, secretAccessKey: env.COMMUTER_S3_SECRET };
+  } else {
+    return { credentialProvider: new CredentialProviderChain() };
+  }
+}
+
 function populateS3Options(env): Object {
   deprecate(env, "COMMUTER_BASEPATH", "COMMUTER_S3_BASE_PREFIX");
   deprecate(env, "COMMUTER_PATH_DELIMITER", "COMMUTER_S3_PATH_DELIMITER");
+  deprecate(env, "COMMUTER_S3_KEY", "AWS_ACCESS_KEY_ID");
+  deprecate(env, "COMMUTER_S3_SECRET", "AWS_SECRET_ACCESS_KEY");
 
   if (!env.COMMUTER_BUCKET) {
     throw "S3 Bucket Name Missing";
@@ -54,10 +65,7 @@ function populateS3Options(env): Object {
         // required s3 bucket name
         Bucket: env.COMMUTER_BUCKET
       },
-      // required key
-      accessKeyId: env.COMMUTER_S3_KEY,
-      // required secret
-      secretAccessKey: env.COMMUTER_S3_SECRET,
+      ...getS3Credentials(env),
       endpoint: s3Endpoint,
       s3ForcePathStyle: s3ForcePathStyle
     },
