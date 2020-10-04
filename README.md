@@ -82,9 +82,12 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 
 ### Environment Variables for Google Storage
 
-| Environment Variable             | Description                                                       | Default |
-| ---------------------------------| :---------------------------------------------------------------- | :------ |
-| `GOOGLE_APPLICATION_CREDENTIALS` | file path of the JSON file that contains your service account key | `""`    |
+| Environment Variable             | Description                                                       | Default  |
+| ---------------------------------| :---------------------------------------------------------------- | :------- |
+| `GOOGLE_APPLICATION_CREDENTIALS` | file path of the JSON file that contains your service account key | `""`     |
+| `COMMUTER_BUCKET`                | GCS bucket name without "gs://" prefix                            | Required |
+| `COMMUTER_GCS_PATH_DELIMITER`    | separator for "paths"                                             | `"/"`    |
+| `COMMUTER_GCS_BASE_PREFIX`       | prefix on the bucket, similar to base directory                   | `""`     |
 
 ## Roadmap
 
