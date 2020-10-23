@@ -70,15 +70,20 @@ COMMUTER_BUCKET=sweet-notebooks commuter
 
 ### Environment Variables for S3 Storage
 
+Authentication to S3 is using [CredentialProviderChain with default providers](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CredentialProviderChain.html#defaultProviders-property). This supports the most common ways of authenticating in AWS.
+
 | Environment Variable         | Description                                     | Default                                                    |
 | ---------------------------- | :---------------------------------------------- | :--------------------------------------------------------- |
+| `AWS_ACCESS_KEY_ID`          | Specifies an AWS access key associated with an IAM user or role. | Optional |
+| `AWS_SECRET_ACCESS_KEY`      | Specifies the secret key associated with the access key. This is essentially the "password" for the access key. | Optional |
+| `AWS_SESSION_TOKEN`          | Specifies the session token value that is required if you are using temporary security credentials. | Optional |
+| `AWS_PROFILE`                | Specifies the name of the profile with the credentials and options to use. This can be the name of a profile stored in a credentials or config file | `default` |
 | `COMMUTER_S3_BASE_PREFIX`    | prefix on the bucket, similar to base directory | `""`                                                       |
 | `COMMUTER_S3_PATH_DELIMITER` | separator for "paths"                           | `"/"`                                                      |
 | `COMMUTER_BUCKET`            | bucket contents served from                     | Required in S3 mode, no default                            |
-| `COMMUTER_S3_KEY`            | AWS Key                                         | Optional, uses IAM roles or `~/.aws/credentials` otherwise |
-| `COMMUTER_S3_SECRET`         | AWS Secret                                      | Optional, uses IAM roles or `~/.aws/credentials` otherwise |
 | `COMMUTER_S3_ENDPOINT`       | S3 endpoint                                     | Optional, selected automatically                           |
 | `COMMUTER_S3_FORCE_PATH_STYLE`| Set to `true` to activate `s3ForcePathStyle`. Forces path-style URLs for s3 objects, therefore URLs will be in the form `<endpoint>/<bucket>/<key>` instead of `<bucket>.<endpoint>/<key>`     | `false`                                                      |
+
 
 ### Environment Variables for Google Storage
 
