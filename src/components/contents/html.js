@@ -19,7 +19,7 @@ export default class HTMLView extends React.Component<*> {
       >
         <iframe
           title={`view of ${this.props.entry.path}`}
-          sandbox="allow-scripts"
+          sandbox="allow-scripts allow-popups allow-same-origin"
           style={{
             width: "100%",
             height: "100%",
