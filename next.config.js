@@ -18,7 +18,7 @@ function webpackConfig(_config, options) {
     );
   }
 
-  config.node = { fs: 'empty' };
+  config.resolve.fallback = { fs: false, path: false };
 
   return config;
 }

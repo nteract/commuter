@@ -1,4 +1,4 @@
-name: Node.js testing
+name: Node.js Testing
 
 on: [push, pull_request]
 
@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v2
