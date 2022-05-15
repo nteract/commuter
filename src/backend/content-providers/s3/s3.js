@@ -40,39 +40,58 @@ function createS3Service(config: Object) {
     format: null
   });
   const listObjects = (path: string, callback: Function) => {
-    const params = {
+    var params = {
       Prefix: s3Prefix(path),
       Delimiter: config.s3PathDelimiter, // Maximum allowed by S3 API
       MaxKeys: 2147483647, //remove the folder name from listing
       StartAfter: s3Prefix(path)
     };
-    s3.listObjectsV2(params, (err, data) => {
-      if (err || !data) {
-        callback(err);
-        return;
-      }
-      if (!data.Contents) {
-        callback(new Error("Missing contents from S3 Response"));
-        return;
-      }
-      if (!data.CommonPrefixes) {
-        callback(new Error("Missing CommonPrefixes from S3 Response"));
-        return;
-      }
-      const files = data.Contents.map(fileObject);
-      const dirs = data.CommonPrefixes.map(dirObject);
-      callback(null, {
-        name: fileName(path),
-        path: path,
-        type: "directory",
-        writable: true,
-        created: null,
-        last_modified: null,
-        mimetype: null,
-        content: [...files, ...dirs],
-        format: "json"
+    var files = [];
+    var dirs = [];
+    function listAllKeys(cb) {
+      s3.listObjectsV2(params, (err, data) => {
+        if (err || !data) {
+          cb(err);
+          return;
+        }
+        if (!data.Contents) {
+          cb(new Error("Missing contents from S3 Response"));
+          return;
+        }
+        if (!data.CommonPrefixes) {
+          cb(new Error("Missing CommonPrefixes from S3 Response"));
+          return;
+        }
+        else {
+          var contents = data.Contents;
+          var prefixes = data.CommonPrefixes;
+          contents.forEach(content => {
+            files.push(fileObject(content));
+          });
+          prefixes.forEach(content => {
+            dirs.push(dirObject(content));
+          });
+
+          if (data.IsTruncated) {
+            params.ContinuationToken = data.NextContinuationToken;
+            listAllKeys(cb);
+            return
+          }
+        }
+        cb(null, {
+          name: fileName(path),
+          path: path,
+          type: "directory",
+          writable: true,
+          created: null,
+          last_modified: null,
+          mimetype: null,
+          content: [...files, ...dirs],
+          format: "json"
+        });
       });
-    });
+    }
+    listAllKeys(callback);
   };
   const getObject = (path: string, callback: Function) => {
     s3.getObject({ Key: s3Prefix(path) }, (err, data) => {
