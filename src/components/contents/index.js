@@ -48,12 +48,16 @@ class File extends React.Component<*> {
   render() {
     const name = this.props.entry.name;
     const presuffix = suffixRegex.exec(name);
+    const suffix = presuffix ? (presuffix[1] || "").toLowerCase() : "";
 
-    if (!presuffix) {
-      return null;
+    // Handle files without extension or with specific extensions
+    if (!suffix || suffix === "txt" || suffix === "log") {
+      return (
+        <Source language="text/plain">
+          {this.props.entry.content}
+        </Source>
+      );
     }
-
-    const suffix = (presuffix[1] || "").toLowerCase();
 
     switch (suffix) {
       case "html":

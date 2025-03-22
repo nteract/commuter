@@ -33,25 +33,17 @@ function createServer() {
      * assets like images within notebooks.
      */
     const suffixRegex = /(?:\.([^.]+))?$/;
-    const renderSuffixes = new Set(["ipynb", "html", "json", "md", "rmd"]);
-    const renderAccepts = new Set(["text/html", "application/xhtml+xml"]);
+    const renderSuffixes = new Set(["ipynb", "html", "json", "md", "rmd", "txt", "log", ""]);  // Added empty string for no extension
+    const renderAccepts = new Set(["text/html", "application/xhtml+xml", "text/plain"]);  // Added text/plain
     const viewHandler = (req: $Request, res: $Response) => {
       const presuffix = suffixRegex.exec(req.path);
-
-      if (!presuffix) {
-        return null;
-      }
-
-      const suffix = (presuffix[1] || "").toLowerCase();
-      const accepts = (req.headers.accept || "").split(",");
+      const suffix = presuffix ? (presuffix[1] || "").toLowerCase() : "";
 
       if (
-        // If one of our suffixes is a renderable item
         renderSuffixes.has(suffix) ||
-        // If the file is requested as `text/html` first and foremost, we'll also
-        // render our file viewer
         renderAccepts.has(accepts[0]) ||
-        renderAccepts.has(accepts[1])
+        renderAccepts.has(accepts[1]) ||
+        req.path.lastIndexOf('.') === -1  // Added check for no extension
       ) {
         const { query } = parse(req.url, true);
         const viewPath = req.params["0"] || "/";
